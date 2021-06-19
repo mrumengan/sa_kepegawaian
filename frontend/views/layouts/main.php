@@ -11,6 +11,10 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+$site_title = Yii::$app->name;
+if ($this->title != Yii::$app->name) {
+    $site_title = Html::encode($this->title) . ' | ' . Yii::$app->name;
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -21,7 +25,7 @@ AppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= $site_title ?></title>
     <?php $this->head() ?>
 </head>
 
@@ -42,9 +46,9 @@ AppAsset::register($this);
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Karyawan', 'url' => ['/karyawan'], 'visible' => Yii::$app->user->can('karyawan')],
-            ['label' => 'Golongan', 'url' => ['/golongan'], 'visible' => Yii::$app->user->can('hrd')],
-            ['label' => 'Cuti', 'url' => ['/cuti'], 'visible' => Yii::$app->user->can('karyawan')],
+            ['label' => 'Karyawan', 'url' => ['/karyawan'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Cuti', 'url' => ['/cuti'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Golongan', 'url' => ['/golongan'], 'visible' => !Yii::$app->user->isGuest],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
