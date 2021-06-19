@@ -34,7 +34,7 @@ AppAsset::register($this);
             'brandLabel' => Yii::$app->name,
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar navbar-expand-lg navbar-dark bg-primary',
+                'class' => 'navbar navbar-expand-lg navbar-dark bg-dark',
             ],
             'renderInnerContainer' => false,
             'containerOptions' => ['class' => 'justify-content-end']
@@ -42,6 +42,9 @@ AppAsset::register($this);
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Karyawan', 'url' => ['/karyawan'], 'visible' => Yii::$app->user->can('karyawan')],
+            ['label' => 'Golongan', 'url' => ['/golongan'], 'visible' => Yii::$app->user->can('hrd')],
+            ['label' => 'Cuti', 'url' => ['/cuti'], 'visible' => Yii::$app->user->can('karyawan')],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
