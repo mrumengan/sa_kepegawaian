@@ -3,6 +3,22 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+$this->registerCssFile('https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css');
+
+$this->registerJsFile(
+    'https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js',
+    ['depends' => [\yii\web\JqueryAsset::class]]
+);
+
+$this->registerJs('
+defaultDate = "' . date('m/d/Y', mktime(0, 0, 0, date('m'), date('d'), date('Y') - 18)) . '";
+minDate = new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate());
+$("#karyawan-tanggal_lahir").datepicker({
+    uiLibrary: "bootstrap4",
+    maxDate: minDate,
+    value: defaultDate
+});
+');
 /* @var $this yii\web\View */
 /* @var $model common\models\Karyawan */
 /* @var $form yii\widgets\ActiveForm */
