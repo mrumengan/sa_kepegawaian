@@ -13,5 +13,11 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'formatter' => [
+            // 'thousandSeparator' => '.',
+            // 'currencyDecimalSeparator' => ',',
+            'currencyCode' => 'IDR',
+            'numberFormatterSymbols' => [360 => 'Rp.'],
+        ],
     ],
 ];
