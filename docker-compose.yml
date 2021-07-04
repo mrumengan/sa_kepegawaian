@@ -1,7 +1,6 @@
-version: '3.2'
+version: "3.2"
 
 services:
-
   frontend:
     build: frontend
     ports:
@@ -12,7 +11,8 @@ services:
       # Mount source-code for development
       - ./:/app
     networks:
-        - front
+      front:
+        ipv4_address: 172.26.0.3
 
   backend:
     build: backend
@@ -24,7 +24,8 @@ services:
       # Mount source-code for development
       - ./:/app
     networks:
-        - front
+      front:
+        ipv4_address: 172.26.0.2
 
   mysql:
     image: mysql:5.7
@@ -34,7 +35,8 @@ services:
       - MYSQL_USER=yii2advanced
       - MYSQL_PASSWORD=secret
     networks:
-        - front
+      front:
+        ipv4_address: 172.26.0.4
 
   #pgsql:
   #  image: postgres:9.5
@@ -44,8 +46,8 @@ services:
   #    - POSTGRES_PASSWORD=secret
 
 networks:
-    front:
-        ipam:
-            driver: default
-            config:
-            - subnet: 172.26.0.0/16
+  front:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.26.0.0/16
