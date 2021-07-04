@@ -11,6 +11,8 @@ services:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       # Mount source-code for development
       - ./:/app
+    networks:
+        - front
 
   backend:
     build: backend
@@ -21,6 +23,8 @@ services:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       # Mount source-code for development
       - ./:/app
+    networks:
+        - front
 
   mysql:
     image: mysql:5.7
@@ -29,6 +33,8 @@ services:
       - MYSQL_DATABASE=yii2advanced
       - MYSQL_USER=yii2advanced
       - MYSQL_PASSWORD=secret
+    networks:
+        - front
 
   #pgsql:
   #  image: postgres:9.5
@@ -36,3 +42,10 @@ services:
   #    - POSTGRES_DB=yii2advanced
   #    - POSTGRES_USER=yii2advanced
   #    - POSTGRES_PASSWORD=secret
+
+networks:
+    front:
+        ipam:
+            driver: default
+            config:
+            - subnet: 172.26.0.0/16
