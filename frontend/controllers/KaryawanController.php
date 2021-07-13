@@ -75,10 +75,15 @@ class KaryawanController extends Controller
      */
     public function actionProfile($id)
     {
-        $model = Karyawan::find()->where(['user_id' => $id])->one();
-        return $this->render('profile', [
-            'model' => $model,
-        ]);
+
+        if (($model = Karyawan::find()->where(['user_id' => $id])->one()) !== null) {
+
+            return $this->render('profile', [
+                'model' => $model,
+            ]);
+        }
+
+        throw new NotFoundHttpException('Profil yang dimaksud tidak ada.');
     }
 
     /**

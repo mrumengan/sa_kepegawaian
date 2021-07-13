@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
     <div class="card">
         <div class="card-body">
             <h3><?= Html::a($model->nama, ['/karyawan/view', 'id' => $model->id], $options = []) ?></h3>
-            <p><?= $model->nip ?></p>
+            <p><label>NIP:</label> <?= $model->nip ?></p>
         </div>
     </div>
 </div>

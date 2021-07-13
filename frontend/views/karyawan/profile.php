@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Karyawan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="karyawan-view">
+<div class="karyawan-profile">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -36,10 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'alamat:ntext',
             'golongan_id',
             'foto',
-            'created_at',
-            'created_by',
-            'updated_at',
-            'updated_by',
         ],
     ]) ?>
 

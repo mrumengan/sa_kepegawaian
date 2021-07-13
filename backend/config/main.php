@@ -12,13 +12,16 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
-        'admin' => [
+        'rbac' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'right-menu',
-            'as access' => [
-                'class' => 'mdm\admin\components\AccessControl',
-            ],
         ],
+    ],
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'rbac/*',
+        ]
     ],
     'components' => [
         'request' => [
@@ -48,8 +51,7 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'rules' => [],
         ],
     ],
     'params' => $params,
