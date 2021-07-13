@@ -44,11 +44,13 @@ if ($this->title != Yii::$app->name) {
             'containerOptions' => ['class' => 'justify-content-end']
         ]);
         $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Karyawan', 'url' => ['/karyawan'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => 'Cuti', 'url' => ['/cuti'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => 'Golongan', 'url' => ['/golongan'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Beranda', 'url' => ['/site/index']],
+
+            ['label' => 'Karyawan', 'url' => ['/karyawan'], 'visible' => Yii::$app->user->can('Admin')],
+            ['label' => 'Cuti', 'url' => ['/cuti'], 'visible' => Yii::$app->user->can('Admin')],
+            ['label' => 'Golongan', 'url' => ['/golongan'], 'visible' => Yii::$app->user->can('Admin')],
+
+            ['label' => 'Profil', 'url' => ['/karyawan/profile', 'id' => Yii::$app->user->id], 'visible' => !Yii::$app->user->isGuest],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

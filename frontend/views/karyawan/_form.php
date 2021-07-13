@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use common\models\Golongan;
+use common\models\User;
 
 $this->registerCssFile('https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css');
 
@@ -28,7 +31,14 @@ $("#karyawan-tanggal_lahir").datepicker({
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <?= $form->field($model, 'user_id')->dropDownList(
+        ArrayHelper::map(
+            User::find()->orderBy('username')->all(),
+            'id',
+            'email'
+        ),
+        ['prompt' => '']
+    ) ?>
 
     <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
 
@@ -50,7 +60,14 @@ $("#karyawan-tanggal_lahir").datepicker({
 
     <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'golongan_id')->textInput() ?>
+    <?= $form->field($model, 'golongan_id')->dropDownList(
+        ArrayHelper::map(
+            Golongan::find()->orderBy('nama_golongan')->all(),
+            'id',
+            'nama_golongan'
+        ),
+        ['prompt' => '']
+    ) ?>
 
     <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?>
 
