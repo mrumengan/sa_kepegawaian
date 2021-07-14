@@ -12,14 +12,15 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
-        'admin' => [
+        'rbac' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'right-menu',
-            'as access' => [
-                'class' => 'mdm\admin\components\AccessControl',
-            ],
         ],
     ],
+    // 'as access' => [
+    //     'class' => 'mdm\admin\components\AccessControl',
+    //     'allowActions' => []
+    // ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -31,7 +32,7 @@ return [
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
+            'name' => 'kpg-backend',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -48,8 +49,7 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'rules' => [],
         ],
     ],
     'params' => $params,
