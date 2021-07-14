@@ -68,6 +68,25 @@ class KaryawanController extends Controller
     }
 
     /**
+     * Displays a single Karyawan model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionProfile($id)
+    {
+
+        if (($model = Karyawan::find()->where(['user_id' => $id])->one()) !== null) {
+
+            return $this->render('profile', [
+                'model' => $model,
+            ]);
+        }
+
+        throw new NotFoundHttpException('Profil yang dimaksud tidak ada.');
+    }
+
+    /**
      * Creates a new Karyawan model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -132,6 +151,6 @@ class KaryawanController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Profil yang dimaksud tidak ada.');
     }
 }

@@ -51,7 +51,8 @@ class Karyawan extends \yii\db\ActiveRecord
             [['nip', 'nik', 'nama', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'telpon', 'agama', 'status_nikah', 'alamat', 'golongan_id', 'foto'], 'required'],
             [['jenis_kelamin', 'status_nikah', 'alamat'], 'string'],
             [['tanggal_lahir', 'created_at', 'updated_at'], 'safe'],
-            [['nip', 'nik', 'telpon'], 'string', 'max' => 12],
+            [['nip', 'nik'], 'string', 'max' => 20],
+            [['telpon'], 'string', 'max' => 12],
             [['nama', 'tempat_lahir'], 'string', 'max' => 100],
             [['agama'], 'string', 'max' => 15],
             [['foto'], 'string', 'max' => 150],
@@ -84,6 +85,16 @@ class Karyawan extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->belongsTo(User::class, ['user_id' => 'id']);
     }
 
     /**
@@ -124,5 +135,15 @@ class Karyawan extends \yii\db\ActiveRecord
     public function getPenggajians()
     {
         return $this->hasMany(Penggajian::className(), ['karyawan_id' => 'id']);
+    }
+
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        $this->tanggal_lahir = Yii::$app->formatter->asDate($this->tanggal_lahir, 'yyyy-MM-dd'); // 2014-10-06
+        return true;
     }
 }
