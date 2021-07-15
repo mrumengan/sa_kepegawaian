@@ -9,27 +9,31 @@ use Yii;
  *
  * @property int $id
  * @property int|null $user_id
- * @property string $nip
- * @property string $nik
- * @property string $nama
- * @property string $jenis_kelamin
- * @property string $tempat_lahir
- * @property string $tanggal_lahir
- * @property string $telpon
- * @property string $agama
- * @property string $status_nikah
- * @property string $alamat
- * @property int $golongan_id
- * @property string $foto
- * @property string|null $created_at
- * @property int|null $created_by
- * @property string|null $updated_at
- * @property int|null $updated_by
+ * @property int|null $departemen_id
+ * @property string|null $nip
+ * @property string|null $nama
+ * @property string|null $tempat_lahir
+ * @property string|null $tanggal_lahir
+ * @property string|null $golongan
+ * @property string|null $tmt_pangkat
+ * @property string|null $jabatan
+ * @property string|null $tmt_jabatan
+ * @property string|null $eselon
+ * @property string|null $pangkat_cpns
+ * @property string|null $tmt_cpns
+ * @property string|null $tmt_pns
+ * @property string|null $gaji_pokok
+ * @property string|null $tmt_gaji
+ * @property string|null $pendidikan
+ * @property string|null $pendidikan_umum
+ * @property string|null $diklat_struktural
+ * @property string|null $diklat_fungsional
+ * @property string|null $jenis_kelamin
+ * @property string|null $nip_lama
+ * @property int|null $peringkat
  *
- * @property Cuti[] $cutis
- * @property Golongan $golongan
- * @property Lembur[] $lemburs
- * @property Penggajian[] $penggajians
+ * @property User $user
+ * @property Departemen $departemen
  */
 class Karyawan extends \yii\db\ActiveRecord
 {
@@ -47,16 +51,21 @@ class Karyawan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'golongan_id', 'created_by', 'updated_by'], 'integer'],
-            [['nip', 'nik', 'nama', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'telpon', 'agama', 'status_nikah', 'alamat', 'golongan_id', 'foto'], 'required'],
-            [['jenis_kelamin', 'status_nikah', 'alamat'], 'string'],
-            [['tanggal_lahir', 'created_at', 'updated_at'], 'safe'],
-            [['nip', 'nik'], 'string', 'max' => 20],
-            [['telpon'], 'string', 'max' => 12],
-            [['nama', 'tempat_lahir'], 'string', 'max' => 100],
-            [['agama'], 'string', 'max' => 15],
-            [['foto'], 'string', 'max' => 150],
-            [['golongan_id'], 'exist', 'skipOnError' => true, 'targetClass' => Golongan::className(), 'targetAttribute' => ['golongan_id' => 'id']],
+            [['user_id', 'departemen_id', 'peringkat'], 'integer'],
+            [['tanggal_lahir', 'tmt_pangkat', 'tmt_jabatan', 'tmt_cpns', 'tmt_pns', 'tmt_gaji'], 'safe'],
+            [['nip', 'nip_lama'], 'string', 'max' => 21],
+            [['nama', 'pendidikan_umum'], 'string', 'max' => 43],
+            [['tempat_lahir'], 'string', 'max' => 22],
+            [['golongan'], 'string', 'max' => 5],
+            [['jabatan'], 'string', 'max' => 214],
+            [['eselon'], 'string', 'max' => 6],
+            [['pangkat_cpns'], 'string', 'max' => 20],
+            [['gaji_pokok', 'jenis_kelamin'], 'string', 'max' => 9],
+            [['pendidikan'], 'string', 'max' => 16],
+            [['diklat_struktural'], 'string', 'max' => 17],
+            [['diklat_fungsional'], 'string', 'max' => 26],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['departemen_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departemen::className(), 'targetAttribute' => ['departemen_id' => 'id']],
         ];
     }
 
@@ -68,22 +77,28 @@ class Karyawan extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'nip' => 'NIP',
-            'nik' => 'NIK',
+            'departemen_id' => 'Departemen ID',
+            'nip' => 'Nip',
             'nama' => 'Nama',
-            'jenis_kelamin' => 'Jenis Kelamin',
             'tempat_lahir' => 'Tempat Lahir',
             'tanggal_lahir' => 'Tanggal Lahir',
-            'telpon' => 'Telpon',
-            'agama' => 'Agama',
-            'status_nikah' => 'Status Nikah',
-            'alamat' => 'Alamat',
-            'golongan_id' => 'ID Golongan',
-            'foto' => 'Foto',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'golongan' => 'Golongan',
+            'tmt_pangkat' => 'Tmt Pangkat',
+            'jabatan' => 'Jabatan',
+            'tmt_jabatan' => 'Tmt Jabatan',
+            'eselon' => 'Eselon',
+            'pangkat_cpns' => 'Pangkat Cpns',
+            'tmt_cpns' => 'Tmt Cpns',
+            'tmt_pns' => 'Tmt Pns',
+            'gaji_pokok' => 'Gaji Pokok',
+            'tmt_gaji' => 'Tmt Gaji',
+            'pendidikan' => 'Pendidikan',
+            'pendidikan_umum' => 'Pendidikan Umum',
+            'diklat_struktural' => 'Diklat Struktural',
+            'diklat_fungsional' => 'Diklat Fungsional',
+            'jenis_kelamin' => 'Jenis Kelamin',
+            'nip_lama' => 'Nip Lama',
+            'peringkat' => 'Peringkat',
         ];
     }
 
@@ -94,47 +109,27 @@ class Karyawan extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->belongsTo(User::class, ['user_id' => 'id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
-     * Gets query for [[Cutis]].
+     * Gets query for [[Departemen]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDepartemen()
+    {
+        return $this->hasOne(Departemen::className(), ['id' => 'departemen_id']);
+    }
+
+    /**
+     * Gets query for [[Cuti]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getCutis()
     {
-        return $this->hasMany(Cuti::className(), ['karyawan_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Golongan]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGolongan()
-    {
-        return $this->hasOne(Golongan::className(), ['id' => 'golongan_id']);
-    }
-
-    /**
-     * Gets query for [[Lemburs]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLemburs()
-    {
-        return $this->hasMany(Lembur::className(), ['karyawan_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Penggajians]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPenggajians()
-    {
-        return $this->hasMany(Penggajian::className(), ['karyawan_id' => 'id']);
+        return $this->hasMany(Cuti::class, ['karyawan_id' => 'id']);
     }
 
     public function beforeSave($insert)
@@ -143,7 +138,9 @@ class Karyawan extends \yii\db\ActiveRecord
             return false;
         }
 
-        $this->tanggal_lahir = Yii::$app->formatter->asDate($this->tanggal_lahir, 'yyyy-MM-dd'); // 2014-10-06
+        $this->tanggal_lahir = substr($this->tanggal_lahir, 6) . '-' . substr($this->tanggal_lahir, 3, 2) . '-'
+            . substr($this->tanggal_lahir, 0, 2);
+
         return true;
     }
 }

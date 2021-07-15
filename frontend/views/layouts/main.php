@@ -46,11 +46,12 @@ if ($this->title != Yii::$app->name) {
         $menuItems = [
             ['label' => 'Beranda', 'url' => ['/site/index']],
 
-            ['label' => 'Karyawan', 'url' => ['/karyawan'], 'visible' => Yii::$app->user->can('Admin')],
-            ['label' => 'Cuti', 'url' => ['/cuti'], 'visible' => Yii::$app->user->can('Admin')],
+            ['label' => 'Karyawan', 'url' => ['/karyawans'], 'visible' => Yii::$app->user->can('Admin')],
+            ['label' => 'Cuti', 'url' => ['/cutis'], 'visible' => Yii::$app->user->can('Admin')],
             ['label' => 'Golongan', 'url' => ['/golongan'], 'visible' => Yii::$app->user->can('Admin')],
 
-            ['label' => 'Profil', 'url' => ['/karyawan/profile', 'id' => Yii::$app->user->id], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Cuti', 'url' => ['/cutis/request'], 'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->can('Admin')],
+            ['label' => 'Profil', 'url' => ['/karyawans/profile', 'id' => Yii::$app->user->id], 'visible' => !Yii::$app->user->isGuest],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

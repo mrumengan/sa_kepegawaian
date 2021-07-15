@@ -17,8 +17,8 @@ class KaryawanSearch extends Karyawan
     public function rules()
     {
         return [
-            [['id', 'user_id', 'golongan_id', 'created_by', 'updated_by'], 'integer'],
-            [['nip', 'nik', 'nama', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'telpon', 'agama', 'status_nikah', 'alamat', 'foto', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'user_id', 'departemen_id', 'peringkat'], 'integer'],
+            [['nip', 'nama', 'tempat_lahir', 'tanggal_lahir', 'golongan', 'tmt_pangkat', 'jabatan', 'tmt_jabatan', 'eselon', 'pangkat_cpns', 'tmt_cpns', 'tmt_pns', 'gaji_pokok', 'tmt_gaji', 'pendidikan', 'pendidikan_umum', 'diklat_struktural', 'diklat_fungsional', 'jenis_kelamin', 'nip_lama'], 'safe'],
         ];
     }
 
@@ -60,24 +60,30 @@ class KaryawanSearch extends Karyawan
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'departemen_id' => $this->departemen_id,
             'tanggal_lahir' => $this->tanggal_lahir,
-            'golongan_id' => $this->golongan_id,
-            'created_at' => $this->created_at,
-            'created_by' => $this->created_by,
-            'updated_at' => $this->updated_at,
-            'updated_by' => $this->updated_by,
+            'tmt_pangkat' => $this->tmt_pangkat,
+            'tmt_jabatan' => $this->tmt_jabatan,
+            'tmt_cpns' => $this->tmt_cpns,
+            'tmt_pns' => $this->tmt_pns,
+            'tmt_gaji' => $this->tmt_gaji,
+            'peringkat' => $this->peringkat,
         ]);
 
         $query->andFilterWhere(['like', 'nip', $this->nip])
-            ->andFilterWhere(['like', 'nik', $this->nik])
             ->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'jenis_kelamin', $this->jenis_kelamin])
             ->andFilterWhere(['like', 'tempat_lahir', $this->tempat_lahir])
-            ->andFilterWhere(['like', 'telpon', $this->telpon])
-            ->andFilterWhere(['like', 'agama', $this->agama])
-            ->andFilterWhere(['like', 'status_nikah', $this->status_nikah])
-            ->andFilterWhere(['like', 'alamat', $this->alamat])
-            ->andFilterWhere(['like', 'foto', $this->foto]);
+            ->andFilterWhere(['like', 'golongan', $this->golongan])
+            ->andFilterWhere(['like', 'jabatan', $this->jabatan])
+            ->andFilterWhere(['like', 'eselon', $this->eselon])
+            ->andFilterWhere(['like', 'pangkat_cpns', $this->pangkat_cpns])
+            ->andFilterWhere(['like', 'gaji_pokok', $this->gaji_pokok])
+            ->andFilterWhere(['like', 'pendidikan', $this->pendidikan])
+            ->andFilterWhere(['like', 'pendidikan_umum', $this->pendidikan_umum])
+            ->andFilterWhere(['like', 'diklat_struktural', $this->diklat_struktural])
+            ->andFilterWhere(['like', 'diklat_fungsional', $this->diklat_fungsional])
+            ->andFilterWhere(['like', 'jenis_kelamin', $this->jenis_kelamin])
+            ->andFilterWhere(['like', 'nip_lama', $this->nip_lama]);
 
         return $dataProvider;
     }

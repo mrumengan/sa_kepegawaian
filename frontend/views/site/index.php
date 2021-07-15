@@ -1,5 +1,7 @@
 <?php
 
+use yii\helpers\Html;
+
 /* @var $this yii\web\View */
 
 $this->title = 'SA PEG';
@@ -12,7 +14,7 @@ $this->title = 'SA PEG';
         <?php else : ?>
             <div class="row">
                 <div class="col">
-                    <h3 class="border-bottom">Berita</h3>
+                    <h2 class="border-bottom">Berita</h2>
                     <div class="row">
                         <div class="col">
                             <ul>
@@ -44,20 +46,23 @@ $this->title = 'SA PEG';
                     </div>
                 </div>
                 <div class="col">
-                    <h3 class="border-bottom">Pengumuman</h3>
+                    <h2 class="border-bottom">Surat Menyurat</h2>
                     <div class="row">
                         <div class="col">
-                            <div>
-                                <h3>Keputusan</h3>
-                                <ol>
-                                    <li>Keputusan Pertama</li>
-                                    <li>Keputusan Kedua</li>
-                                    <li>Keputusan Ketiga</li>
-                                </ol>
-                            </div>
+                            <?php if (isset($karyawan)) : ?>
+                                <div>
+                                    <h3>Cuti</h3>
+                                    <dl>
+                                        <?php foreach ($karyawan->cutis as $cuti) : ?>
+                                            <dd>- Tgl. Cuti: <?= Html::a($cuti->tanggal_cuti, ['/cutis/view', 'id' => $cuti->id], []) ?> <sup><span class="badge <?= $cuti->badges[$cuti->status] ?>"><?= $cuti->statuses[$cuti->status] ?></span></sup>
+                                            </dd>
+                                        <?php endforeach ?>
+                                    </dl>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="col">
-                            <h2>Perubahan</h2>
+                            <h3>Perubahan</h3>
                             <div>
                                 <p>Perubahan</p>
                                 <ol>

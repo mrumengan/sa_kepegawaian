@@ -3,17 +3,18 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Golongan;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
+use common\models\Karyawan;
+use common\models\KaryawanSearch;
+
 /**
- * GolonganController implements the CRUD actions for Golongan model.
+ * KaryawansController implements the CRUD actions for Karyawan model.
  */
-class GolonganController extends Controller
+class KaryawansController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,7 +32,7 @@ class GolonganController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -40,22 +41,41 @@ class GolonganController extends Controller
     }
 
     /**
-     * Lists all Golongan models.
+     * Lists all Karyawan models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Golongan::find(),
-        ]);
+        $searchModel = new KaryawanSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Golongan model.
+     * Displays a single Karyawan model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionProfile($id)
+    {
+
+        if (($model = Karyawan::find()->where(['user_id' => $id])->one()) !== null) {
+
+            return $this->render('profile', [
+                'model' => $model,
+            ]);
+        }
+
+        throw new NotFoundHttpException('Profil yang dimaksud tidak ada.');
+    }
+
+    /**
+     * Displays a single Karyawan model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -68,13 +88,13 @@ class GolonganController extends Controller
     }
 
     /**
-     * Creates a new Golongan model.
+     * Creates a new Karyawan model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Golongan();
+        $model = new Karyawan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -86,7 +106,7 @@ class GolonganController extends Controller
     }
 
     /**
-     * Updates an existing Golongan model.
+     * Updates an existing Karyawan model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -106,7 +126,7 @@ class GolonganController extends Controller
     }
 
     /**
-     * Deletes an existing Golongan model.
+     * Deletes an existing Karyawan model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -120,15 +140,15 @@ class GolonganController extends Controller
     }
 
     /**
-     * Finds the Golongan model based on its primary key value.
+     * Finds the Karyawan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Golongan the loaded model
+     * @return Karyawan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Golongan::findOne($id)) !== null) {
+        if (($model = Karyawan::findOne($id)) !== null) {
             return $model;
         }
 
