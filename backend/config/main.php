@@ -15,12 +15,13 @@ return [
         'rbac' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'right-menu',
+            'mainLayout' => '@app/views/layouts/main.php',
+            'as access' => [
+                'class' => 'mdm\admin\components\AccessControl',
+                'allowActions' => []
+            ],
         ],
     ],
-    // 'as access' => [
-    //     'class' => 'mdm\admin\components\AccessControl',
-    //     'allowActions' => []
-    // ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -50,6 +51,13 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [],
+        ],
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@mdm/admin/views' => '@app/themes/default/rbac',
+                ]
+            ]
         ],
     ],
     'params' => $params,
