@@ -37,7 +37,7 @@ $("#cuti-tanggal_cuti").datepicker({
 ?>
 <div class="cuti-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['action' => ['cutis/create']]); ?>
 
 
     <?php if (isset($karyawan)) {

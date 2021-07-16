@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="golongan-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['action' => ['golongan/create']]); ?>
 
     <?= $form->field($model, 'nama_golongan')->textInput(['maxlength' => true]) ?>
 

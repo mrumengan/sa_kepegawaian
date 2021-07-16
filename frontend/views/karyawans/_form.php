@@ -15,7 +15,7 @@ $this->registerJsFile(
 );
 
 if ($model->isNewRecord) {
-    $action = 'karyawans/create';
+    $action = ['karyawans/create'];
     $default_date = date('m-d-Y', mktime(0, 0, 0, date('m'), date('d'), date('Y') - 18));
 } else {
     $action = ['karyawans/update', 'id' => $model->id];

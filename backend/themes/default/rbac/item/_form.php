@@ -27,7 +27,7 @@ JS;
 AutocompleteAsset::register($this);
 $this->registerJs($js);
 ?>
-<?= $context->module->module->requestedRoute ?>
+
 <div class="auth-item-form">
     <?php $form = ActiveForm::begin(['id' => 'item-form', 'action' => Url::to(['/' . $context->module->module->requestedRoute])]); ?>
     <div class="row">
