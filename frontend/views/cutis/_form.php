@@ -59,16 +59,20 @@ $("#cuti-tanggal_cuti").datepicker({
 
     <?= $form->field($model, 'jumlah')->textInput(['placeholder' => 'dalam hari']) ?>
 
-    <?php if ($model->isNewRecord) {
-        if (Yii::$app->user->can('Admin')) {
-            echo $form->field($model, 'status')->dropDownList(
-                $model->statuses,
-                ['prompt' => 'Pilih Status']
-            );
-        }
+    <?php
+    if (Yii::$app->user->can('Admin')) {
+        echo $form->field($model, 'status')->dropDownList(
+            $model->statuses,
+            ['prompt' => 'Pilih Status']
+        );
     } else {
-        $model->status = $model->statuses[$model->status];
-        echo $form->field($model, 'status')->textInput(['disabled' => 'disabled']);
+        if ($model->isNewRecord) {
+            $model->status = 5;
+            echo $form->field($model, 'status')->hiddenInput()->label(false);
+        } else {
+            $model->status = $model->statuses[$model->status];
+            echo $form->field($model, 'status')->textInput(['disabled' => 'disabled']);
+        }
     }
     ?>
     <div class="form-group">
