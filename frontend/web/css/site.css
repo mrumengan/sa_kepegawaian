@@ -102,15 +102,6 @@ a.desc:after {
   border: none;
 }
 
-@media(max-width:767px) {
-  .nav li>form>button.logout {
-    display: block;
-    text-align: left;
-    width: 100%;
-    padding: 10px 15px;
-  }
-}
-
 .nav>li>form>button.logout:focus, .nav>li>form>button.logout:hover {
   text-decoration: none;
 }
@@ -134,4 +125,117 @@ a.desc:after {
 
 .breadcrumb>li:last-child::after {
   content: '';
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+  color: #D6761E;
+  font-weight: bold;
+}
+
+/* Begin copy */
+
+.carousel-container {
+  height: 450px;
+}
+
+.section-header .section-title {
+  font-size: 2em;
+  color: #272727;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 20px;
+  margin: 0 0 20px;
+}
+
+.section-header .section-title:before {
+  content: "";
+  position: absolute;
+  width: 140px;
+  bottom: 0;
+  left: 50%;
+  margin-left: -70px;
+  height: 1px;
+  background: #ebebeb;
+}
+
+.section-header .section-title:after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  bottom: -11px;
+  left: 50%;
+  margin-left: -12px;
+  border: 5px solid #fff;
+  border-radius: 20px;
+  background: #D6761E;
+}
+
+.column-title {
+  margin-top: 0;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.column-title:after {
+  content: " ";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 40%;
+  border-bottom: 2px solid #D6761E;
+}
+
+.img-responsive, .thumbnail>img, .thumbnail a>img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.media.service-box .pull-left {
+  margin-right: 10px;
+}
+
+.media.service-box .pull-left>i {
+  font-size: 24px;
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  width: 64px;
+  border-radius: 100%;
+  color: #D6761E;
+  box-shadow: inset 0 0 0 1px #d7d7d7;
+  -webkit-box-shadow: inset 0 0 0 1px #d7d7d7;
+  transition: background-color 400ms, background-color 400ms;
+  position: relative;
+}
+
+.cta3 {
+  /* background: #242a33 url(../images/cta2/footer_kemendagri.jpg) no-repeat 50% 50%; */
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(http://sikerja.kemendagri.go.id/assets_home/images/cta2/footer_kemendagri.jpg) no-repeat 50% 50%;
+  background-size: cover;
+  color: #fff;
+  padding-top: 70px;
+}
+
+@media(max-width:767px) {
+  .nav li>form>button.logout {
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 10px 15px;
+  }
+  .carousel-container {
+    height: auto;
+  }
+  .media.service-box .pull-left {
+    margin-right: 5px;
+  }
+  .media.service-box .pull-left>i {
+    font-size: 12px;
+    height: 32px;
+    line-height: 32px;
+    width: 32px;
+  }
 }

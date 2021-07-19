@@ -80,9 +80,17 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $karyawan = Karyawan::findOne(['user_id' => Yii::$app->user->id]);
-        return $this->render('index', [
-            'karyawan' => $karyawan
-        ]);
+
+        if (Yii::$app->user->id) {
+            return $this->render('index', [
+                'karyawan' => $karyawan
+            ]);
+        } else {
+            $this->layout = 'main_public';
+            return $this->render('index_public', [
+                'karyawan' => $karyawan
+            ]);
+        }
     }
 
     /**
@@ -92,6 +100,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'main_public';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -137,6 +146,7 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
+        $this->layout = 'main_public';
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
