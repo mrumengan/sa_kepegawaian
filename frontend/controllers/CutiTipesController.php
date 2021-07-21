@@ -1,19 +1,18 @@
 <?php
 
-namespace frontend\controllers;
+namespace app\controllers;
 
 use Yii;
-use common\models\Golongan;
+use common\models\CutiTipe;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
- * GolonganController implements the CRUD actions for Golongan model.
+ * CutiTipesController implements the CRUD actions for CutiTipe model.
  */
-class GolonganController extends Controller
+class CutiTipesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -21,17 +20,8 @@ class GolonganController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['Admin'],
-                    ],
-                ],
-            ],
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -40,13 +30,13 @@ class GolonganController extends Controller
     }
 
     /**
-     * Lists all Golongan models.
+     * Lists all CutiTipe models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Golongan::find(),
+            'query' => CutiTipe::find(),
         ]);
 
         return $this->render('index', [
@@ -55,7 +45,7 @@ class GolonganController extends Controller
     }
 
     /**
-     * Displays a single Golongan model.
+     * Displays a single CutiTipe model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -68,13 +58,13 @@ class GolonganController extends Controller
     }
 
     /**
-     * Creates a new Golongan model.
+     * Creates a new CutiTipe model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Golongan();
+        $model = new CutiTipe();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -86,7 +76,7 @@ class GolonganController extends Controller
     }
 
     /**
-     * Updates an existing Golongan model.
+     * Updates an existing CutiTipe model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -106,7 +96,7 @@ class GolonganController extends Controller
     }
 
     /**
-     * Deletes an existing Golongan model.
+     * Deletes an existing CutiTipe model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -120,15 +110,15 @@ class GolonganController extends Controller
     }
 
     /**
-     * Finds the Golongan model based on its primary key value.
+     * Finds the CutiTipe model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Golongan the loaded model
+     * @return CutiTipe the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Golongan::findOne($id)) !== null) {
+        if (($model = CutiTipe::findOne($id)) !== null) {
             return $model;
         }
 

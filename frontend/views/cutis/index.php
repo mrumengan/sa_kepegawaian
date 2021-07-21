@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p class="float-right">
-        <?= Html::a('Create Cuti', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Buat Cuti', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
@@ -26,15 +26,20 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'id',
                 'value' => function ($data) {
-                    $number = 12;
                     $width = 4;
                     $padded = str_pad($data->id, $width, "0", STR_PAD_LEFT);
                     return $padded;
                 }
             ],
             'karyawan.nama',
-            'tanggal_cuti',
-            'jumlah',
+            'tanggal_cuti:date',
+            'jumlah:integer',
+            [
+                'attribute' => 'status',
+                'value' => function ($data) {
+                    return $data->statuses[$data->status];
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

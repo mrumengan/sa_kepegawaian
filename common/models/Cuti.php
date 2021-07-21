@@ -10,6 +10,7 @@ use yii\behaviors\TimestampBehavior;
  * This is the model class for table "{{%cuti}}".
  *
  * @property int $id
+ * @property int $tipe_id
  * @property int $karyawan_id
  * @property string $tanggal_cuti
  * @property int $jumlah
@@ -35,6 +36,8 @@ class Cuti extends \yii\db\ActiveRecord
         0 => 'badge-warning'
     ];
 
+    public $code_width = 4;
+
     /**
      * {@inheritdoc}
      */
@@ -57,8 +60,8 @@ class Cuti extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['karyawan_id', 'tanggal_cuti', 'jumlah'], 'required'],
-            [['karyawan_id', 'jumlah', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['tipe_id', 'karyawan_id', 'tanggal_cuti', 'jumlah'], 'required'],
+            [['tipe_id', 'karyawan_id', 'jumlah', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['tanggal_cuti'], 'safe'],
             [['karyawan_id'], 'exist', 'skipOnError' => true, 'targetClass' => Karyawan::className(), 'targetAttribute' => ['karyawan_id' => 'id']],
         ];
@@ -71,7 +74,8 @@ class Cuti extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'No. Surat',
-            'karyawan_id' => 'Karyawan ID',
+            'tipe_id' => 'ID Tipe',
+            'karyawan_id' => 'ID Karyawan',
             'tanggal_cuti' => 'Tanggal Cuti',
             'jumlah' => 'Jumlah Hari',
         ];
@@ -85,6 +89,42 @@ class Cuti extends \yii\db\ActiveRecord
     public function getKaryawan()
     {
         return $this->hasOne(Karyawan::class, ['id' => 'karyawan_id']);
+    }
+
+    /**
+     * Gets query for [[CutiTipe]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCutiTipe()
+    {
+        return $this->hasOne(CutiTipe::class, ['id' => 'tipe_id']);
+    }
+
+    public function getTanggalCuti()
+    {
+        $month = array(
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+
+        $dates = explode('-', $this->tanggal_cuti);
+
+        // variabel pecahkan 0 = tanggal
+        // variabel pecahkan 1 = bulan
+        // variabel pecahkan 2 = tahun
+
+        return $dates[2] . ' ' . $month[(int) $dates[1]] . ' ' . $dates[0];
     }
 
     public function beforeSave($insert)
