@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 use kartik\mpdf\Pdf;
 
@@ -32,7 +33,7 @@ class CutisController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['download'],
+                        'actions' => ['download', 'upload'],
                         'allow' => true,
                         'roles' => ['Admin'],
                     ],
@@ -84,9 +85,9 @@ class CutisController extends Controller
     public function actionDownload($id)
     {
         $this->layout = 'clean';
-
-        $content = $this->render('pdf', [
-            'model' => $this->findModel($id),
+        $model = $this->findModel($id);
+        $content = $this->renderPartial('pdf', [
+            'model' => $model,
         ]);
 
         // return $content;
@@ -100,16 +101,27 @@ class CutisController extends Controller
             // portrait orientation
             'orientation' => Pdf::ORIENT_PORTRAIT,
             // stream to browser inline
-            'destination' => Pdf::DEST_BROWSER,
+            'destination' => Pdf::DEST_DOWNLOAD,
+            'filename' => 'Surat_Cuti_' . str_pad($model->id, $model->code_width, "0", STR_PAD_LEFT) . '_' . $model->karyawan->nama . '.pdf',
             // your html content input
             'content' => $content,
             // format content from your own css file if needed or use the
-            // enhanced bootstrap css built by Krajee for mPDF formatting 
-            // 'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            // enhanced bootstrap css built by Krajee for mPDF formatting
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
             // any css to be embedded if required
-            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'cssInline' => '
+                .kv-heading-1 {
+                    font-size:18px
+                }
+                body {
+                    font-size: 12px;
+                }
+                td {
+                    font-size: 1rem;
+                }
+                ',
             // set mPDF properties on the fly
-            'options' => ['title' => 'Krajee Report Title'],
+            'options' => ['title' => 'Cuti', 'subject' => 'Surat Cuti'],
             // call mPDF methods on the fly
             'methods' => [
                 'SetHeader' => [''],
@@ -122,6 +134,34 @@ class CutisController extends Controller
         // return $this->render('pdf', [
         //     'model' => $this->findModel($id),
         // ]);
+    }
+
+    /**
+     * Upload signed PDF file.
+     * If upload is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionUpload($id)
+    {
+        if (Yii::$app->request->isPost) {
+            $model = $this->findModel($id);
+            $model->pdf_file = UploadedFile::getInstance($model, 'pdf_file');
+            if ($model->upload()) {
+                $model->pdf_file = null;
+                $model->load(Yii::$app->request->post());
+                if ($model->save()) {
+                    $this->redirect(['/cutis/view', 'id' => $model->id]);
+                }
+            }
+        }
+
+        if (Yii::$app->request->isPost) {
+            return 'OK';
+        } else {
+            return $this->render('upload', [
+                'model' => $this->findModel($id),
+            ]);
+        }
     }
 
     /**

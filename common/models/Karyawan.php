@@ -132,6 +132,21 @@ class Karyawan extends \yii\db\ActiveRecord
         return $this->hasMany(Cuti::class, ['karyawan_id' => 'id']);
     }
 
+    /**
+     * Gets masa kerja.
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMasaKerja()
+    {
+        $date_start = date_create($this->tmt_pns);
+        $date_now = date_create(date('d-m-Y', time()));
+
+        $interval = date_diff($date_start, $date_now);
+
+        return $interval->format('%y');
+    }
+
     public function beforeSave($insert)
     {
         if (!parent::beforeSave($insert)) {

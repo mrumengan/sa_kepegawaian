@@ -15,6 +15,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $tanggal_cuti
  * @property int $jumlah
  * @property int $status
+ * @property string $signed_pdf
  * @property int $created_at
  * @property int $created_by
  * @property int $updated_at
@@ -24,6 +25,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class Cuti extends \yii\db\ActiveRecord
 {
+    /**
+     * @var UploadedFile
+     */
+    public $pdf_file;
     public $statuses = [
         5 => 'Diajukan',
         10 => 'Disetujui',
@@ -62,8 +67,9 @@ class Cuti extends \yii\db\ActiveRecord
         return [
             [['tipe_id', 'karyawan_id', 'tanggal_cuti', 'jumlah'], 'required'],
             [['tipe_id', 'karyawan_id', 'jumlah', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['tanggal_cuti'], 'safe'],
+            [['tanggal_cuti', 'signed_pdf'], 'safe'],
             [['karyawan_id'], 'exist', 'skipOnError' => true, 'targetClass' => Karyawan::className(), 'targetAttribute' => ['karyawan_id' => 'id']],
+            [['pdf_file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
         ];
     }
 
@@ -77,6 +83,7 @@ class Cuti extends \yii\db\ActiveRecord
             'tipe_id' => 'ID Tipe',
             'karyawan_id' => 'ID Karyawan',
             'tanggal_cuti' => 'Tanggal Cuti',
+            'signed_pdf' => 'PDF',
             'jumlah' => 'Jumlah Hari',
         ];
     }
@@ -133,11 +140,23 @@ class Cuti extends \yii\db\ActiveRecord
             return false;
         }
 
-        if ($insert) $this->status = 5; // diajukan
-
-        $this->tanggal_cuti = substr($this->tanggal_cuti, 6) . '-' . substr($this->tanggal_cuti, 3, 2) . '-'
-            . substr($this->tanggal_cuti, 0, 2);
+        if ($insert) {
+            $this->status = 5; // diajukan
+            $this->tanggal_cuti = substr($this->tanggal_cuti, 6) . '-' . substr($this->tanggal_cuti, 3, 2) . '-'
+                . substr($this->tanggal_cuti, 0, 2);
+        }
 
         return true;
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            $this->pdf_file->saveAs('media/pdf/' . $this->pdf_file->baseName . '.' . $this->pdf_file->extension);
+            $this->signed_pdf = $this->pdf_file->name;
+            return true;
+        } else {
+            return false;
+        }
     }
 }
