@@ -155,13 +155,7 @@ class CutisController extends Controller
             }
         }
 
-        if (Yii::$app->request->isPost) {
-            return 'OK';
-        } else {
-            return $this->render('upload', [
-                'model' => $this->findModel($id),
-            ]);
-        }
+        $this->goBack();
     }
 
     /**

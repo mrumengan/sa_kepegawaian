@@ -22,13 +22,13 @@ $this->title = 'Beranda';
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="http://sikerja.kemendagri.go.id/assets_home/slider/POSTERORTALA.png" class="d-block w-100" alt="...">
+                        <img src="/media/images/POSTERORTALA.png" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="http://sikerja.kemendagri.go.id/assets_home/slider/zonaintegritas.jpeg" class="d-block w-100" alt="...">
+                        <img src="/media/images/zonaintegritas.jpeg" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="http://sikerja.kemendagri.go.id/assets_home/slider/PosterSikerjaZI.jpg" class="d-block w-100" alt="...">
+                        <img src="/media/images/PosterSikerjaZI.jpg" class="d-block w-100" alt="...">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -75,7 +75,7 @@ $this->title = 'Beranda';
                     </div>
                     <div class="row">
                         <div class="col-sm-6 animate__animated animate__fadeInLeft">
-                            <img class="img-responsive" src="http://sikerja.kemendagri.go.id/assets_home/images/main-feature.png" alt="">
+                            <img class="img-responsive" src="/media/images/main-feature.png" alt="">
                         </div>
                         <div class="col-sm-6">
                             <div class="media service-box wow fadeInRight animated" style="visibility: visible; animation-name: fadeInRight;">
