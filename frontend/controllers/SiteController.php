@@ -81,7 +81,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $karyawan = Karyawan::findOne(['user_id' => Yii::$app->user->id]);
-        $cutis = Cuti::find()->orderBy(['tanggal_cuti' => SORT_DESC])->limit(3)->all();
+        $cutis = Cuti::find()->where(['karyawan_id' => $karyawan->id])
+            ->orderBy(['tanggal_cuti' => SORT_DESC])->limit(3)->all();
 
         if (Yii::$app->user->id) {
             return $this->render('index', [
