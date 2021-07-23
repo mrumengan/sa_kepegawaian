@@ -80,20 +80,26 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $karyawan = Karyawan::findOne(['user_id' => Yii::$app->user->id]);
-        $cutis = Cuti::find()->where(['karyawan_id' => $karyawan->id])
-            ->orderBy(['tanggal_cuti' => SORT_DESC])->limit(3)->all();
-
         if (Yii::$app->user->id) {
+            $karyawan = Karyawan::findOne(['user_id' => Yii::$app->user->id]);
+            $cutis = [];
+            if ($karyawan) {
+                $cutis = Cuti::find()->where(['karyawan_id' => $karyawan->id])
+                    ->orderBy(['tanggal_cuti' => SORT_DESC])->limit(3)->all();
+            } else {
+                if (Yii::$app->user->can('Admin')) {
+                    $cutis = Cuti::find()->where(['status' => 5])
+                        ->orderBy(['tanggal_cuti' => SORT_DESC])->limit(3)->all();
+                }
+            }
+
             return $this->render('index', [
                 'karyawan' => $karyawan,
                 'cutis' => $cutis
             ]);
         } else {
             $this->layout = 'main_public';
-            return $this->render('index_public', [
-                'karyawan' => $karyawan
-            ]);
+            return $this->render('index_public', []);
         }
     }
 
