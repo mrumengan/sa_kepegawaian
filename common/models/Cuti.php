@@ -13,6 +13,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int $tipe_id
  * @property int $karyawan_id
  * @property string $tanggal_cuti
+ * @property string $description
  * @property int $jumlah
  * @property int $status
  * @property string $signed_pdf
@@ -67,7 +68,7 @@ class Cuti extends \yii\db\ActiveRecord
         return [
             [['tipe_id', 'karyawan_id', 'tanggal_cuti', 'jumlah'], 'required'],
             [['tipe_id', 'karyawan_id', 'jumlah', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['tanggal_cuti', 'signed_pdf'], 'safe'],
+            [['tanggal_cuti', 'signed_pdf', 'description'], 'safe'],
             [['karyawan_id'], 'exist', 'skipOnError' => true, 'targetClass' => Karyawan::className(), 'targetAttribute' => ['karyawan_id' => 'id']],
             [['pdf_file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
         ];
@@ -80,9 +81,10 @@ class Cuti extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'No. Surat',
-            'tipe_id' => 'ID Tipe',
+            'tipe_id' => 'Jenis Cuti',
             'karyawan_id' => 'ID Karyawan',
             'tanggal_cuti' => 'Tanggal Cuti',
+            'description' => 'Keterangan',
             'signed_pdf' => 'PDF',
             'jumlah' => 'Jumlah Hari',
         ];

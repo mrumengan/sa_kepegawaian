@@ -53,11 +53,12 @@ $this->registerJsFile(
                     'tanggal_cuti:date',
                     'jumlah',
                     [
-                        'label' => 'Tipe Cuti',
+                        'label' => 'Jenis Cuti',
                         'value' => function ($model) {
-                            return $model->cutiTipe->description;
+                            return $model->cutiTipe->name;
                         }
                     ],
+                    'description',
                     [
                         'attribute' => 'status',
                         'value' => function ($model) {

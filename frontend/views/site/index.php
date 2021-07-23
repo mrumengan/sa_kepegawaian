@@ -53,8 +53,9 @@ $this->title = 'SA PEG';
                                 <div>
                                     <h3>Cuti</h3>
                                     <dl>
-                                        <?php foreach ($karyawan->cutis as $cuti) : ?>
-                                            <dd>- Tgl. Cuti: <?= Html::a($cuti->tanggal_cuti, ['/cutis/view', 'id' => $cuti->id], []) ?> <sup><span class="badge <?= $cuti->badges[$cuti->status] ?>"><?= $cuti->statuses[$cuti->status] ?></span></sup>
+                                        <?php foreach ($cutis as $cuti) : ?>
+                                            <dd>- Tgl. Cuti: <?= Html::a($cuti->tanggal_cuti, ['/cutis/view', 'id' => $cuti->id], []) ?>
+                                                <sup><span class="badge <?= $cuti->badges[$cuti->status] ?>"><?= $cuti->statuses[$cuti->status] ?></span></sup>
                                             </dd>
                                         <?php endforeach ?>
                                     </dl>

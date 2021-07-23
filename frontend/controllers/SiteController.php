@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Karyawan;
+use common\models\Cuti;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -80,10 +81,12 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $karyawan = Karyawan::findOne(['user_id' => Yii::$app->user->id]);
+        $cutis = Cuti::find()->orderBy(['tanggal_cuti' => SORT_DESC])->limit(3)->all();
 
         if (Yii::$app->user->id) {
             return $this->render('index', [
-                'karyawan' => $karyawan
+                'karyawan' => $karyawan,
+                'cutis' => $cutis
             ]);
         } else {
             $this->layout = 'main_public';

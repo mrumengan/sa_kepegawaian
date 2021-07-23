@@ -1,5 +1,6 @@
 <?php
 
+use common\models\CutiTipe;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -14,10 +15,10 @@ $this->registerJsFile(
 );
 
 if ($model->isNewRecord) {
-    $action = 'cutis/create';
+    $action = '/cutis/create';
     $default_date = date('d/m/Y', mktime(0, 0, 0, date('m'), date('d') + 7, date('Y')));
 } else {
-    $action = ['cutis/update', 'id' => $model->id];
+    $action = ['/cutis/update', 'id' => $model->id];
     $default_date = date('d/m/Y', strtotime($model->tanggal_cuti));
 }
 
@@ -26,8 +27,9 @@ defaultDate = "' . $default_date . '";
 minDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+7);
 $("#cuti-tanggal_cuti").datepicker({
     uiLibrary: "bootstrap4",
-    minDate: minDate,
-    value: defaultDate
+    // minDate: minDate,
+    value: defaultDate,
+    format: "dd/mm/yyyy",
 });
 ');
 
@@ -56,6 +58,15 @@ $("#cuti-tanggal_cuti").datepicker({
     } ?>
 
     <?= $form->field($model, 'tanggal_cuti')->textInput() ?>
+
+    <?= $form->field($model, 'tipe_id')->dropDownList(
+        ArrayHelper::map(
+            CutiTipe::find()->orderBy('name')->all(),
+            'id',
+            'name'
+        ),
+    ) ?>
+    <?= $form->field($model, 'description')->textarea() ?>
 
     <?= $form->field($model, 'jumlah')->textInput(['placeholder' => 'dalam hari']) ?>
 
