@@ -28,7 +28,7 @@ $this->registerJsFile(
                 <?php if (!Yii::$app->user->can('Admin') && $model->status == 1) { ?>
                     <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                 <?php }  ?>
-                <?php if (Yii::$app->user->can('Admin')) { ?>
+                <?php if (Yii::$app->user->can('Admins')) { ?>
                     <?= Html::a('Delete', ['delete', 'id' => $model->id], [
                         'class' => 'btn btn-danger',
                         'data' => [
@@ -36,6 +36,9 @@ $this->registerJsFile(
                             'method' => 'post',
                         ],
                     ]) ?>
+                <?php } ?>
+                <?php if ($model->status > 5) { ?>
+                    <?= Html::a('<i class="far fa-file-pdf"></i> Lihat PDF', ['/cutis/pdf', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
                 <?php } ?>
             </p>
 

@@ -159,6 +159,20 @@ class CutisController extends Controller
     }
 
     /**
+     * View signed PDF file.
+     * If upload is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionPdf($id)
+    {
+        $model = $this->findModel($id);
+        $complete_path = Yii::getAlias('@frontend/web/media/pdf/' . $model->signed_pdf);
+        // echo $complete_path . $model->signed_pdf;
+
+        return Yii::$app->response->sendFile($complete_path, $model->signed_pdf, ['inline' => false]);
+    }
+
+    /**
      * Creates a new Cuti model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
