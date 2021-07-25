@@ -56,7 +56,7 @@ if ($this->title != Yii::$app->name) {
             ['label' => 'Profil', 'url' => ['/karyawans/profile', 'id' => Yii::$app->user->id], 'visible' => !Yii::$app->user->isGuest],
         ];
         if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Mendaftar', 'url' => ['/site/signup']];
+            // $menuItems[] = ['label' => 'Mendaftar', 'url' => ['/site/signup']];
             $menuItems[] = ['label' => 'Masuk', 'url' => ['/site/login']];
         } else {
             $menuItems[] = '<li>'

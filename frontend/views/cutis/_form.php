@@ -15,10 +15,10 @@ $this->registerJsFile(
 );
 
 if ($model->isNewRecord) {
-    $action = '/cutis/create';
+    // $action = '/cutis/create';
     $default_date = date('d/m/Y', mktime(0, 0, 0, date('m'), date('d') + 7, date('Y')));
 } else {
-    $action = ['/cutis/update', 'id' => $model->id];
+    // $action = ['/cutis/update', 'id' => $model->id];
     $default_date = date('d/m/Y', strtotime($model->tanggal_cuti));
 }
 
@@ -39,7 +39,7 @@ $("#cuti-tanggal_cuti").datepicker({
 ?>
 <div class="cuti-form">
 
-    <?php $form = ActiveForm::begin(['action' => $action]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
 
     <?php if (isset($karyawan)) {

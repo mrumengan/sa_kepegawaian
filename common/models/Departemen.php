@@ -47,7 +47,7 @@ class Departemen extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
+            'nama' => 'Bagian',
             'keterangan' => 'Keterangan',
             'created_at' => 'Created At',
             'created_by' => 'Created By',

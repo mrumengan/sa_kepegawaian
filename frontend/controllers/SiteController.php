@@ -85,7 +85,7 @@ class SiteController extends Controller
             $cutis = [];
             if ($karyawan) {
                 $cutis = Cuti::find()->where(['karyawan_id' => $karyawan->id])
-                    ->orderBy(['tanggal_cuti' => SORT_DESC, 'status' => SORT_ASC])->limit(3)->all();
+                    ->orderBy(['status' => SORT_ASC, 'tanggal_cuti' => SORT_DESC])->limit(3)->all();
             } else {
                 if (Yii::$app->user->can('Admin')) {
                     $cutis = Cuti::find()->where(['status' => 5])
