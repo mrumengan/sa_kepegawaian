@@ -37,7 +37,7 @@ $this->registerJsFile(
                         ],
                     ]) ?>
                 <?php } ?>
-                <?php if ($model->status > 5) { ?>
+                <?php if ($model->status != 5) { ?>
                     <?= Html::a('<i class="far fa-file-pdf"></i> Lihat PDF', ['/cutis/pdf', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
                 <?php } ?>
             </p>
