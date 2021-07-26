@@ -12,6 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="cuti-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <div class="col-1">&nbsp;</div>
+    </div>
 
     <p class="float-right">
         <?= Html::a('Buat Cuti', ['create'], ['class' => 'btn btn-success']) ?>

@@ -1,0 +1,22 @@
+.table-bordered {
+  margin-bottom: 0;
+}
+
+.table-bordered th {
+  height: 5px;
+  border: none;
+  display: none;
+}
+
+.table-bordered td {
+  border-left: 1px solid #ddd !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.table-bordered td.blank {
+  border: none;
+}
+
+.no-border td {
+  border: none;
+}

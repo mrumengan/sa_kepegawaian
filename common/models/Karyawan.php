@@ -141,12 +141,17 @@ class Karyawan extends \yii\db\ActiveRecord
      */
     public function getMasaKerja()
     {
-        $date_start = date_create($this->tmt_pns);
+        $date_start = date_create($this->tmt_cpns);
+
         $date_now = date_create(date('d-m-Y', time()));
 
         $interval = date_diff($date_start, $date_now);
 
-        return $interval->format('%y');
+        if ($interval->format('%y') == (int) 0) {
+            return $interval->format('%m') . ' bulan';
+        } else {
+            return $interval->format('%y') . ' tahun';
+        }
     }
 
     public function beforeSave($insert)
