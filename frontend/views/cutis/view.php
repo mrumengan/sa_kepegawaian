@@ -62,6 +62,8 @@ $this->registerJsFile(
                         }
                     ],
                     'description',
+                    'alamat_cuti',
+                    'telepon_cuti',
                     [
                         'attribute' => 'status',
                         'value' => function ($model) {

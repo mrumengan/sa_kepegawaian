@@ -15,6 +15,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string $tanggal_cuti
  * @property string $description
  * @property int $jumlah
+ * @property string $alamat_cuti
+ * @property string $telepon_cuti
  * @property int $status
  * @property string $signed_pdf
  * @property int $created_at
@@ -68,7 +70,7 @@ class Cuti extends \yii\db\ActiveRecord
         return [
             [['tipe_id', 'karyawan_id', 'tanggal_cuti', 'jumlah'], 'required'],
             [['tipe_id', 'karyawan_id', 'jumlah', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['tanggal_cuti', 'signed_pdf', 'description'], 'safe'],
+            [['tanggal_cuti', 'signed_pdf', 'description', 'alamat_cuti', 'telepon_cuti'], 'safe'],
             [['karyawan_id'], 'exist', 'skipOnError' => true, 'targetClass' => Karyawan::className(), 'targetAttribute' => ['karyawan_id' => 'id']],
             [['pdf_file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
         ];
@@ -87,6 +89,8 @@ class Cuti extends \yii\db\ActiveRecord
             'description' => 'Keterangan',
             'signed_pdf' => 'PDF',
             'jumlah' => 'Jumlah Hari',
+            'alamat_cuti' => 'Alamat Cuti',
+            'telepon_cuti' => 'Telepon Selama Cuti'
         ];
     }
 

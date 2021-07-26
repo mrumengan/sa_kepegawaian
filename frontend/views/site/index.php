@@ -61,6 +61,18 @@ $this->title = 'SA PEG';
                                     </dl>
                                 </div>
                             <?php endif; ?>
+                            <?php if (Yii::$app->user->can('Admin')) : ?>
+                                <div>
+                                    <h3>Pengajuan Cuti</h3>
+                                    <dl>
+                                        <?php foreach ($cuti_karyawans as $cuti) : ?>
+                                            <dd><?= Html::a($cuti->karyawan->nama, ['/cutis/view', 'id' => $cuti->id], []) ?>
+                                                <sup><span class="badge <?= $cuti->badges[$cuti->status] ?>"><?= $cuti->statuses[$cuti->status] ?></span></sup>
+                                            </dd>
+                                        <?php endforeach ?>
+                                    </dl>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="col">
                             <h3>Perubahan</h3>

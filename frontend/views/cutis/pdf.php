@@ -260,14 +260,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <td colspan="12">VI. ALAMAT SELAMA MENJALANKAN CUTI</td>
         </tr>
         <tr>
-            <td rowspan="2" colspan="7">&nbsp;</td>
+            <td rowspan="2" colspan="7" valign="top"><?= $model->alamat_cuti ?></td>
             <td>Telepon</td>
-            <td colspan="4">&nbsp;</td>
+            <td colspan="4" valign="top"><?= $model->telepon_cuti ?></td>
         </tr>
         <tr>
             <td colspan="5">
-                <p>Hormat Saya,</p><br /><br /><br />
-
+                <p>Hormat Saya,</p><br /><br />
                 <div style="padding-top: 50px;">NIP: <?= $model->karyawan->nip ?></div>
             </td>
         </tr>

@@ -70,6 +70,10 @@ $("#cuti-tanggal_cuti").datepicker({
 
     <?= $form->field($model, 'jumlah')->textInput(['placeholder' => 'dalam hari']) ?>
 
+    <?= $form->field($model, 'alamat_cuti')->textarea() ?>
+
+    <?= $form->field($model, 'telepon_cuti')->textInput(['placeholder' => 'lengkap dengan kode negara / wilayah']) ?>
+
     <?php
     if (Yii::$app->user->can('Admin')) {
         echo $form->field($model, 'status')->dropDownList(

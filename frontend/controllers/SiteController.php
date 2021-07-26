@@ -88,14 +88,15 @@ class SiteController extends Controller
                     ->orderBy(['status' => SORT_ASC, 'tanggal_cuti' => SORT_DESC])->limit(3)->all();
             } else {
                 if (Yii::$app->user->can('Admin')) {
-                    $cutis = Cuti::find()->where(['status' => 5])
+                    $cuti_karyawans = Cuti::find()->where(['status' => 5])
                         ->orderBy(['tanggal_cuti' => SORT_DESC])->limit(3)->all();
                 }
             }
 
             return $this->render('index', [
                 'karyawan' => $karyawan,
-                'cutis' => $cutis
+                'cutis' => $cutis,
+                'cuti_karyawans' => $cuti_karyawans
             ]);
         } else {
             $this->layout = 'main_public';
