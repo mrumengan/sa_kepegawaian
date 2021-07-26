@@ -135,6 +135,17 @@ class Karyawan extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[KGB]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getKgbs()
+    {
+        return $this->hasMany(Kgb::className(), ['karyawan_id' => 'id']);
+    }
+
+
+    /**
      * Gets masa kerja.
      *
      * @return \yii\db\ActiveQuery

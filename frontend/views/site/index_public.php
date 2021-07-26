@@ -25,7 +25,7 @@ $this->title = 'Beranda';
                                 <h1>SIKRAMAT</h1>
                                 <h3>(Sistim Informasi Kepegawaian Ramah dan Cepat)</h3>
                                 <div>Badan Penelitian dan Pengembangan</div>
-                                <div>Kementrian Dalam Negeri</div>
+                                <div>Kementerian Dalam Negeri</div>
                             </div>
                             <div class="col-2 text-right">
                                 <img src="<?= Url::to('@web/media/images/640px-Logo_of_the_Ministry_of_Home_Affairs_of_the_Republic_of_Indonesia.png') ?>" height="200" />
