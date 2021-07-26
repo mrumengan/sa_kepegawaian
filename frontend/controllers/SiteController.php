@@ -83,6 +83,7 @@ class SiteController extends Controller
         if (Yii::$app->user->id) {
             $karyawan = Karyawan::findOne(['user_id' => Yii::$app->user->id]);
             $cutis = [];
+            $cuti_karyawans = [];
             if ($karyawan) {
                 $cutis = Cuti::find()->where(['karyawan_id' => $karyawan->id])
                     ->orderBy(['status' => SORT_ASC, 'tanggal_cuti' => SORT_DESC])->limit(3)->all();

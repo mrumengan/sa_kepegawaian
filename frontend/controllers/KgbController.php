@@ -136,6 +136,6 @@ class KgbController extends \yii\web\Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new yii\web\NotFoundHttpException('The requested page does not exist.');
     }
 }
