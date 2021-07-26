@@ -37,7 +37,7 @@ if ($this->title != Yii::$app->name) {
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => '<span style="font-size: 1.2em;"><strong>' . Yii::$app->name . '</strong></span><br /><span style="font-size: 1.5vw;">Sistim Informasi Kepegawaian Ramah dan Cepat</span>',
+            'brandLabel' => '<span style="font-size: 1.2em;"><strong>&nbsp;</strong></span>',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar navbar-expand-lg navbar-light bg-light',
