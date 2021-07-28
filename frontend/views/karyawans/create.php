@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Karyawan */
 
-$this->title = 'Create Karyawan';
-$this->params['breadcrumbs'][] = ['label' => 'Karyawans', 'url' => ['index']];
+$this->title = 'Buat Karyawan';
+$this->params['breadcrumbs'][] = ['label' => 'Karyawan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="karyawan-create">

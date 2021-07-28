@@ -32,13 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'tmt_pns',
                     'tmt_cpns',
                     [
-                        'class' => 'yii\grid\ActionColumn', 'template' => '{view}{create}',
+                        'class' => 'yii\grid\ActionColumn', 'template' => '{view} {create}',
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
-                                return Html::a(' <i class="fas fa-eye"></i> ', ['karyawan', 'id' => $model->id], []);
+                                return Html::a('<i class="fas fa-eye"></i>', ['karyawan', 'id' => $model->id], ['title' => 'lihat detil']);
                             },
                             'create' => function ($url, $model, $key) {
-                                return Html::a(' <i class="fas fa-plus-circle"></i> ', ['create', 'id' => $model->id], []);
+                                return Html::a('<i class="fas fa-plus-circle"></i>', ['create', 'id' => $model->id], ['title' => 'tambah kenaikan']);
                             }
                         ]
                     ],
