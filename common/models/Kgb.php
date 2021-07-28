@@ -128,6 +128,50 @@ class Kgb extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
+    public function getTanggalKenaikan()
+    {
+        $month = array(
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+
+        $dates = explode('-', $this->tanggal_kenaikan);
+
+        return $dates[2] . ' ' . $month[(int) $dates[1]] . ' ' . $dates[0];
+    }
+
+    public function getTanggalBuat()
+    {
+        $month = array(
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+
+        $dates = explode('-', date('Y-m-d'));
+
+        return $dates[2] . ' ' . $month[(int) $dates[1]] . ' ' . $dates[0];
+    }
+
     public function beforeSave($insert)
     {
         if (!parent::beforeSave($insert)) {

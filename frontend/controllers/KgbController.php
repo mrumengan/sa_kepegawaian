@@ -5,8 +5,12 @@ namespace frontend\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
+use yii\web\UploadedFile;
+
 use common\models\Karyawan;
 use common\models\Kgb;
+
+use kartik\mpdf\Pdf;
 
 class KgbController extends \yii\web\Controller
 {
@@ -22,6 +26,11 @@ class KgbController extends \yii\web\Controller
                     [
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['download', 'upload'],
+                        'allow' => true,
+                        'roles' => ['Admin'],
                     ],
                 ],
             ],
@@ -46,6 +55,100 @@ class KgbController extends \yii\web\Controller
         return $this->render('karyawan', [
             'model' => $karyawan,
         ]);
+    }
+
+    /**
+     * Download a single Cuti model as PDF.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDownload($id)
+    {
+        $this->layout = 'clean';
+        $model = $this->findModel($id);
+        $content = $this->renderPartial('pdf', [
+            'model' => $model,
+        ]);
+
+        // return $content;
+
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_CORE,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => Pdf::DEST_DOWNLOAD,
+            'filename' => 'Surat_KGB_' . str_pad($model->id, $model->code_width, "0", STR_PAD_LEFT) . '_' . $model->karyawan->nama . '.pdf',
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting
+            // 'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            'cssFile' => '@frontend/web/css/kgb.pdf.css',
+            // any css to be embedded if required
+            'cssInline' => '
+                .kv-heading-1 {
+                    font-size:18px
+                }
+                body {
+                    font-size: 12px;
+                }
+                td {
+                    font-size: 1rem;
+                }
+                ',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'KGB', 'subject' => 'Surat KGB'],
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetHeader' => [''],
+                'SetFooter' => ['{PAGENO}'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
+    }
+
+    /**
+     * Upload signed PDF file.
+     * If upload is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionUpload($id)
+    {
+        if (Yii::$app->request->isPost) {
+            $model = $this->findModel($id);
+            $model->pdf_file = UploadedFile::getInstance($model, 'pdf_file');
+            if ($model->upload()) {
+                $model->pdf_file = null;
+                $model->load(Yii::$app->request->post());
+                if ($model->save()) {
+                    $this->redirect(['/cutis/view', 'id' => $model->id]);
+                }
+            }
+        }
+
+        $this->goBack();
+    }
+
+    /**
+     * View signed PDF file.
+     * If upload is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionPdf($id)
+    {
+        $model = $this->findModel($id);
+        $complete_path = Yii::getAlias('@frontend/web/media/pdf/' . $model->signed_pdf);
+        // echo $complete_path . $model->signed_pdf;
+
+        return Yii::$app->response->sendFile($complete_path, $model->signed_pdf, ['inline' => false]);
     }
 
     /**
@@ -136,6 +239,6 @@ class KgbController extends \yii\web\Controller
             return $model;
         }
 
-        throw new yii\web\NotFoundHttpException('The requested page does not exist.');
+        throw new yii\web\NotFoundHttpException('Data yang diminta tidak ditemukan.');
     }
 }
