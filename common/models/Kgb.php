@@ -15,6 +15,7 @@ use yii\behaviors\BlameableBehavior;
  * @property int|null $jumlah
  * @property string|null $description
  * @property string|null $tanggal_kenaikan
+ * @property string|null $signed_pdf
  * @property int|null $status
  * @property int|null $created_at
  * @property int|null $created_by
@@ -75,6 +76,7 @@ class Kgb extends \yii\db\ActiveRecord
             [['karyawan_id'], 'exist', 'skipOnError' => true, 'targetClass' => Karyawan::className(), 'targetAttribute' => ['karyawan_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
+            [['pdf_file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
         ];
     }
 

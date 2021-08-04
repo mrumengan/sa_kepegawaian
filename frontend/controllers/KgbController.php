@@ -41,10 +41,21 @@ class KgbController extends \yii\web\Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC, 'tmt_pns' => SORT_ASC, 'tmt_cpns' => SORT_ASC]),
+            'query' => Kgb::find()->orderBy(['tanggal_kenaikan' => SORT_DESC]),
         ]);
 
         return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionIndexKaryawan()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC, 'tmt_pns' => SORT_ASC, 'tmt_cpns' => SORT_ASC]),
+        ]);
+
+        return $this->render('index_karyawan', [
             'dataProvider' => $dataProvider,
         ]);
     }

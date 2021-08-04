@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             [
-                'attribute' => 'id',
+                'label' => 'No. Surat',
                 'value' => function ($data) {
                     $width = 4;
                     $padded = str_pad($data->id, $width, "0", STR_PAD_LEFT);

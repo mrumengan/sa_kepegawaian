@@ -133,10 +133,6 @@ class Cuti extends \yii\db\ActiveRecord
 
         $dates = explode('-', $this->tanggal_cuti);
 
-        // variabel pecahkan 0 = tanggal
-        // variabel pecahkan 1 = bulan
-        // variabel pecahkan 2 = tahun
-
         return $dates[2] . ' ' . $month[(int) $dates[1]] . ' ' . $dates[0];
     }
 
