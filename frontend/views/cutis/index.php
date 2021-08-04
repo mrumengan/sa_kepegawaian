@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <p class="float-right">
-        <?= Html::a('Buat Cuti', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Buat Cuti', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
 
