@@ -139,6 +139,134 @@ $this->params['breadcrumbs'][] = $this->title;
                 <td colspan="3">3. Pangkat/Gol Ruang</td>
                 <td colspan="7">: <?= $model->karyawan->golongan ?></td>
             </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="3">4. Kantor / Tempat</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="3">5. Gaji Pokok Lama</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="12" style="text-align: center;">
+                    <br />
+                    (atas dasar SKP. Terakhir tentang gaji/pangkat yang ditetapkan)
+                    <br />&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td colspan="2">a. Oleh Pejabat</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td colspan="2">b. Tanggal</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td colspan="2"> &nbsp; &nbsp; Nomor</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td colspan="3">c. Tanggal berlakunya</td>
+                <td colspan="6">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td colspan="2"> &nbsp; &nbsp; Gaji Tersebut</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td colspan="3">d. Masa kerja golongan</td>
+                <td colspan="6">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td colspan="2"> &nbsp; &nbsp; pada tanggal tsb</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="12" style="text-align: center;">
+                    <br />
+                    Diberikan kenaikan gaji berkala hingga memperoleh:
+                    <br />&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="3">6. Gaji Pokok Baru</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="3">7. Berdasarkan masa kerja</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="3">8. Dalam golongan/ruang</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="3">9. Mulai tanggal</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="3">10. Kenaikan Gaji Berkala</td>
+                <td colspan="7">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="3">&nbsp; &nbsp; &nbsp; berikutnya</td>
+                <td colspan="7">: -</td>
+            </tr>
+            <tr>
+                <td colspan="12">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td colspan="10">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Diharapkan agar sesuai dengan Peraturan Pemerintah Nomor 15 Tahun 2019 kepada pegawai tersebut dapat dibayarkan penghasilannya berdasarkan gaji pokok yang baru.</td>
+            </tr>
+            <tr>
+                <td colspan="5">&nbsp;</td>
+                <td colspan="7">a.n. Menteri Dalam Negeri<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp;Kepala Badan Penelitian dan Pengembangan<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp;u.b<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp;Sekretaris Badan,
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">&nbsp;</td>
+                <td colspan="7"><br /><br /><br /><br /><br /><br /><br /><br />
+                    &nbsp; &nbsp; &nbsp; &nbsp;Dr. Kurniasih, SH., M.Si<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp;Pembina Utama Madya (IV/d)<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp;NIP. 19631109 198903 2 001
+                </td>
+            </tr>
+            <tr>
+                <td colspan="12">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="12">Tembusan surat ini dikirim kepada:
+                    <ol>
+                        <li>Ketua Badan Pemeriksa Keuangan di Jakarta;</li>
+                        <li>Kepala Badan Kepegawaian Negara di Jakarta;</li>
+                        <li>Kepala BKN Up. Deputi TU Kepegawaian di Jakarta;</li>
+                        <li>Kepala Biro Kepegawaian Kementerian Dalam Negeri di Jakarta;</li>
+                        <li>Kepala Badan Penelitian dan Pengembangan Kemendagri;</li>
+                        <li>Bendaharawan Badan Litbang Kemendagri;</li>
+                        <li>Pegawai yang bersangkutan.</li>
+                    </ol>
+                </td>
+            </tr>
         </tbody>
     </table>
 </page>

@@ -89,11 +89,11 @@ class KgbController extends \yii\web\Controller
             // set to use core fonts only
             'mode' => Pdf::MODE_CORE,
             // A4 paper format
-            'format' => Pdf::FORMAT_A4,
+            'format' => Pdf::FORMAT_LEGAL,
             // portrait orientation
             'orientation' => Pdf::ORIENT_PORTRAIT,
             // stream to browser inline
-            'destination' => Pdf::DEST_DOWNLOAD,
+            'destination' => Pdf::DEST_BROWSER,
             'filename' => 'Surat_KGB_' . str_pad($model->id, $model->code_width, "0", STR_PAD_LEFT) . '_' . $model->karyawan->nama . '.pdf',
             // your html content input
             'content' => $content,
