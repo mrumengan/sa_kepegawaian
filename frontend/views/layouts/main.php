@@ -47,13 +47,16 @@ if ($this->title != Yii::$app->name) {
         $menuItems = [
             ['label' => 'Beranda', 'url' => ['/site/index']],
 
-            ['label' => 'Karyawan', 'url' => ['/karyawans'], 'visible' => Yii::$app->user->can('Admin')],
+            ['label' => 'Data Pegawai', 'url' => ['/karyawans'], 'visible' => Yii::$app->user->can('Admin'), 'items' => [
+                ['label' => 'ASN', 'url' => ['/karyawans/asn']],
+                ['label' => 'Non ASN', 'url' => ['/karyawans/non-asn']],
+            ]],
             ['label' => 'Cuti', 'url' => ['/cutis'], 'visible' => Yii::$app->user->can('Admin')],
             ['label' => 'KGB', 'url' => ['/kgb'], 'visible' => Yii::$app->user->can('Admin')],
-            ['label' => 'Golongan', 'url' => ['/golongan'], 'visible' => Yii::$app->user->can('Admin')],
+            // ['label' => 'Penghasilan', 'url' => ['/golongan'], 'visible' => Yii::$app->user->can('Admin')],
 
             ['label' => 'Cuti', 'url' => ['/cutis/request'], 'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->can('Admin')],
-            ['label' => 'Profil', 'url' => ['/karyawans/profile', 'id' => Yii::$app->user->id], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Profil', 'url' => ['/karyawans/profile', 'id' => Yii::$app->user->id], 'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->can('Admin')],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

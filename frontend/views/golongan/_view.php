@@ -4,7 +4,7 @@ use yii\helpers\Html;
 ?>
 <div class="card">
     <div class="card-header">
-        Golongan: <?= Html::a($model->nama_golongan, ['golongan/view', 'id' => $model->id]) ?>
+        Penghasilan: <?= Html::a($model->nama_golongan, ['golongan/view', 'id' => $model->id]) ?>
     </div>
     <div class="card-body">
         <ul class="list-group list-group-flush">

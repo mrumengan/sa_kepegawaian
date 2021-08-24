@@ -6,7 +6,7 @@ use yii\widgets\ListView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Golongan';
+$this->title = 'Penghasilan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="golongan-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col">
             <p class="float-right">
-                <?= Html::a('Buat Golongan', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Buat Penghasilan', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
         </div>
     </div>

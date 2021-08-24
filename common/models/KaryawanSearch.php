@@ -68,6 +68,7 @@ class KaryawanSearch extends Karyawan
             'tmt_pns' => $this->tmt_pns,
             'tmt_gaji' => $this->tmt_gaji,
             'peringkat' => $this->peringkat,
+            'status_asn' => $this->status_asn,
         ]);
 
         $query->andFilterWhere(['like', 'nip', $this->nip])

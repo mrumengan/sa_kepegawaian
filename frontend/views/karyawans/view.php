@@ -17,9 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="row">
-        <div class="col">
-
-        </div>
         <div class="col text-right">
             <p>
                 <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -35,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <div class="row">
-        <div class="col-9">
+        <div class="col-md-9 order-md-1 order-2">
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
@@ -49,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     ],
                     [
-                        'label' => 'Bagian',
+                        'label' => 'Unit Kerja',
                         'value' => function ($model) {
                             if ($model->departemen)
                                 return $model->departemen->nama;
@@ -57,11 +54,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return null;
                         }
                     ],
-                    'nip',
                     'nama',
+                    'nip',
+                    'golongan',
                     'tempat_lahir',
                     'tanggal_lahir:date',
-                    'golongan',
                     'tmt_pangkat:date',
                     'jabatan',
                     'tmt_jabatan:date',
@@ -81,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         </div>
-        <div class="col-3">
+        <div class="col-md-3 order-md-2 order-1">
             <?php if ($model->foto) { ?>
                 <img src="<?= Url::to('@web/media/photo/' . $model->foto) ?>" class="img-fluid rounded img-thumbnail" />
             <?php } else { ?>

@@ -13,9 +13,8 @@ use common\models\Departemen;
 ?>
 
 <div class="karyawan-search">
-
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => [Yii::$app->controller->action->id],
         'method' => 'get',
     ]); ?>
 
@@ -98,7 +97,7 @@ use common\models\Departemen;
     <?php // echo $form->field($model, 'peringkat') 
     ?>
 
-    <div class="form-group">
+    <div class="form-group text-right">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
     </div>

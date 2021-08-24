@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 use common\models\LoginForm;
+use common\models\Post;
 use common\models\User;
 
 use frontend\models\PasswordResetRequestForm;
@@ -81,6 +82,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->id) {
+            $news = Post::find()
+                ->where(['status' => 10, 'type_id' => 10])
+                ->all();
             $karyawan = Karyawan::findOne(['user_id' => Yii::$app->user->id]);
             $cutis = [];
             $cuti_karyawans = [];
@@ -95,6 +99,7 @@ class SiteController extends Controller
             }
 
             return $this->render('index', [
+                'news' => $news,
                 'karyawan' => $karyawan,
                 'cutis' => $cutis,
                 'cuti_karyawans' => $cuti_karyawans

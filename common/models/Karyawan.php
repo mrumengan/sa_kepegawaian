@@ -32,6 +32,7 @@ use Yii;
  * @property string|null $nip_lama
  * @property int|null $peringkat
  * @property string|null $foto
+ * @property int|0 $status_asn
  *
  * @property User $user
  * @property Departemen $departemen
@@ -52,7 +53,7 @@ class Karyawan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'departemen_id', 'peringkat'], 'integer'],
+            [['user_id', 'departemen_id', 'peringkat', 'status_asn'], 'integer'],
             [['tanggal_lahir', 'tmt_pangkat', 'tmt_jabatan', 'tmt_cpns', 'tmt_pns', 'tmt_gaji', 'foto'], 'safe'],
             [['nip', 'nip_lama'], 'string', 'max' => 21],
             [['nama', 'pendidikan_umum'], 'string', 'max' => 43],
@@ -84,23 +85,24 @@ class Karyawan extends \yii\db\ActiveRecord
             'tempat_lahir' => 'Tempat Lahir',
             'tanggal_lahir' => 'Tanggal Lahir',
             'golongan' => 'Golongan',
-            'tmt_pangkat' => 'Tmt Pangkat',
+            'tmt_pangkat' => 'TMT Pangkat',
             'jabatan' => 'Jabatan',
             'tmt_jabatan' => 'Tmt Jabatan',
             'eselon' => 'Eselon',
             'pangkat_cpns' => 'Pangkat Cpns',
-            'tmt_cpns' => 'Tmt Cpns',
-            'tmt_pns' => 'Tmt Pns',
+            'tmt_cpns' => 'TMT CPNS',
+            'tmt_pns' => 'TMT PNS',
             'gaji_pokok' => 'Gaji Pokok',
-            'tmt_gaji' => 'Tmt Gaji',
+            'tmt_gaji' => 'TMT KGB',
             'pendidikan' => 'Pendidikan',
             'pendidikan_umum' => 'Pendidikan Umum',
             'diklat_struktural' => 'Diklat Struktural',
             'diklat_fungsional' => 'Diklat Fungsional',
             'jenis_kelamin' => 'Jenis Kelamin',
-            'nip_lama' => 'Nip Lama',
+            'nip_lama' => 'NIP Lama',
             'peringkat' => 'Peringkat',
             'foto' => 'Foto',
+            'status_asn' => 'Status ASN',
         ];
     }
 

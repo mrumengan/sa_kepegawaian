@@ -3,18 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
+use common\models\Post;
+use common\models\PostSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-
-use common\models\Karyawan;
-use common\models\KaryawanSearch;
 
 /**
- * KaryawansController implements the CRUD actions for Karyawan model.
+ * PostsController implements the CRUD actions for Post model.
  */
-class KaryawansController extends Controller
+class PostsController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -22,15 +20,6 @@ class KaryawansController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -41,12 +30,12 @@ class KaryawansController extends Controller
     }
 
     /**
-     * Lists all Karyawan models.
+     * Lists all Post models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new KaryawanSearch();
+        $searchModel = new PostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -56,64 +45,7 @@ class KaryawansController extends Controller
     }
 
     /**
-     * Lists all Karyawan ASN models.
-     * @return mixed
-     */
-    public function actionAsn()
-    {
-        return $this->listKaryawans(10);
-    }
-
-    /**
-     * Lists all Karyawan ASN models.
-     * @return mixed
-     */
-    public function actionNonAsn()
-    {
-        return $this->listKaryawans(0);
-    }
-
-    /**
-     * Lists all Karyawan models.
-     * @return mixed
-     */
-    public function listKaryawans($status_asn = 0)
-    {
-        $searchModel = new KaryawanSearch();
-        $searchModel->status_asn = $status_asn;
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        if ($status_asn = 10) $status = 'ASN';
-        else $status = 'Non ASN';
-
-        return $this->render('index', [
-            'status_asn' => $status,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Karyawan model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionProfile($id)
-    {
-
-        if (($model = Karyawan::find()->where(['user_id' => $id])->one()) !== null) {
-
-            return $this->render('profile', [
-                'model' => $model,
-            ]);
-        }
-
-        throw new NotFoundHttpException('Profil yang dimaksud tidak ada.');
-    }
-
-    /**
-     * Displays a single Karyawan model.
+     * Displays a single Post model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -126,13 +58,13 @@ class KaryawansController extends Controller
     }
 
     /**
-     * Creates a new Karyawan model.
+     * Creates a new Post model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Karyawan();
+        $model = new Post();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -144,7 +76,7 @@ class KaryawansController extends Controller
     }
 
     /**
-     * Updates an existing Karyawan model.
+     * Updates an existing Post model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -164,7 +96,7 @@ class KaryawansController extends Controller
     }
 
     /**
-     * Deletes an existing Karyawan model.
+     * Deletes an existing Post model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -178,15 +110,15 @@ class KaryawansController extends Controller
     }
 
     /**
-     * Finds the Karyawan model based on its primary key value.
+     * Finds the Post model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Karyawan the loaded model
+     * @return Post the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Karyawan::findOne($id)) !== null) {
+        if (($model = Post::findOne($id)) !== null) {
             return $model;
         }
 

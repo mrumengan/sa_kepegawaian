@@ -12,35 +12,19 @@ $this->title = 'SA PEG';
 
         <?php if (Yii::$app->user->isGuest) : ?>
         <?php else : ?>
-            <div class="row">
+            <div class="row news">
                 <div class="col">
                     <h2 class="border-bottom">Berita</h2>
                     <div class="row">
                         <div class="col">
                             <ul>
-                                <li>
-                                    <h4>Berita Pertama</h4>
-                                    <p>It has survived not only five centuries, but also the leap
-                                        into electronic typesetting, remaining essentially unchanged. It was popularised
-                                        in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                        and more recently with desktop publishing software like Aldus PageMaker including
-                                        versions of Lorem Ipsum.</p>
-                                </li>
-                                <li>
-                                    <h4>Berita Kedua</h4>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        when an unknown printer took a galley of type and scrambled it to make a type
-                                        specimen book.</p>
-                                </li>
-                                <li>
-                                    <h4>Berita Ketiga</h4>
-                                    <p>It has survived not only five centuries, but also the leap
-                                        into electronic typesetting, remaining essentially unchanged. It was popularised
-                                        in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                        and more recently with desktop publishing software like Aldus PageMaker including
-                                        versions of Lorem Ipsum.</p>
-                                </li>
+                                <?php foreach ($news as $item) : ?>
+                                    <li>
+                                        <h4><?= $item->title ?></h4>
+                                        <?= $item->content_preview ?>
+                                        <div class="text-right"><?= Html::a('Selengkapnya >>', ['/post/view', 'id' => $item->id], ['class' => 'btn btn-secondary']) ?></div>
+                                    </li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                     </div>

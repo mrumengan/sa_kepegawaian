@@ -7,7 +7,7 @@ use yii\widgets\ListView;
 /* @var $searchModel common\models\KaryawanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Karyawan';
+$this->title = 'Data Pegawai - ' . $status_asn;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="karyawan-index">
@@ -24,12 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         </div>
         <div class="col-md-3">
-            <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+            <div class="card">
+                <div class="card-header">
+                    Cari Pegawai
+                </div>
+                <div class="card-body">
+                    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-            <p>
-                <?= Html::a('Buat Karyawan Baru', ['create'], ['class' => 'btn btn-success']) ?>
-            </p>
-
+                </div>
+                <div class="card-footer text-center">
+                    <p>
+                        <?= Html::a('Buat Pegawai', ['create'], ['class' => 'btn btn-success']) ?>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
