@@ -340,7 +340,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <td colspan="7" rowspan="5">
                 <table class="no-border">
                     <tr>
-                        <td> <img src=" <?= Url::to('https://kpg.sitebridge.net/media/images/640px-Logo_of_the_Ministry_of_Home_Affairs_of_the_Republic_of_Indonesia.png') ?>" height="150" />
+                        <td valign="top"><img src=" <?= Url::to('https://kpg.sitebridge.net/media/images/640px-Logo_of_the_Ministry_of_Home_Affairs_of_the_Republic_of_Indonesia.png') ?>" height="80" />
                         </td>
                         <td valign="top">
                             Ditanda tangani secara elektronik oleh:<br />

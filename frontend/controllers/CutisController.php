@@ -55,7 +55,7 @@ class CutisController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Cuti::find(),
+            'query' => Cuti::find()->orderBy(['status' => SORT_ASC, 'tanggal_cuti' => SORT_ASC]),
         ]);
 
         return $this->render('index', [

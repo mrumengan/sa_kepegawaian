@@ -87,37 +87,28 @@ $("#karyawan-tmt_gaji").datepicker({
         <div class="col-9">
             <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($model, 'user_id')->dropDownList(
-                ArrayHelper::map(
-                    User::find()->orderBy('username')->where(['>', 'id', 1])->all(),
-                    'id',
-                    'username'
-                ),
-                ['disabled' => !\Yii::$app->user->can('Admin'), 'prompt' => '']
-            ) ?>
-
-            <?= $form->field($model, 'departemen_id')->dropDownList(
-                ArrayHelper::map(
-                    Departemen::find()->orderBy('nama')->all(),
-                    'id',
-                    'nama'
-                ),
-                ['disabled' => !\Yii::$app->user->can('Admin'), 'prompt' => '']
-            ) ?>
+            <!-- <?= $form->field($model, 'departemen_id')->dropDownList(
+                        ArrayHelper::map(
+                            Departemen::find()->orderBy('nama')->all(),
+                            'id',
+                            'nama'
+                        ),
+                        ['disabled' => !\Yii::$app->user->can('Admin'), 'prompt' => '']
+                    ) ?>
+ -->
+            <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'golongan')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'jabatan')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'tanggal_lahir')->textInput() ?>
 
-            <?= $form->field($model, 'golongan')->textInput(['maxlength' => true]) ?>
-
             <?= $form->field($model, 'tmt_pangkat')->textInput() ?>
-
-            <?= $form->field($model, 'jabatan')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'tmt_jabatan')->textInput() ?>
 
@@ -146,6 +137,15 @@ $("#karyawan-tmt_gaji").datepicker({
             <?= $form->field($model, 'nip_lama')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'peringkat')->textInput() ?>
+
+            <?= $form->field($model, 'user_id')->dropDownList(
+                ArrayHelper::map(
+                    User::find()->orderBy('username')->where(['>', 'id', 1])->all(),
+                    'id',
+                    'username'
+                ),
+                ['disabled' => !\Yii::$app->user->can('Admin'), 'prompt' => '']
+            ) ?>
 
             <div class="form-group text-right">
                 <?= Html::submitButton('Simpan', ['class' => 'btn btn-success']) ?>

@@ -36,31 +36,27 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
-                    [
-                        'label' => 'User ID',
-                        'value' => function ($model) {
-                            if ($model->user)
-                                return $model->user->username;
-                            else
-                                return null;
-                        }
-                    ],
-                    [
-                        'label' => 'Unit Kerja',
-                        'value' => function ($model) {
-                            if ($model->departemen)
-                                return $model->departemen->nama;
-                            else
-                                return null;
-                        }
-                    ],
                     'nama',
                     'nip',
-                    'golongan',
+                    [
+                        'attribute' => 'golongan',
+                        'value' => function ($model) {
+                            return strtoupper($model->golongan);
+                        }
+                    ],
+                    'jabatan',
+                    // [
+                    //     'label' => 'Unit Kerja',
+                    //     'value' => function ($model) {
+                    //         if ($model->departemen)
+                    //             return $model->departemen->nama;
+                    //         else
+                    //             return null;
+                    //     }
+                    // ],
                     'tempat_lahir',
                     'tanggal_lahir:date',
                     'tmt_pangkat:date',
-                    'jabatan',
                     'tmt_jabatan:date',
                     'eselon',
                     'pangkat_cpns',
@@ -74,7 +70,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     'diklat_fungsional',
                     'jenis_kelamin',
                     'nip_lama',
-                    'peringkat',
+                    // 'peringkat',
+                    [
+                        'label' => 'Status',
+                        'value' => function ($model) {
+                            return $model->statuses[$model->status_asn];
+                        }
+                    ],
+                    [
+                        'label' => 'User ID',
+                        'value' => function ($model) {
+                            if ($model->user)
+                                return $model->user->username;
+                            else
+                                return null;
+                        }
+                    ],
                 ],
             ]) ?>
         </div>

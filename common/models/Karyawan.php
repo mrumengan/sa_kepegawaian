@@ -39,6 +39,11 @@ use Yii;
  */
 class Karyawan extends \yii\db\ActiveRecord
 {
+    public $statuses = [
+        0 => 'Non ASN',
+        10 => 'ASN'
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -80,14 +85,14 @@ class Karyawan extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'departemen_id' => 'Bagian',
-            'nip' => 'Nip',
+            'nip' => 'NIP',
             'nama' => 'Nama',
             'tempat_lahir' => 'Tempat Lahir',
             'tanggal_lahir' => 'Tanggal Lahir',
             'golongan' => 'Golongan',
             'tmt_pangkat' => 'TMT Pangkat',
             'jabatan' => 'Jabatan',
-            'tmt_jabatan' => 'Tmt Jabatan',
+            'tmt_jabatan' => 'TMT Jabatan',
             'eselon' => 'Eselon',
             'pangkat_cpns' => 'Pangkat Cpns',
             'tmt_cpns' => 'TMT CPNS',
@@ -100,7 +105,7 @@ class Karyawan extends \yii\db\ActiveRecord
             'diklat_fungsional' => 'Diklat Fungsional',
             'jenis_kelamin' => 'Jenis Kelamin',
             'nip_lama' => 'NIP Lama',
-            'peringkat' => 'Peringkat',
+            'peringkat' => 'Kelas Jabatan',
             'foto' => 'Foto',
             'status_asn' => 'Status ASN',
         ];
