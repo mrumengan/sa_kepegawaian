@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="row">
         <div class="col text-right">
-            <?= Html::a('Buat KGB Baru', ['index-karyawan'], ['title' => 'tambah kenaikan', 'class' => 'btn btn-primary']) ?>
+            <!-- <?= Html::a('Buat KGB Baru', ['index-karyawan'], ['title' => 'tambah kenaikan', 'class' => 'btn btn-primary']) ?> -->
         </div>
     </div>
 
@@ -22,17 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
+                'headerRowOptions' => ['style' => 'text-align: center !important;'],
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+                    ['class' => 'yii\grid\SerialColumn', 'header' => 'No.',],
                     [
-                        'label' => 'No. Surat',
-                        'value' => function ($data) {
-                            $padded = str_pad($data->id, $data->code_width, "0", STR_PAD_LEFT) . '/KGB/' . date('my', strtotime($data->tanggal_kenaikan));
-                            return $padded;
-                        }
-                    ],
-                    [
-                        'label' => 'Name',
+                        'label' => 'Nama',
                         'value' => function ($data) {
                             $link = Html::a($data->karyawan->nama, ['/karyawans/view', 'id' => $data->karyawan->id], $options = []);
                             return "<strong>{$link}</strong><div>{$data->karyawan->nip}</div>";
@@ -47,10 +41,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     ],
                     [
-                        'label' => 'Surat Pengangkatan',
+                        'label' => 'Gaji Pokok Lama',
                         'value' => function ($data) {
-                            return $data->signed_pdf;
-                        }
+                            return $data->karyawan->gaji_pokok;
+                        },
+                        'format' => 'currency'
+                    ],
+                    [
+                        'label' => 'Gaji Pokok Baru',
+                        'value' => function ($data) {
+                            return $data->jumlah;
+                        },
+                        'format' => 'currency'
                     ],
                     [
                         'label' => 'Status',
@@ -60,15 +62,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw'
                     ],
                     [
-                        'class' => 'yii\grid\ActionColumn', 'template' => '{view} {create}',
+                        'class' => 'yii\grid\ActionColumn', 'template' => '{view} {deny}',
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
                                 return Html::a('<i class="fas fa-eye"></i>', ['view', 'id' => $model->id], ['title' => 'lihat detil']);
                             },
-                            // 'create' => function ($url, $model, $key) {
-                            //     return Html::a('<i class="fas fa-plus-circle"></i>', ['create', 'id' => $model->id], ['title' => 'tambah kenaikan']);
-                            // }
+                            'deny' => function ($url, $model, $key) {
+                                return Html::a('<i class="far fa-times-circle" style="color: red;"></i>', ['create', 'id' => $model->id], ['title' => 'tolak kenaikan']);
+                            }
                         ]
+                    ],
+                    [
+                        'label' => 'Penetapan',
+                        'value' => function ($data) {
+                            return $data->signed_pdf;
+                        }
                     ],
                 ],
             ]); ?>

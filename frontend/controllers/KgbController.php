@@ -41,7 +41,8 @@ class KgbController extends \yii\web\Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Kgb::find()->orderBy(['tanggal_kenaikan' => SORT_DESC]),
+            'query' => Kgb::find()->orderBy(['tanggal_kenaikan' => SORT_ASC]),
+            'sort' => false,
         ]);
 
         return $this->render('index', [

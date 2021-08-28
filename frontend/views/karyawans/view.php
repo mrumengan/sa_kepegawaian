@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'nama',
                     'nip',
+                    'pangkat',
                     [
                         'attribute' => 'golongan',
                         'value' => function ($model) {

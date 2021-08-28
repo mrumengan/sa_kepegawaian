@@ -51,12 +51,29 @@ if ($this->title != Yii::$app->name) {
                 ['label' => 'ASN', 'url' => ['/karyawans/asn']],
                 ['label' => 'Non ASN', 'url' => ['/karyawans/non-asn']],
             ]],
+            ['label' => 'Presensi Non ASN', 'url' => ['/presensi'], 'visible' => !Yii::$app->user->isGuest, 'items' => [
+                ['label' => 'WFO', 'url' => ['/presensi/wfo']],
+                ['label' => 'WFH', 'url' => ['/presensi/wfh']],
+            ]],
             ['label' => 'Cuti', 'url' => ['/cutis'], 'visible' => Yii::$app->user->can('Admin')],
             ['label' => 'KGB', 'url' => ['/kgb'], 'visible' => Yii::$app->user->can('Admin')],
-            // ['label' => 'Penghasilan', 'url' => ['/golongan'], 'visible' => Yii::$app->user->can('Admin')],
+            ['label' => 'Penghasilan', 'url' => ['/golongan'], 'visible' => Yii::$app->user->can('Admin')],
 
             ['label' => 'Cuti', 'url' => ['/cutis/request'], 'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->can('Admin')],
             ['label' => 'Profil', 'url' => ['/karyawans/profile', 'id' => Yii::$app->user->id], 'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->can('Admin')],
+            ['label' => 'Surat Menyurat', 'visible' => Yii::$app->user->can('Admin'), 'items' => [
+                ['label' => 'Usul Kenaikan Pangkat', 'url' => ['/letters/pangkat']],
+                ['label' => 'Usul Mutasi', 'url' => ['/letters/mutasi']],
+                ['label' => 'Usul TB / IB', 'url' => ['/letters/belajar']],
+                ['label' => 'Usul Satya Lencana', 'url' => ['/letters/satya-lencan']],
+                ['label' => 'Usul Pensiun', 'url' => ['/letters/pensiun']],
+                ['label' => 'Usul Mutasi', 'url' => ['/letters/mutasi']],
+                ['label' => 'Usul Jabfung', 'url' => ['/letters/jabfung']],
+                ['label' => 'Usul BPJS', 'url' => ['/letters/bpjs']],
+                ['label' => 'Usul Pencantuman Gelar', 'url' => ['/letters/gelar']],
+                ['label' => 'Usul Cuti Alasan Penting', 'url' => ['/letters/cuti-penting']],
+                ['label' => 'Usul Karsu / Karis', 'url' => ['/letters/kasuis']],
+            ]],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

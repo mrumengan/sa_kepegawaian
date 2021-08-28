@@ -16,6 +16,7 @@ return [
         'formatter' => [
             // 'thousandSeparator' => '.',
             // 'currencyDecimalSeparator' => ',',
+            'dateFormat' => 'dd MMMM yyyy',
             'currencyCode' => 'IDR',
             'numberFormatterSymbols' => [360 => 'Rp.'],
         ],

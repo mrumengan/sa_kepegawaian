@@ -128,7 +128,7 @@ $("#karyawan-tmt_gaji").datepicker({
 
             <?= $form->field($model, 'pendidikan_umum')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'diklat_struktural')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'diklat_struktural')->textarea([]) ?>
 
             <?= $form->field($model, 'diklat_fungsional')->textInput(['maxlength' => true]) ?>
 

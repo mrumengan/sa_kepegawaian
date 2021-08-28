@@ -33,7 +33,7 @@ class Kgb extends \yii\db\ActiveRecord
      */
     public $pdf_file;
     public $statuses = [
-        5 => 'Diajukan',
+        5 => 'Mulai Proses',
         10 => 'Disetujui',
         0 => 'Ditolak'
     ];
@@ -91,7 +91,7 @@ class Kgb extends \yii\db\ActiveRecord
             'karyawan_id' => 'ID Karyawan',
             'jumlah' => 'Jumlah',
             'description' => 'Description',
-            'tanggal_kenaikan' => 'Tanggal Kenaikan',
+            'tanggal_kenaikan' => 'TMT',
             'status' => 'Status',
             'created_at' => 'Created At',
             'created_by' => 'Created By',

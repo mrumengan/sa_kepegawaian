@@ -86,7 +86,7 @@ class Cuti extends \yii\db\ActiveRecord
             'tipe_id' => 'Jenis Cuti',
             'karyawan_id' => 'ID Karyawan',
             'tanggal_cuti' => 'Tanggal Cuti',
-            'description' => 'Keterangan',
+            'description' => 'Alasan Cuti',
             'signed_pdf' => 'PDF',
             'jumlah' => 'Jumlah Hari',
             'alamat_cuti' => 'Alamat Cuti',
