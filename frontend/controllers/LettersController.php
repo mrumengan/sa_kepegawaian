@@ -82,144 +82,49 @@ class LettersController extends Controller
      */
     public function actionView($id)
     {
-        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
-        $languageEnUs = new \PhpOffice\PhpWord\Style\Language(\PhpOffice\PhpWord\Style\Language::EN_US);
+    /**
+     * Displays a single Letters model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDownload($id)
+    {
+        $letter = Letters::findOne($id);
+        $template_path = Yii::getAlias('@app/templates');
 
-        $phpWord->getSettings()->setThemeFontLang($languageEnUs);
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($template_path . '/surat_usulan_kenaikan_pangkat.docx');
 
-        $h1fontStyle = 'h1Style';
-        $phpWord->addFontStyle($h1fontStyle, ['bold' => true, 'italic' => false, 'size' => 14, 'allCaps' => true]);
+        $templateProcessor->setValues([
+            'nomor_surat' => $letter->ref_nomor_surat,
+            'attachment_int' => 20,
+            'attachment_str' => 'dua puluh'
+        ]);
 
-        $fontStyleName = 'rStyle';
-        $phpWord->addFontStyle($fontStyleName, array('bold' => true, 'italic' => true, 'size' => 16, 'allCaps' => true, 'doubleStrikethrough' => true));
+        $file = 'Usulan_Kenaikan_Pangkat_' . $letter->id . '.docx';
+        // ob_clean();
 
-        $p1StyleName = 'p1Style';
-        $phpWord->addParagraphStyle($p1StyleName, ['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER, 'spaceAfter' => 100, 'lineHeight' => 1]);
+        $docx_path = Yii::getAlias('@app/web/media/doc');
 
-        $paragraphStyleName = 'pStyle';
-        $phpWord->addParagraphStyle($paragraphStyleName, array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER, 'spaceAfter' => 100));
-
-        $phpWord->addTitleStyle(1, array('bold' => true), array('spaceAfter' => 240));
-
-        // New portrait section
-        $section = $phpWord->addSection(['marginTop' => 500]);
-
-        $section->addText('KEMENTERIAN DALAM NEGERI', $h1fontStyle, $p1StyleName);
-        $section->addText('Republik indonesia', $h1fontStyle, $p1StyleName);
-
-
-        // Simple text
-        $section->addTitle('Welcome to PhpWord', 1);
-
-        // $pStyle = new Font();
-        // $pStyle->setLang()
-        $section->addText('Ce texte-ci est en français.', array('lang' => \PhpOffice\PhpWord\Style\Language::FR_BE));
-
-
-
-        // Two text break
-        $section->addTextBreak(2);
-
-        // Define styles
-        $section->addText('I am styled by a font style definition.', $fontStyleName);
-        $section->addText('I am styled by a paragraph style definition.', null, $paragraphStyleName);
-        $section->addText('I am styled by both font and paragraph style.', $fontStyleName, $paragraphStyleName);
-
-        $section->addTextBreak();
-
-        // Inline font style
-
-        $fontStyle['name'] = 'Times New Roman';
-
-        $fontStyle['size'] = 20;
-
-
-
-        $textrun = $section->addTextRun();
-
-        $textrun->addText('I am inline styled ', $fontStyle);
-
-        $textrun->addText('with ');
-
-        $textrun->addText('color', array('color' => '996699'));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('bold', array('bold' => true));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('italic', array('italic' => true));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('underline', array('underline' => 'dash'));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('strikethrough', array('strikethrough' => true));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('doubleStrikethrough', array('doubleStrikethrough' => true));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('superScript', array('superScript' => true));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('subScript', array('subScript' => true));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('smallCaps', array('smallCaps' => true));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('allCaps', array('allCaps' => true));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('fgColor', array('fgColor' => 'yellow'));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('scale', array('scale' => 200));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('spacing', array('spacing' => 120));
-
-        $textrun->addText(', ');
-
-        $textrun->addText('kerning', array('kerning' => 10));
-
-        $textrun->addText('. ');
-
-
-
-        // Link
-
-        $section->addLink('https://github.com/PHPOffice/PHPWord', 'PHPWord on GitHub');
-
-        $section->addTextBreak();
-
-
-        // Save file
-        $file = 'Usulan Kenaikan Pangkat.docx';
+        $templateProcessor->saveAs('media/doc/' . $file);
 
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="' . $file . '"');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
         header('Content-Transfer-Encoding: binary');
+        header('Content-Length: ' . filesize($docx_path . '/' . $file));
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Expires: 0');
 
-        $phpWord = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $phpWord->save('media/doc/' . $file);
-        Yii::$app->response->sendFile('media/doc/' . $file);
+        // $phpWord = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        // $phpWord->save('media/doc/' . $file);
+        Yii::$app->response->sendFile($docx_path . '/' . $file);
+        // $templateProcessor->saveAs('php://output');
     }
     /**
      * Creates a new Letters model.

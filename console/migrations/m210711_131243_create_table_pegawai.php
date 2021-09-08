@@ -12,7 +12,6 @@ class m210711_131243_create_table_pegawai extends Migration
      */
     public function safeUp()
     {
-
     }
 
     /**
@@ -21,8 +20,6 @@ class m210711_131243_create_table_pegawai extends Migration
     public function safeDown()
     {
         echo "m210711_131243_create_table_pegawai cannot be reverted.\n";
-
-        return false;
     }
 
     /*
