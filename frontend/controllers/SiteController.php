@@ -269,4 +269,20 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
+    // public function beforeAction($action)
+    // {
+
+    //     $exception = Yii::$app->getErrorHandler()->exception;
+
+    //     if (parent::beforeAction($action)) {
+    //         $hasError = $action->id == 'error' && $exception !== NULL;
+
+    //         if ($hasError) {
+    //             echo $exception->statusCode;
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 }

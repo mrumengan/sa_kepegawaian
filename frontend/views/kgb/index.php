@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function ($data) {
                             return $data->karyawan->gaji_pokok;
                         },
-                        'format' => 'currency'
+                        // 'format' => 'currency'
                     ],
                     [
                         'label' => 'Gaji Pokok Baru',

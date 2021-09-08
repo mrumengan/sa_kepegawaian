@@ -63,9 +63,7 @@ $this->title = 'SA PEG';
                             <div>
                                 <p>Perubahan</p>
                                 <ol>
-                                    <li>Berita Pertama</li>
-                                    <li>Berita Kedua</li>
-                                    <li>Berita Ketiga</li>
+                                    <li>Perubahan jadwal libur bersama</li>
                                 </ol>
                             </div>
                         </div>

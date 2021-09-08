@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Karyawan */
 
 $this->title = $model->nama;
-$this->params['breadcrumbs'][] = ['label' => 'Karyawan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Karyawan', 'url' => [strtolower($model->statuses[$model->status_asn])]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
