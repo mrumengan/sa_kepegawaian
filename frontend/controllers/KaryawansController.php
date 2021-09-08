@@ -154,8 +154,16 @@ class KaryawansController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                Yii::$app->session->setFlash('danger', 'Gagal update.');
+                echo '<pre>';
+                print_r($model->getAttributes());
+                print_r($model->errors);
+                die();
+            }
         }
 
         return $this->render('update', [

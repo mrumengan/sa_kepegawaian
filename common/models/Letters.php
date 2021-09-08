@@ -30,6 +30,10 @@ use yii\db\Expression;
  */
 class Letters extends \yii\db\ActiveRecord
 {
+    public $titles = [
+        'pangkat' => 'Usulan Kenaikan Pangkat',
+    ];
+
     /**
      * {@inheritdoc}
      */

@@ -178,7 +178,6 @@ class Karyawan extends \yii\db\ActiveRecord
             return false;
         }
 
-
         $this->tanggal_lahir = substr($this->tanggal_lahir, 6) . '-' . substr($this->tanggal_lahir, 3, 2) . '-'
             . substr($this->tanggal_lahir, 0, 2);
         $this->tmt_pangkat = substr($this->tmt_pangkat, 6) . '-' . substr($this->tmt_pangkat, 3, 2) . '-'
@@ -192,6 +191,6 @@ class Karyawan extends \yii\db\ActiveRecord
         $this->tmt_gaji = substr($this->tmt_gaji, 6) . '-' . substr($this->tmt_gaji, 3, 2) . '-'
             . substr($this->tmt_gaji, 0, 2);
 
-        return false;
+        return true;
     }
 }

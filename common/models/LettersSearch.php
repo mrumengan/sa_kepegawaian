@@ -58,6 +58,7 @@ class LettersSearch extends Letters
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'type' => $this->type,
             'id' => $this->id,
             'ref_tanggal' => $this->ref_tanggal,
             'lampiran' => $this->lampiran,

@@ -1,5 +1,6 @@
 <?php
 
+use common\components\SBHelpers;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -56,15 +57,45 @@ $this->params['breadcrumbs'][] = $this->title;
                     //     }
                     // ],
                     'tempat_lahir',
-                    'tanggal_lahir:date',
-                    'tmt_pangkat:date',
-                    'tmt_jabatan:date',
+                    [
+                        'attribute' => 'tanggal_lahir',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tanggal_lahir);
+                        }
+                    ],
+                    [
+                        'attribute' => 'tmt_pangkat',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_pangkat);
+                        }
+                    ],
+                    [
+                        'attribute' => 'tmt_jabatan',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_jabatan);
+                        }
+                    ],
                     'eselon',
                     'pangkat_cpns',
-                    'tmt_cpns:date',
-                    'tmt_pns:date',
+                    [
+                        'attribute' => 'tmt_cpns',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_cpns);
+                        }
+                    ],
+                    [
+                        'attribute' => 'tmt_pns',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_pns);
+                        }
+                    ],
                     'gaji_pokok',
-                    'tmt_gaji:date',
+                    [
+                        'attribute' => 'tmt_gaji',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_gaji);
+                        }
+                    ],
                     'pendidikan',
                     'pendidikan_umum',
                     'diklat_struktural',

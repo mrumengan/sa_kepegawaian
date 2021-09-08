@@ -1,5 +1,6 @@
 <?php
 
+use common\components\SBHelpers;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -32,6 +33,7 @@ use yii\widgets\ActiveForm;
             <h3 class="title">Usulan Surat</h3>
         </div>
         <div class="card-body">
+            <?= $form->field($model, 'type')->hiddenInput()->label(false) ?>
             <!-- <?= $form->field($model, 'nomor_surat')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'sifat')->textInput(['maxlength' => true]) ?> -->
@@ -41,7 +43,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'hal')->textarea(['rows' => 6]) ?>
 
             <div class="form-group">
-                <?= Html::submitButton('Simpan', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('Simpan', ['class' => 'btn btn-sm btn-success']) ?>
             </div>
         </div>
     </div>

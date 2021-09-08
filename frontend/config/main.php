@@ -13,6 +13,8 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'language' => 'id-ID',
+        'sourceLanguage' => 'id-ID',
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

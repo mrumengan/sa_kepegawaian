@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\components\SBHelpers;
 use Yii;
 use common\models\Letters;
 use common\models\LettersSearch;
@@ -69,6 +70,7 @@ class LettersController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'type' => $type,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -96,14 +98,14 @@ class LettersController extends Controller
     public function actionDownload($id)
     {
         $letter = Letters::findOne($id);
-        $template_path = Yii::getAlias('@app/templates');
+        $template_path = Yii::getAlias('@app/web/templates');
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($template_path . '/surat_usulan_kenaikan_pangkat.docx');
 
         $templateProcessor->setValues([
             'nomor_surat' => $letter->ref_nomor_surat,
-            'attachment_int' => 20,
-            'attachment_str' => 'dua puluh'
+            'attachment_int' => $letter->lampiran,
+            'attachment_str' => SBHelpers::terbilang($letter->lampiran)
         ]);
 
         $file = 'Usulan_Kenaikan_Pangkat_' . $letter->id . '.docx';
@@ -133,7 +135,9 @@ class LettersController extends Controller
      */
     public function actionCreate()
     {
+        $type = Yii::$app->request->get('type');
         $model = new Letters();
+        $model->type = $type;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
