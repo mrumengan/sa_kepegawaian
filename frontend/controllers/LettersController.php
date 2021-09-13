@@ -197,4 +197,27 @@ class LettersController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionKaryawans()
+    {
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $data = [];
+        $data[] = ['id' => 1, 'label' => 'Amsterdam'];
+        $data[] = ['id' => 2, 'label' => 'London'];
+        // { "value": 3 , "text": "Paris"       , "continent": "Europe"    },
+        // { "value": 4 , "text": "Washington"  , "continent": "America"   },
+        // { "value": 5 , "text": "Mexico City" , "continent": "America"   },
+        // { "value": 6 , "text": "Buenos Aires", "continent": "America"   },
+        // { "value": 7 , "text": "Sydney"      , "continent": "Australia" },
+        // { "value": 8 , "text": "Wellington"  , "continent": "Australia" },
+        // { "value": 9 , "text": "Canberra"    , "continent": "Australia" },
+        // { "value": 10, "text": "Beijing"     , "continent": "Asia"      },
+        // { "value": 11, "text": "New Delhi"   , "continent": "Asia"      },
+        // { "value": 12, "text": "Kathmandu"   , "continent": "Asia"      },
+        // { "value": 13, "text": "Cairo"       , "continent": "Africa"    },
+        // { "value": 14, "text": "Cape Town"   , "continent": "Africa"    },
+        // { "value": 15, "text": "Kinshasa"    , "continent": "Africa"    }
+        $response->data = $data;
+    }
 }

@@ -64,9 +64,9 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
+            // 'error' => [
+            //     'class' => 'yii\web\ErrorAction',
+            // ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
@@ -270,19 +270,21 @@ class SiteController extends Controller
         ]);
     }
 
-    // public function beforeAction($action)
-    // {
-
-    //     $exception = Yii::$app->getErrorHandler()->exception;
-
-    //     if (parent::beforeAction($action)) {
-    //         $hasError = $action->id == 'error' && $exception !== NULL;
-
-    //         if ($hasError) {
-    //             echo $exception->statusCode;
-    //             return false;
-    //         }
-    //     }
-    //     return true;
-    // }
+    public function actionError()
+    {
+        $exception = Yii::$app->errorHandler->exception;
+        $name = Yii::$app->errorHandler->getExceptionName($exception) . ' - ' . $exception->statusCode;
+        $message = $exception->getMessage();
+        if ($exception->statusCode == 404) {
+            $name = 'Dalam pengembangan';
+            $message = 'Modul dalam pengembangan';
+        }
+        if ($exception !== null) {
+            return $this->render('error', [
+                'name' => $name,
+                'message' => $message,
+                'exception' => $exception
+            ]);
+        }
+    }
 }

@@ -34,6 +34,8 @@ class Letters extends \yii\db\ActiveRecord
         'pangkat' => 'Usulan Kenaikan Pangkat',
     ];
 
+    public $members = '';
+
     /**
      * {@inheritdoc}
      */

@@ -7,8 +7,23 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Letters */
 /* @var $form yii\widgets\ActiveForm */
-?>
 
+$this->registerCssFile('//unpkg.com/@yaireo/tagify/dist/tagify.css');
+$this->registerJSFile(
+    '//unpkg.com/@yaireo/tagify'
+);
+$this->registerJSFile(
+    '//unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js'
+);
+$this->registerJSFile(
+    '//unpkg.com/@yaireo/tagify@3.1.0/dist/jQuery.tagify.min.js',
+    ['depends' => [\yii\web\JqueryAsset::class, \yii\bootstrap4\BootstrapPluginAsset::class]]
+);
+$this->registerJSFile(
+    '@web/js/letters._form.js',
+    ['depends' => [\yii\web\JqueryAsset::class, \yii\bootstrap4\BootstrapPluginAsset::class]]
+);
+?>
 <div class="letters-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -37,12 +52,12 @@ use yii\widgets\ActiveForm;
             <!-- <?= $form->field($model, 'nomor_surat')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'sifat')->textInput(['maxlength' => true]) ?> -->
-
-            <?= $form->field($model, 'lampiran')->textInput() ?>
+            <?php $model->members = 'Amsterdam, Washington, Sydney, Beijing, Cairo'; ?>
+            <?= $form->field($model, 'members')->textInput(['class' => '']) ?>
 
             <?= $form->field($model, 'hal')->textarea(['rows' => 6]) ?>
 
-            <div class="form-group">
+            <div class="form-group text-right">
                 <?= Html::submitButton('Simpan', ['class' => 'btn btn-sm btn-success']) ?>
             </div>
         </div>
