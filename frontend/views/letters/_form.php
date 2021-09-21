@@ -2,13 +2,21 @@
 
 use common\components\SBHelpers;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Letters */
 /* @var $form yii\widgets\ActiveForm */
 
 $this->registerCssFile('//unpkg.com/@yaireo/tagify/dist/tagify.css');
+$this->registerJS(
+    '
+let employeeListUrl = "' . Url::to(['karyawans/list-filter']) . '";
+',
+    View::POS_HEAD
+);
 $this->registerJSFile(
     '//unpkg.com/@yaireo/tagify'
 );
@@ -52,7 +60,7 @@ $this->registerJSFile(
             <!-- <?= $form->field($model, 'nomor_surat')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'sifat')->textInput(['maxlength' => true]) ?> -->
-            <?php $model->members = 'Amsterdam, Washington, Sydney, Beijing, Cairo'; ?>
+
             <?= $form->field($model, 'members')->textInput(['class' => '']) ?>
 
             <?= $form->field($model, 'hal')->textarea(['rows' => 6]) ?>
