@@ -74,26 +74,6 @@ class KaryawansController extends Controller
     }
 
     /**
-     * Lists all Karyawan ASN models.
-     * @return mixed
-     */
-    public function actionListFilter($q)
-    {
-        $karyawans = [];
-        foreach (Karyawan::find()
-            ->select(['id', 'nama', 'foto'])
-            ->where(['like', 'nama', $q])
-            ->asArray()
-            ->all() as $karyawan) {
-            $karyawan['value'] = $karyawan['nama'];
-            $karyawans[] = $karyawan;
-        }
-        $response = Yii::$app->response;
-        $response->format = \yii\web\Response::FORMAT_JSON;
-        $response->data = $karyawans;
-    }
-
-    /**
      * Lists all Karyawan models.
      * @return mixed
      */

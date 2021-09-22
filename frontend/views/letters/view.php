@@ -46,8 +46,18 @@ $this->params['breadcrumbs'][] = ['label' => $model->titles[$model->type]];
             'ref_hal:ntext',
             // 'nomor_surat',
             // 'sifat',
-            'lampiran',
             'hal:ntext',
+            [
+                'label' => 'Karyawan Terkait',
+                'value' => function ($data) {
+                    $employees = [];
+                    foreach ($data->employees as $member) {
+                        $employees[] = $member->karyawan->nama;
+                    }
+                    return implode('<br />', $employees);
+                },
+                'format' => 'raw'
+            ],
         ],
     ]) ?>
 

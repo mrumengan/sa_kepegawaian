@@ -81,14 +81,15 @@ class Letters extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ref_nomor_surat' => 'Nomor Surat',
+            'ref_nomor_surat' => 'Nomor Asal Surat',
             'ref_asal_surat' => 'Asal Surat',
             'ref_tanggal' => 'Tanggal Surat',
-            'ref_hal' => 'Hal',
+            'ref_hal' => 'Hal Asal Surat',
             'nomor_surat' => 'Nomor Surat',
             'sifat' => 'Sifat',
             'lampiran' => 'Lampiran',
-            'hal' => 'Hal',
+            'hal' => 'Hal Surat',
+            'members' => 'Karyawan',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
@@ -116,11 +117,24 @@ class Letters extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
+    /**
+     * Gets query for [[UpdatedBy]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEmployees()
+    {
+        return $this->hasMany(LetterMember::class, ['letter_id' => 'id']);
+    }
+
     public function beforeSave($insert)
     {
         if (!parent::beforeSave($insert)) {
             return false;
         }
+
+        $this->ref_tanggal = substr($this->ref_tanggal, 6) . '-' . substr($this->ref_tanggal, 3, 2) . '-'
+            . substr($this->ref_tanggal, 0, 2);
 
         return true;
     }

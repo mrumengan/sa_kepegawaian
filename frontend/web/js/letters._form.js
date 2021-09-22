@@ -1,10 +1,19 @@
 $(function () {
   var input = document.querySelector('#letters-members'),
-    tagify = new Tagify(input, { whitelist: [], enforceWhitelist: true, }),
-    controller; // for aborting the call
+    tagify = new Tagify(input, {
+      whitelist: initWhitelist,
+      enforceWhitelist: false,
+    }),
+    controller;
+
+  initWhitelist.forEach(function (elm, i) {
+    console.log(elm);
+    // tagify.addTags(elm.value);
+  });
+  tagify.addTags(initWhitelist);
+  console.log(tagify.value);
 
   tagify.on('input', onInput);
-
   function onInput(e) {
     console.log(e.detail);
     var value = e.detail.value

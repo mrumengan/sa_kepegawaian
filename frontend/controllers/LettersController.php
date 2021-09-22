@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\SBHelpers;
+use common\models\Karyawan;
 use Yii;
 use common\models\Letters;
 use common\models\LettersSearch;
@@ -99,21 +100,17 @@ class LettersController extends Controller
     {
         $letter = Letters::findOne($id);
         $template_path = Yii::getAlias('@app/web/templates');
-
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($template_path . '/surat_usulan_kenaikan_pangkat.docx');
-
-        $templateProcessor->setValues([
-            'nomor_surat' => $letter->ref_nomor_surat,
-            'attachment_int' => $letter->lampiran,
-            'attachment_str' => SBHelpers::terbilang($letter->lampiran)
-        ]);
-
         $file = 'Usulan_Kenaikan_Pangkat_' . $letter->id . '.docx';
+
+        switch ($letter->type) {
+            case 'pangkat':
+                $docx_path = $this->createFilePangkat($letter, $template_path, $file);
+                break;
+            default:
+                throw new NotFoundHttpException('The requested page does not exist.');
+                break;
+        }
         // ob_clean();
-
-        $docx_path = Yii::getAlias('@app/web/media/doc');
-
-        $templateProcessor->saveAs('media/doc/' . $file);
 
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="' . $file . '"');
@@ -128,6 +125,28 @@ class LettersController extends Controller
         Yii::$app->response->sendFile($docx_path . '/' . $file);
         // $templateProcessor->saveAs('php://output');
     }
+
+    private function createFilePangkat($letter, $template_path, $file)
+    {
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($template_path . '/surat_usulan_kenaikan_pangkat.docx');
+
+        $templateProcessor->setValues([
+            'nomor_surat' => $letter->nomor_surat,
+            'attachment_int' => $letter->lampiran,
+            'attachment_str' => SBHelpers::terbilang($letter->lampiran),
+            'ref_asal_surat' => $letter->ref_nomor_surat,
+            'ref_tanggal' => SBHelpers::getTanggal($letter->ref_tanggal),
+            'ref_hal' => $letter->ref_hal,
+            'hal' => $letter->hal
+        ]);
+
+        $docx_path = Yii::getAlias('@app/web/media/doc');
+
+        $templateProcessor->saveAs('media/doc/' . $file);
+
+        return $docx_path;
+    }
+
     /**
      * Creates a new Letters model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -139,8 +158,20 @@ class LettersController extends Controller
         $model = new Letters();
         $model->type = $type;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            // echo '<pre>';
+            // print_r(Yii::$app->request->post('Letters')['members']);
+            // print_r($model->attributes);
+            $karyawans = json_decode(Yii::$app->request->post('Letters')['members']);
+
+            if (is_array($karyawans) && $model->save()) {
+                $members = [];
+                foreach ($karyawans as $karyawan) {
+                    $members[] = [$model->id, $karyawan->id];
+                }
+                Yii::$app->db->createCommand()->batchInsert('{{%letter_member}}', ['letter_id', 'karyawan_id'], $members)->execute();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
@@ -159,8 +190,18 @@ class LettersController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $karyawans = json_decode(Yii::$app->request->post('Letters')['members']);
+
+            if (is_array($karyawans) && $model->save()) {
+                Yii::$app->db->createCommand()->delete('{{%letter_member}}', 'letter_id = :letter_id', [':letter_id' => $model->id])->execute();
+                $members = [];
+                foreach ($karyawans as $karyawan) {
+                    $members[] = [$model->id, $karyawan->id];
+                }
+                Yii::$app->db->createCommand()->batchInsert('{{%letter_member}}', ['letter_id', 'karyawan_id'], $members)->execute();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -177,9 +218,12 @@ class LettersController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        Yii::$app->db->createCommand()->delete('{{%letter_member}}', 'letter_id = :letter_id', [':letter_id' => $id])->execute();
+        $model = $this->findModel($id);
+        $type = $model->type;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect([$type]);
     }
 
     /**
@@ -198,26 +242,21 @@ class LettersController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionKaryawans()
+    public function actionKaryawans($q)
     {
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
-        $data = [];
-        $data[] = ['id' => 1, 'label' => 'Amsterdam'];
-        $data[] = ['id' => 2, 'label' => 'London'];
-        // { "value": 3 , "text": "Paris"       , "continent": "Europe"    },
-        // { "value": 4 , "text": "Washington"  , "continent": "America"   },
-        // { "value": 5 , "text": "Mexico City" , "continent": "America"   },
-        // { "value": 6 , "text": "Buenos Aires", "continent": "America"   },
-        // { "value": 7 , "text": "Sydney"      , "continent": "Australia" },
-        // { "value": 8 , "text": "Wellington"  , "continent": "Australia" },
-        // { "value": 9 , "text": "Canberra"    , "continent": "Australia" },
-        // { "value": 10, "text": "Beijing"     , "continent": "Asia"      },
-        // { "value": 11, "text": "New Delhi"   , "continent": "Asia"      },
-        // { "value": 12, "text": "Kathmandu"   , "continent": "Asia"      },
-        // { "value": 13, "text": "Cairo"       , "continent": "Africa"    },
-        // { "value": 14, "text": "Cape Town"   , "continent": "Africa"    },
-        // { "value": 15, "text": "Kinshasa"    , "continent": "Africa"    }
-        $response->data = $data;
+        $karyawans = [];
+        foreach (Karyawan::find()
+            ->select(['id', 'nama', 'foto'])
+            ->where(['like', 'nama', $q])
+            ->asArray()
+            ->all() as $karyawan) {
+            $karyawan['value'] = $karyawan['nama'];
+            $karyawans[] = $karyawan;
+        }
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = $karyawans;
     }
 }
