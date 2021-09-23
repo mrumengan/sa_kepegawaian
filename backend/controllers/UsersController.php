@@ -69,7 +69,7 @@ class UsersController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->generateAuthKey();
-            $new_password = Yii::$app->security->generateRandomString(5);
+            $new_password = Yii::$app->request->post()['BackendUser']['password_text'];
             $model->setPassword($new_password);
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Password: ' . $new_password);
@@ -93,8 +93,18 @@ class UsersController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $new_password = Yii::$app->request->post()['BackendUser']['password_text'];
+            if ($new_password)
+                $model->setPassword($new_password);
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Password: ' . $new_password);
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                // echo '<pre>';
+                // print_r($model->validate());
+                // print_r($model->errors);
+            }
         }
 
         return $this->render('update', [
@@ -125,7 +135,7 @@ class UsersController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = BackendUser::findOne($id)) !== null) {
             return $model;
         }
 

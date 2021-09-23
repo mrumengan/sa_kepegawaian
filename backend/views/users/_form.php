@@ -16,6 +16,8 @@ use yii\widgets\ActiveForm;
 
             <?= $form->field($model, 'username')->textInput() ?>
 
+            <?= $form->field($model, 'password_text')->textInput() ?>
+
             <?= $form->field($model, 'email')->textInput() ?>
 
             <?= $form->field($model, 'status')->dropDownList([9 => 'Tidak Aktif', 10 => 'Aktif']) ?>

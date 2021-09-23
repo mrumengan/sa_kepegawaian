@@ -11,6 +11,7 @@ use common\models\User;
  */
 class BackendUser extends User
 {
+    public $password_text;
     /**
      * {@inheritdoc}
      */
@@ -21,6 +22,17 @@ class BackendUser extends User
             [['username', 'email', 'auth_key'], 'safe'],
         ];
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'password_text' => 'Password'
+        ];
+    }
+
 
     public function beforeSave($insert)
     {
