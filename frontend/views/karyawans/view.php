@@ -39,11 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'nama',
                     'nip',
-                    'pangkat',
                     [
                         'attribute' => 'golongan',
-                        'value' => function ($model) {
-                            return strtoupper($model->golongan);
+                        'value' => function ($data) {
+                            return strtoupper($data->golongan . ' - ' . $data->golRuang->pangkat);
                         }
                     ],
                     'jabatan',

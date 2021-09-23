@@ -180,7 +180,14 @@ class LettersController extends Controller
         $no_urut = 0;
         foreach ($letter->employees as $member) {
             $no_urut++;
-            $members[] = ['noUrutLampiran' => $no_urut, 'namaKaryawan' => $member->karyawan->nama, 'jabatanKaryawan' => $member->karyawan->jabatan, 'keterangan' => ''];
+            $members[] = [
+                'noUrutLampiran' => $no_urut,
+                'namaKaryawan' => $member->karyawan->nama,
+                'nipKaryawan' => $member->karyawan->nip,
+                'pangkatKaryawan' => $member->karyawan->pangkat,
+                'jabatanKaryawan' => $member->karyawan->jabatan,
+                'keterangan' => ''
+            ];
         }
         $templateProcessor->cloneRowAndSetValues('noUrutLampiran', $members);
 

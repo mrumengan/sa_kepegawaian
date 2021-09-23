@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Departemen;
+use common\models\Golongan;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -101,7 +102,13 @@ $("#karyawan-tmt_gaji").datepicker({
 
             <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'golongan')->textInput(['maxlength' => true]) ?>
+            <?php
+            $golongans = Golongan::find()->all();
+            foreach ($golongans as $golongan) {
+                $gol_ruang[$golongan->nama_golongan] = $golongan->nama_golongan . ' - ' . $golongan->pangkat;
+            }
+            ?>
+            <?= $form->field($model, 'golongan')->dropDownList($gol_ruang) ?>
 
             <?= $form->field($model, 'jabatan')->textInput(['maxlength' => true]) ?>
 

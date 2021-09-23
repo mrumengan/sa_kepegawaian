@@ -36,6 +36,7 @@ use Yii;
  *
  * @property User $user
  * @property Departemen $departemen
+ * @property Golongan $golongan
  */
 class Karyawan extends \yii\db\ActiveRecord
 {
@@ -129,6 +130,16 @@ class Karyawan extends \yii\db\ActiveRecord
     public function getDepartemen()
     {
         return $this->hasOne(Departemen::className(), ['id' => 'departemen_id']);
+    }
+
+    /**
+     * Gets query for [[Golongan]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGolRuang()
+    {
+        return $this->hasOne(Golongan::className(), ['nama_golongan' => 'golongan']);
     }
 
     /**
