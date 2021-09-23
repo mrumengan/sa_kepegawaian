@@ -76,7 +76,7 @@ $this->registerJsFile(
     </div>
     <p class="float-right">
         <?php if (Yii::$app->user->can('Admin') && $model->status == 5) { ?>
-            <?= Html::a('<i class="fas fa-file-pdf"></i> Download PDF', ['download', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="fas fa-file-pdf"></i> Download PDF', ['download', 'id' => $model->id], ['class' => 'btn btn-dark']) ?>
             <?= Html::button('<i class="fas fa-file-pdf"></i> Upload Signed PDF', ['class' => 'btn btn-secondary', 'data-toggle' => 'modal', 'data-target' => '#modal-upload']) ?>
         <?php }  ?>
     </p><br />

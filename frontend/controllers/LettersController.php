@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * LettersController implements the CRUD actions for Letters model.
@@ -91,6 +92,42 @@ class LettersController extends Controller
     }
 
     /**
+     * Upload signed PDF file.
+     * If upload is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionUpload($id)
+    {
+        if (Yii::$app->request->isPost) {
+            $model = $this->findModel($id);
+            $model->pdf_file = UploadedFile::getInstance($model, 'pdf_file');
+            if ($model->upload()) {
+                $model->pdf_file = null;
+                $model->load(Yii::$app->request->post());
+                if ($model->save()) {
+                    $this->redirect(['/cutis/view', 'id' => $model->id]);
+                }
+            }
+        }
+
+        $this->goBack();
+    }
+
+    /**
+     * View signed PDF file.
+     * If upload is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionPdf($id)
+    {
+        $model = $this->findModel($id);
+        $complete_path = Yii::getAlias('@frontend/web/media/pdf/' . $model->signed_pdf);
+        // echo $complete_path . $model->signed_pdf;
+
+        return Yii::$app->response->sendFile($complete_path, $model->signed_pdf, ['inline' => false]);
+    }
+
+    /**
      * Displays a single Letters model.
      * @param integer $id
      * @return mixed
@@ -139,6 +176,13 @@ class LettersController extends Controller
             'ref_hal' => $letter->ref_hal,
             'hal' => $letter->hal
         ]);
+
+        $no_urut = 0;
+        foreach ($letter->employees as $member) {
+            $no_urut++;
+            $members[] = ['noUrutLampiran' => $no_urut, 'namaKaryawan' => $member->karyawan->nama, 'jabatanKaryawan' => $member->karyawan->jabatan, 'keterangan' => ''];
+        }
+        $templateProcessor->cloneRowAndSetValues('noUrutLampiran', $members);
 
         $docx_path = Yii::getAlias('@app/web/media/doc');
 

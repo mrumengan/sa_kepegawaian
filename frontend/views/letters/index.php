@@ -1,5 +1,6 @@
 <?php
 
+use common\components\SBHelpers;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -40,6 +41,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'ref_nomor_surat'
             ],
             'ref_tanggal:date',
+            [
+                'label' => 'Status',
+                'value' => function ($data) {
+                    return $data->statuses[$data->status] . '<br />' . SBHelpers::getTanggal($data->updated_at);
+                },
+                'format' => 'raw'
+            ],
             // 'ref_hal:ntext',
             //'sifat',
             //'lampiran',
