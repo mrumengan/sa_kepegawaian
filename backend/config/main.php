@@ -7,6 +7,7 @@ $params = array_merge(
 );
 
 return [
+    'name' => 'SIKRAMAT',
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
@@ -55,7 +56,7 @@ return [
         'view' => [
             'theme' => [
                 'pathMap' => [
-                    '@mdm/admin/views' => '@app/themes/default/rbac',
+                    '@mdm/admin/views' => '@app/views/rbac',
                 ]
             ]
         ],

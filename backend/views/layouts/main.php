@@ -39,6 +39,7 @@ AppAsset::register($this);
         ]);
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Users', 'url' => ['/users'], 'visible' => Yii::$app->user->can('Admin')],
             ['label' => 'RBAC', 'url' => ['/rbac'], 'visible' => Yii::$app->user->can('Admin')],
         ];
         if (Yii::$app->user->isGuest) {
@@ -73,7 +74,7 @@ AppAsset::register($this);
         <div class="container">
             <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
 
-            <p class="pull-right"><?= Yii::powered() ?></p>
+            <p class="pull-right"><?= 'IndoTekno' ?></p>
         </div>
     </footer>
 
