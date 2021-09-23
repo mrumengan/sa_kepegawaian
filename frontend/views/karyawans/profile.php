@@ -29,21 +29,19 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
-                    [
-                        'attribute' => 'user.username',
-                        'label' => 'User'
-                    ],
-                    [
-                        'attribute' => 'departemen.nama',
-                        'label' => 'Bagian'
-                    ],
-                    'nip',
                     'nama',
+                    'nip',
+                    [
+                        'attribute' => 'golongan',
+                        'value' => function ($data) {
+                            return strtoupper($data->golongan . ' - ' . $data->golRuang->pangkat);
+                        }
+                    ],
+                    'jabatan',
                     'tempat_lahir',
                     'tanggal_lahir',
                     'golongan',
                     'tmt_pangkat',
-                    'jabatan',
                     'tmt_jabatan',
                     'eselon',
                     'pangkat_cpns',
@@ -58,6 +56,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'jenis_kelamin',
                     'nip_lama',
                     'peringkat',
+                    [
+                        'attribute' => 'user.username',
+                        'label' => 'User'
+                    ],
                 ],
             ]) ?>
         </div>

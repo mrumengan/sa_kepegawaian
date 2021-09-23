@@ -3,8 +3,9 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\User;
+use backend\models\BackendUser;
 use backend\models\UserSearch;
+use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -64,10 +65,16 @@ class UsersController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new BackendUser();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->generateAuthKey();
+            $new_password = Yii::$app->security->generateRandomString(5);
+            $model->setPassword($new_password);
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Password: ' . $new_password);
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
