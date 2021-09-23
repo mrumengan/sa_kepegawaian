@@ -237,6 +237,33 @@ a.desc:after {
   padding-top: 70px;
 }
 
+ul.pagination {
+  background-color: transparent;
+  margin-top: 10px;
+}
+
+ul.pagination li {
+  width: 25px;
+  height: 25px;
+  text-align: center;
+}
+
+ul.pagination li:hover {
+  border-radius: 50%;
+  background: rgba(71, 139, 214, 1);
+}
+
+ul.pagination li.active {
+  font-weight: bold;
+  color: white;
+  background: rgba(71, 139, 214, 1);
+  border-radius: 50%;
+}
+
+ul.pagination li.active a {
+  color: white;
+}
+
 @media(max-width:767px) {
   .nav li>form>button.logout {
     display: block;

@@ -184,7 +184,7 @@ class LettersController extends Controller
                 'noUrutLampiran' => $no_urut,
                 'namaKaryawan' => $member->karyawan->nama,
                 'nipKaryawan' => $member->karyawan->nip,
-                'pangkatKaryawan' => $member->karyawan->pangkat,
+                'pangkatKaryawan' => $member->karyawan->golRuang->pangkat,
                 'jabatanKaryawan' => $member->karyawan->jabatan,
                 'keterangan' => ''
             ];

@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="card-footer text-center">
                     <p>
-                        <?= Html::a('Buat Pegawai', ['create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Tambah Karyawan', ['create'], ['class' => 'btn btn-success']) ?>
                     </p>
                 </div>
             </div>

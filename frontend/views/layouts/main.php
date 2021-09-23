@@ -57,7 +57,7 @@ if ($this->title != Yii::$app->name) {
             ]],
             ['label' => 'Cuti', 'url' => ['/cutis'], 'visible' => Yii::$app->user->can('Admin')],
             ['label' => 'KGB', 'url' => ['/kgb'], 'visible' => Yii::$app->user->can('Admin')],
-            ['label' => 'Penghasilan', 'url' => ['/golongan'], 'visible' => Yii::$app->user->can('Admin')],
+            // ['label' => 'Penghasilan', 'url' => ['/golongan'], 'visible' => Yii::$app->user->can('Admin')],
 
             ['label' => 'Cuti', 'url' => ['/cutis/request'], 'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->can('Admin')],
             ['label' => 'Profil', 'url' => ['/karyawans/profile', 'id' => Yii::$app->user->id], 'visible' => !Yii::$app->user->isGuest && !Yii::$app->user->can('Admin')],
