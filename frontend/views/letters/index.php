@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col">
             <p class="text-right">
-                <?= Html::a('Buat Usulan', ['create', 'type' => $type], ['class' => 'btn btn-sm btn-success']) ?>
+                <?= Html::a('Buat Usulan', ['create', 'type' => $type], ['class' => 'btn btn-primary']) ?>
             </p>
         </div>
     </div>
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -38,7 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
 
                 'label' => 'Nomor Asal Surat',
-                'value' => 'ref_nomor_surat'
+                'value' => 'ref_nomor_surat',
+                'filter' => false
             ],
             'ref_tanggal:date',
             [
