@@ -27,8 +27,8 @@ $model->karyawan_id = Yii::$app->user->karyawanId;
 
     <div class="row">
         <div class="col text-center">
-            <video id="video" width="320" height="240" autoplay></video>
-            <canvas id="canvas" width="320" height="240" class="d-none"></canvas>
+            <video id="video" width="320" height="240" autoplay style="margin: 0 auto;" class="d-block"></video>
+            <canvas id="canvas" width="320" height="240" style="margin: 0 auto;" class="d-none"></canvas>
         </div>
     </div>
 
