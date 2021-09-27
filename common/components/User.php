@@ -29,7 +29,11 @@ class User extends \yii\web\User
     {
         $karyawan = Karyawan::findOne(['user_id' => $this->id]);
 
-        return $karyawan->status_asn;
+        if ($karyawan) {
+            return $karyawan->status_asn;
+        } else {
+            return 0;
+        }
     }
 
     public function getKaryawanId()
