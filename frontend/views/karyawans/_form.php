@@ -146,6 +146,8 @@ $("#karyawan-tmt_gaji").datepicker({
 
             <?= $form->field($model, 'peringkat')->textInput() ?>
 
+            <?= $form->field($model, 'status_asn')->dropDownList(['0' => 'Non ASN', '10' => 'ASN',], ['prompt' => '']) ?>
+
             <?= $form->field($model, 'user_id')->dropDownList(
                 ArrayHelper::map(
                     User::find()->orderBy('username')->where(['>', 'id', 1])->all(),
