@@ -191,14 +191,16 @@ class Karyawan extends \yii\db\ActiveRecord
 
         if ($insert && $this->status_asn == 0) {
         } else {
-            $this->tmt_pangkat = substr($this->tmt_pangkat, 6) . '-' . substr($this->tmt_pangkat, 3, 2) . '-'
-                . substr($this->tmt_pangkat, 0, 2);
-            $this->tmt_jabatan = substr($this->tmt_jabatan, 6) . '-' . substr($this->tmt_jabatan, 3, 2) . '-'
-                . substr($this->tmt_jabatan, 0, 2);
-            $this->tmt_cpns = substr($this->tmt_cpns, 6) . '-' . substr($this->tmt_cpns, 3, 2) . '-'
-                . substr($this->tmt_cpns, 0, 2);
-            $this->tmt_pns = substr($this->tmt_pns, 6) . '-' . substr($this->tmt_pns, 3, 2) . '-'
-                . substr($this->tmt_pns, 0, 2);
+            if ($this->status_asn == 10) {
+                $this->tmt_pangkat = substr($this->tmt_pangkat, 6) . '-' . substr($this->tmt_pangkat, 3, 2) . '-'
+                    . substr($this->tmt_pangkat, 0, 2);
+                $this->tmt_jabatan = substr($this->tmt_jabatan, 6) . '-' . substr($this->tmt_jabatan, 3, 2) . '-'
+                    . substr($this->tmt_jabatan, 0, 2);
+                $this->tmt_cpns = substr($this->tmt_cpns, 6) . '-' . substr($this->tmt_cpns, 3, 2) . '-'
+                    . substr($this->tmt_cpns, 0, 2);
+                $this->tmt_pns = substr($this->tmt_pns, 6) . '-' . substr($this->tmt_pns, 3, 2) . '-'
+                    . substr($this->tmt_pns, 0, 2);
+            }
         }
 
         $this->tanggal_lahir = substr($this->tanggal_lahir, 6) . '-' . substr($this->tanggal_lahir, 3, 2) . '-'

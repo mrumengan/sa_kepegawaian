@@ -7,7 +7,7 @@ use yii\widgets\ListView;
 /* @var $searchModel common\models\KaryawanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Data Pegawai - ' . $status_asn;
+$this->title = 'Data Pegawai - ' . $status;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="karyawan-index">

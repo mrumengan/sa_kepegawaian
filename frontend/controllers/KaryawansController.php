@@ -77,11 +77,17 @@ class KaryawansController extends Controller
         $searchModel->status_asn = $status_asn;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        if ($status_asn == 10) $status = 'ASN';
-        elseif ($status_asn == 0) $status = 'Non ASN';
+        if ($status_asn == 10) {
+            $status = 'ASN';
+            $status_asn = 'asn';
+        } elseif ($status_asn == 0) {
+            $status = 'Non ASN';
+            $status_asn = 'non-asn';
+        }
 
         return $this->render('index', [
-            'status_asn' => $status,
+            'status_asn' => $status_asn,
+            'status' => $status,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

@@ -8,8 +8,14 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Karyawan */
 
+if ($model->status_asn == 10) {
+    $status_asn = 'asn';
+} else {
+    $status_asn = 'non-asn';
+}
+
 $this->title = $model->nama;
-$this->params['breadcrumbs'][] = ['label' => 'Karyawan', 'url' => [strtolower($model->statuses[$model->status_asn])]];
+$this->params['breadcrumbs'][] = ['label' => 'Karyawan', 'url' => [$status_asn]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

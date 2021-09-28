@@ -9,7 +9,15 @@ use yii\helpers\ArrayHelper;
 
 use common\models\User;
 
-$status_asn = strtolower(Yii::$app->request->get('status_asn', 'asn'));
+if ($model->isNewRecord) {
+    $status_asn = strtolower(Yii::$app->request->get('status_asn', 'asn'));
+} else {
+    if ($model->status_asn == 10) {
+        $status_asn = 'asn';
+    } else {
+        $status_asn = 'non-asn';
+    }
+}
 
 $this->registerCssFile('https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css');
 
@@ -86,7 +94,7 @@ $("#karyawan-tmt_gaji").datepicker({
 ?>
 
 <div class="karyawan-form">
-
+    <?= $model->status_asn ?>
     <div class="row">
         <div class="col-9">
             <?php $form = ActiveForm::begin(); ?>
