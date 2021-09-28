@@ -34,9 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-md-9 order-md-1 order-2">
-            <?= DetailView::widget([
-                'model' => $model,
-                'attributes' => [
+            <?php if ($model->status_asn == 10) {
+                $detail_attributes = [
                     'nama',
                     'nip',
                     [
@@ -117,7 +116,49 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return null;
                         }
                     ],
-                ],
+                ];
+            } else {
+                $detail_attributes = [
+                    'nama',
+                    'nip',
+                    'tempat_lahir',
+                    [
+                        'attribute' => 'tanggal_lahir',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tanggal_lahir);
+                        }
+                    ],
+                    'gaji_pokok',
+                    [
+                        'attribute' => 'tmt_gaji',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_gaji);
+                        }
+                    ],
+                    'pendidikan',
+                    'pendidikan_umum',
+                    'jenis_kelamin',
+                    [
+                        'label' => 'Status',
+                        'value' => function ($model) {
+                            return $model->statuses[$model->status_asn];
+                        }
+                    ],
+                    [
+                        'label' => 'User ID',
+                        'value' => function ($model) {
+                            if ($model->user)
+                                return $model->user->username;
+                            else
+                                return null;
+                        }
+                    ],
+                ];
+            }
+            ?>
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => $detail_attributes,
             ]) ?>
         </div>
         <div class="col-md-3 order-md-2 order-1">

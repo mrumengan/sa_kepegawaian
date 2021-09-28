@@ -22,7 +22,7 @@ $this->title = 'SA PEG';
                                     <li>
                                         <h4><?= $item->title ?></h4>
                                         <?= $item->content_preview ?>
-                                        <div class="text-right"><?= Html::a('Selengkapnya >>', ['/post/view', 'id' => $item->id], ['class' => 'btn btn-secondary']) ?></div>
+                                        <div class="text-right"><?= Html::a('Selengkapnya >>', ['/posts/view', 'id' => $item->id], ['class' => 'btn btn-secondary']) ?></div>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
@@ -59,9 +59,8 @@ $this->title = 'SA PEG';
                             <?php endif; ?>
                         </div>
                         <div class="col">
-                            <h3>Perubahan</h3>
                             <div>
-                                <p>Perubahan</p>
+                                <h3>Pengumuman</h3>
                                 <ol>
                                     <li>Perubahan jadwal libur bersama</li>
                                 </ol>

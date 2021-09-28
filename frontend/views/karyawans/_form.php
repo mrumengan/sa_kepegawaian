@@ -9,6 +9,8 @@ use yii\helpers\ArrayHelper;
 
 use common\models\User;
 
+$status_asn = strtolower(Yii::$app->request->get('status_asn', 'asn'));
+
 $this->registerCssFile('https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css');
 
 $this->registerJsFile(
@@ -100,15 +102,21 @@ $("#karyawan-tmt_gaji").datepicker({
 -->
             <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
+            <?php if ($status_asn == 'asn') : ?>
+                <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
+            <?php else : ?>
+                <?= $form->field($model, 'nip')->textInput(['maxlength' => true])->label('NIK') ?>
+            <?php endif; ?>
 
-            <?php
-            $golongans = Golongan::find()->all();
-            foreach ($golongans as $golongan) {
-                $gol_ruang[$golongan->nama_golongan] = $golongan->nama_golongan . ' - ' . $golongan->pangkat;
-            }
-            ?>
-            <?= $form->field($model, 'golongan')->dropDownList($gol_ruang) ?>
+            <?php if ($status_asn == 'asn') : ?>
+                <?php
+                $golongans = Golongan::find()->all();
+                foreach ($golongans as $golongan) {
+                    $gol_ruang[$golongan->nama_golongan] = $golongan->pangkat . ' - ' . $golongan->nama_golongan;
+                }
+                ?>
+                <?= $form->field($model, 'golongan')->dropDownList($gol_ruang) ?>
+            <?php endif; ?>
 
             <?= $form->field($model, 'jabatan')->textInput(['maxlength' => true]) ?>
 
@@ -116,17 +124,19 @@ $("#karyawan-tmt_gaji").datepicker({
 
             <?= $form->field($model, 'tanggal_lahir')->textInput() ?>
 
-            <?= $form->field($model, 'tmt_pangkat')->textInput() ?>
+            <?php if ($status_asn == 'asn') : ?>
+                <?= $form->field($model, 'tmt_pangkat')->textInput() ?>
 
-            <?= $form->field($model, 'tmt_jabatan')->textInput() ?>
+                <?= $form->field($model, 'tmt_jabatan')->textInput() ?>
 
-            <?= $form->field($model, 'eselon')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'eselon')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'pangkat_cpns')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'pangkat_cpns')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'tmt_cpns')->textInput() ?>
+                <?= $form->field($model, 'tmt_cpns')->textInput() ?>
 
-            <?= $form->field($model, 'tmt_pns')->textInput() ?>
+                <?= $form->field($model, 'tmt_pns')->textInput() ?>
+            <?php endif; ?>
 
             <?= $form->field($model, 'gaji_pokok')->textInput(['maxlength' => true]) ?>
 
@@ -136,16 +146,22 @@ $("#karyawan-tmt_gaji").datepicker({
 
             <?= $form->field($model, 'pendidikan_umum')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'diklat_struktural')->textarea([]) ?>
+            <?php if ($status_asn == 'asn') : ?>
+                <?= $form->field($model, 'diklat_struktural')->textarea([]) ?>
 
-            <?= $form->field($model, 'diklat_fungsional')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'diklat_fungsional')->textarea(['maxlength' => true]) ?>
+            <?php endif; ?>
 
             <?= $form->field($model, 'jenis_kelamin')->dropDownList(['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan',], ['prompt' => '']) ?>
 
-            <?= $form->field($model, 'nip_lama')->textInput(['maxlength' => true]) ?>
+            <?php if ($status_asn == 'asn') : ?>
+                <?= $form->field($model, 'nip_lama')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'peringkat')->textInput() ?>
+                <?= $form->field($model, 'peringkat')->textInput() ?>
+            <?php endif; ?>
 
+            <?php if (strtolower($status_asn) == 'asn') $model->status_asn = 10;
+            else $model->status_asn = 0; ?>
             <?= $form->field($model, 'status_asn')->dropDownList(['0' => 'Non ASN', '10' => 'ASN',], ['prompt' => '']) ?>
 
             <?= $form->field($model, 'user_id')->dropDownList(

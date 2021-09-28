@@ -46,13 +46,7 @@ class KaryawansController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new KaryawanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->listKaryawans(10);
     }
 
     /**
@@ -83,8 +77,8 @@ class KaryawansController extends Controller
         $searchModel->status_asn = $status_asn;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        if ($status_asn = 10) $status = 'ASN';
-        elseif ($status_asn = 0) $status = 'Non ASN';
+        if ($status_asn == 10) $status = 'ASN';
+        elseif ($status_asn == 0) $status = 'Non ASN';
 
         return $this->render('index', [
             'status_asn' => $status,

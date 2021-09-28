@@ -97,6 +97,10 @@ if ($this->title != Yii::$app->name) {
 
         <div class="container">
             <?= Breadcrumbs::widget([
+                'homeLink' => [
+                    'label' => 'Beranda',
+                    'url' => '/',
+                ],
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
             <?= Alert::widget() ?>
