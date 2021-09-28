@@ -94,7 +94,6 @@ $("#karyawan-tmt_gaji").datepicker({
 ?>
 
 <div class="karyawan-form">
-    <?= $model->status_asn ?>
     <div class="row">
         <div class="col-9">
             <?php $form = ActiveForm::begin(); ?>
