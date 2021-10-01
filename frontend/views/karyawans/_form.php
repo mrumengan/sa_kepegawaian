@@ -20,9 +20,15 @@ if ($model->isNewRecord) {
 }
 
 $this->registerCssFile('https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css');
+$this->registerCssFile('@web/css/karyawans.view.css');
+$this->registerCssFile('@web/css/karyawans._form.css');
 
 $this->registerJsFile(
     'https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js',
+    ['depends' => [\yii\web\JqueryAsset::class]]
+);
+$this->registerJsFile(
+    '@web/js/karyawans._form.js',
     ['depends' => [\yii\web\JqueryAsset::class]]
 );
 
@@ -98,15 +104,6 @@ $("#karyawan-tmt_gaji").datepicker({
         <div class="col-9">
             <?php $form = ActiveForm::begin(); ?>
 
-            <!-- <?= $form->field($model, 'departemen_id')->dropDownList(
-                        ArrayHelper::map(
-                            Departemen::find()->orderBy('nama')->all(),
-                            'id',
-                            'nama'
-                        ),
-                        ['disabled' => !\Yii::$app->user->can('Admin'), 'prompt' => '']
-                    ) ?>
--->
             <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
             <?php if ($status_asn == 'asn') : ?>
@@ -147,7 +144,9 @@ $("#karyawan-tmt_gaji").datepicker({
 
             <?= $form->field($model, 'gaji_pokok')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'tmt_gaji')->textInput() ?>
+            <?php if ($status_asn == 'asn') : ?>
+                <?= $form->field($model, 'tmt_gaji')->textInput() ?>
+            <?php endif; ?>
 
             <?= $form->field($model, 'pendidikan')->textInput(['maxlength' => true]) ?>
 
@@ -188,12 +187,48 @@ $("#karyawan-tmt_gaji").datepicker({
 
         </div>
         <div class="col-3">
+            <div class="btn-container text-right"><i class="far fa-edit" id="btn-edit-photo"></i></div>
             <?php if ($model->foto) { ?>
-                <img src="<?= Url::to('@web/media/photo/' . $model->foto) ?>" class="img-fluid rounded img-thumbnail" />
+                <img src="<?= Url::to('@web/media/img/' . $model->foto) ?>" class="img-fluid rounded img-thumbnail" />
             <?php } else { ?>
                 <div class="text-center img-thumbnail img-fluid rounded" style="font-size: 10em;"><i class="fas fa-user"></i></div>
             <?php } ?>
         </div>
     </div>
 
+</div>
+
+<div class="modal fade" id="modal-upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Upload Foto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data'], 'id' => 'form-upload', 'action' => ['karyawans/upload-photo', 'id' => $model->id]]); ?>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="karyawan-photo_file" accept="image/png, image/jpeg, image/jpg, image/webp" name="Karyawan[photo_file]">
+                                <label class="custom-file-label" for="karyawan-photo_file">Pilih file</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-upload">Upload dan simpan</button>
+            </div>
+            <?php ActiveForm::end(); ?>
+        </div>
+    </div>
 </div>

@@ -40,6 +40,9 @@ use Yii;
  */
 class Karyawan extends \yii\db\ActiveRecord
 {
+
+    public $photo_file;
+
     public $statuses = [
         0 => 'Non ASN',
         10 => 'ASN'
@@ -90,7 +93,7 @@ class Karyawan extends \yii\db\ActiveRecord
             'nama' => 'Nama',
             'tempat_lahir' => 'Tempat Lahir',
             'tanggal_lahir' => 'Tanggal Lahir',
-            'golongan' => 'Golongan Ruang',
+            'golongan' => 'Pangkat - Golongan Ruang',
             'tmt_pangkat' => 'TMT Pangkat',
             'jabatan' => 'Jabatan',
             'tmt_jabatan' => 'TMT Jabatan',
@@ -191,7 +194,8 @@ class Karyawan extends \yii\db\ActiveRecord
 
         if ($insert && $this->status_asn == 0) {
         } else {
-            if ($this->status_asn == 10) {
+            if ($this->status_asn == 10 && !$this->foto) {
+                // if uploading foto, no tmt values
                 $this->tmt_pangkat = substr($this->tmt_pangkat, 6) . '-' . substr($this->tmt_pangkat, 3, 2) . '-'
                     . substr($this->tmt_pangkat, 0, 2);
                 $this->tmt_jabatan = substr($this->tmt_jabatan, 6) . '-' . substr($this->tmt_jabatan, 3, 2) . '-'
@@ -200,14 +204,31 @@ class Karyawan extends \yii\db\ActiveRecord
                     . substr($this->tmt_cpns, 0, 2);
                 $this->tmt_pns = substr($this->tmt_pns, 6) . '-' . substr($this->tmt_pns, 3, 2) . '-'
                     . substr($this->tmt_pns, 0, 2);
+                $this->tmt_gaji = substr($this->tmt_gaji, 6) . '-' . substr($this->tmt_gaji, 3, 2) . '-'
+                    . substr($this->tmt_gaji, 0, 2);
             }
         }
 
-        $this->tanggal_lahir = substr($this->tanggal_lahir, 6) . '-' . substr($this->tanggal_lahir, 3, 2) . '-'
-            . substr($this->tanggal_lahir, 0, 2);
-        $this->tmt_gaji = substr($this->tmt_gaji, 6) . '-' . substr($this->tmt_gaji, 3, 2) . '-'
-            . substr($this->tmt_gaji, 0, 2);
+        if (!$this->foto) {
+            $this->tanggal_lahir = substr($this->tanggal_lahir, 6) . '-' . substr($this->tanggal_lahir, 3, 2) . '-'
+                . substr($this->tanggal_lahir, 0, 2);
+            $this->tmt_gaji = substr($this->tmt_gaji, 6) . '-' . substr($this->tmt_gaji, 3, 2) . '-'
+                . substr($this->tmt_gaji, 0, 2);
+        }
 
         return true;
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            if (is_file(Yii::getAlias('@frontend/web/media/img/') . $this->foto)) unlink(Yii::getAlias('@frontend/web/media/img/') . $this->foto);
+            $saved_photo_file_name = 'photo_' . $this->photo_file->baseName . '_' . $this->id . '.' . $this->photo_file->extension;
+            $this->photo_file->saveAs('media/img/' . $saved_photo_file_name);
+            $this->foto = $saved_photo_file_name;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

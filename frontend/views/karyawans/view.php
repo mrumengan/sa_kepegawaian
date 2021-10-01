@@ -8,6 +8,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Karyawan */
 
+$this->registerCssFile('@web/css/karyawans.view.css');
+
 if ($model->status_asn == 10) {
     $status_asn = 'asn';
 } else {
@@ -169,7 +171,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-md-3 order-md-2 order-1">
             <?php if ($model->foto) { ?>
-                <img src="<?= Url::to('@web/media/photo/' . $model->foto) ?>" class="img-fluid rounded img-thumbnail" />
+                <img src="<?= Url::to('@web/media/img/' . $model->foto) ?>" class="img-fluid rounded img-thumbnail" />
             <?php } else { ?>
                 <div class="text-center img-thumbnail img-fluid rounded" style="font-size: 10em;"><i class="fas fa-user"></i></div>
             <?php } ?>

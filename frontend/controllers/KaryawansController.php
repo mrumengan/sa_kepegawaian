@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 use common\models\Karyawan;
 use common\models\KaryawanSearch;
@@ -159,16 +160,34 @@ class KaryawansController extends Controller
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 Yii::$app->session->setFlash('danger', 'Gagal update.');
-                echo '<pre>';
-                print_r($model->getAttributes());
-                print_r($model->errors);
-                die();
             }
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Upload signed Photo file.
+     * If upload is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionUploadPhoto($id)
+    {
+        if (Yii::$app->request->isPost) {
+            $model = $this->findModel($id);
+            $model->photo_file = UploadedFile::getInstance($model, 'photo_file');
+            if ($model->upload()) {
+                $model->photo_file = null;
+                $model->load(Yii::$app->request->post());
+                if ($model->save()) {
+                    return $this->redirect(['/karyawans/view', 'id' => $model->id]);
+                }
+            }
+        }
+
+        $this->goBack();
     }
 
     /**
