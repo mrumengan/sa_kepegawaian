@@ -116,6 +116,7 @@ class PresensisController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'location' => $model->work_from,
         ]);
     }
 
