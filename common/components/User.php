@@ -32,7 +32,7 @@ class User extends \yii\web\User
         if ($karyawan) {
             return $karyawan->status_asn;
         } else {
-            return 0;
+            return null;
         }
     }
 
@@ -40,6 +40,8 @@ class User extends \yii\web\User
     {
         $karyawan = Karyawan::findOne(['user_id' => $this->id]);
 
-        return $karyawan->id;
+        if ($karyawan)
+            return $karyawan->id;
+        else return null;
     }
 }

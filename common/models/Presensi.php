@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "{{%presensi}}".
@@ -12,7 +13,10 @@ use Yii;
  * @property float|null $latitude
  * @property float|null $longitude
  * @property string|null $address
+ * @property string|null $work_from
  * @property string|null $created_at
+ *
+ * @property Karyawan $karyawan
  */
 class Presensi extends \yii\db\ActiveRecord
 {
@@ -33,7 +37,7 @@ class Presensi extends \yii\db\ActiveRecord
             [['karyawan_id'], 'required'],
             [['karyawan_id'], 'integer'],
             [['latitude', 'longitude'], 'number'],
-            [['created_at'], 'safe'],
+            [['created_at', 'work_from'], 'safe'],
             [['address'], 'string', 'max' => 255],
         ];
     }
@@ -48,8 +52,32 @@ class Presensi extends \yii\db\ActiveRecord
             'karyawan_id' => 'Karyawan ID',
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
-            'address' => 'Address',
-            'created_at' => 'Created At',
+            'address' => 'Alamat',
+            'work_from' => 'Lokasi Kerja',
+            'created_at' => 'Tgl & Jam',
         ];
+    }
+
+    /**
+     * Gets query for [[Karyawan]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getKaryawan()
+    {
+        return $this->hasOne(Karyawan::class, ['id' => 'karyawan_id']);
+    }
+
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        if ($insert) {
+            $this->created_at = new Expression('NOW()'); // diajukan
+        }
+
+        return true;
     }
 }

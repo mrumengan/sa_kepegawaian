@@ -11,6 +11,7 @@ use yii\web\View;
 $this->registerJsFile('@web/js/presensis._form.js');
 
 $model->karyawan_id = Yii::$app->user->karyawanId;
+$model->work_from = $location;
 ?>
 
 <div class="presensi-form">
@@ -24,6 +25,8 @@ $model->karyawan_id = Yii::$app->user->karyawanId;
     <?= $form->field($model, 'longitude')->hiddenInput()->label(false) ?>
 
     <?= $form->field($model, 'address')->hiddenInput()->label(false) ?>
+
+    <?= $form->field($model, 'work_from')->hiddenInput()->label(false) ?>
 
     <div class="row">
         <div class="col text-center">

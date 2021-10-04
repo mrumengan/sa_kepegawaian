@@ -44,6 +44,7 @@ class PresensiSearch extends Presensi
         $query = Presensi::find();
 
         // add conditions that should always apply here
+        $query->orderBy(['created_at' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

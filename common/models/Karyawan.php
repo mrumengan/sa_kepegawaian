@@ -206,14 +206,14 @@ class Karyawan extends \yii\db\ActiveRecord
                     . substr($this->tmt_pns, 0, 2);
                 $this->tmt_gaji = substr($this->tmt_gaji, 6) . '-' . substr($this->tmt_gaji, 3, 2) . '-'
                     . substr($this->tmt_gaji, 0, 2);
+                $this->tmt_gaji = substr($this->tmt_gaji, 6) . '-' . substr($this->tmt_gaji, 3, 2) . '-'
+                    . substr($this->tmt_gaji, 0, 2);
             }
         }
 
         if (!$this->foto) {
             $this->tanggal_lahir = substr($this->tanggal_lahir, 6) . '-' . substr($this->tanggal_lahir, 3, 2) . '-'
                 . substr($this->tanggal_lahir, 0, 2);
-            $this->tmt_gaji = substr($this->tmt_gaji, 6) . '-' . substr($this->tmt_gaji, 3, 2) . '-'
-                . substr($this->tmt_gaji, 0, 2);
         }
 
         return true;

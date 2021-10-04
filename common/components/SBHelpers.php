@@ -31,6 +31,18 @@ class SBHelpers
         return $dates[2] . ' ' . $month[(int) $dates[1]] . ' ' . $dates[0];
     }
 
+    /**
+     * Get Tanggal return formatted date in bahasa
+     * @param string $date
+     * @return string
+     */
+    public static function getTanggalJam($date)
+    {
+        $date_formatted = self::getTanggal($date);
+
+        return $date_formatted . ' ' . date('H:i:s', strtotime($date));
+    }
+
     public static function penyebut($nilai)
     {
         $nilai = abs($nilai);

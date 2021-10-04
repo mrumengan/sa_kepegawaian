@@ -51,7 +51,7 @@ if ($this->title != Yii::$app->name) {
                 ['label' => 'ASN', 'url' => ['/karyawans/asn']],
                 ['label' => 'Non ASN', 'url' => ['/karyawans/non-asn']],
             ]],
-            ['label' => 'Presensi Non ASN', 'url' => ['/presensis'], 'visible' => !Yii::$app->user->isGuest && (Yii::$app->user->asn == 0), 'items' => [
+            ['label' => 'Presensi Non ASN', 'url' => ['/presensis'], 'visible' => !Yii::$app->user->isGuest && (Yii::$app->user->asn === 0), 'items' => [
                 ['label' => 'WFO', 'url' => ['/presensis/wfo']],
                 ['label' => 'WFH', 'url' => ['/presensis/wfh']],
             ]],

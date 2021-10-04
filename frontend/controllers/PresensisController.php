@@ -66,8 +66,7 @@ class PresensisController extends Controller
     {
         $model = new Presensi();
 
-        $location = 'wfh';
-        $karyawan = Yii::$app->user->karyawanId;
+        $location = 'wfo';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
