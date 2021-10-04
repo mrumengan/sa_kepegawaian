@@ -137,12 +137,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     ],
                     'gaji_pokok',
-                    [
-                        'attribute' => 'tmt_gaji',
-                        'value' => function ($data) {
-                            return SBHelpers::getTanggal($data->tmt_gaji);
-                        }
-                    ],
+                    // [
+                    //     'attribute' => 'tmt_gaji',
+                    //     'value' => function ($data) {
+                    //         return SBHelpers::getTanggal($data->tmt_gaji);
+                    //     }
+                    // ],
                     'pendidikan',
                     'pendidikan_umum',
                     'jenis_kelamin',
