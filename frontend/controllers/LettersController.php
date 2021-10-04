@@ -185,6 +185,7 @@ class LettersController extends Controller
 
         $templateProcessor->setValues([
             'nomor_surat' => $letter->nomor_surat,
+            'tanggal_surat' => SBHelpers::getTanggal($letter->created_at),
             'attachment_int' => $letter->lampiran,
             'attachment_str' => SBHelpers::terbilang($letter->lampiran),
             'ref_asal_surat' => $letter->ref_nomor_surat,
@@ -201,6 +202,7 @@ class LettersController extends Controller
                 'namaKaryawan' => $member->karyawan->nama,
                 'nipKaryawan' => $member->karyawan->nip,
                 'pangkatKaryawan' => $member->karyawan->golRuang->pangkat,
+                'golRuKaryawan' => $member->karyawan->golRuang->nama_golongan,
                 'jabatanKaryawan' => $member->karyawan->jabatan,
                 'keterangan' => ''
             ];
@@ -220,6 +222,7 @@ class LettersController extends Controller
 
         $templateProcessor->setValues([
             'nomor_surat' => $letter->nomor_surat,
+            'tanggal_surat' => SBHelpers::getTanggal($letter->created_at),
             'attachment_int' => $letter->lampiran,
             'attachment_str' => SBHelpers::terbilang($letter->lampiran),
             'ref_asal_surat' => $letter->ref_nomor_surat,
@@ -236,6 +239,7 @@ class LettersController extends Controller
                 'namaKaryawan' => $member->karyawan->nama,
                 'nipKaryawan' => $member->karyawan->nip,
                 'pangkatKaryawan' => $member->karyawan->golRuang->pangkat,
+                'golRuKaryawan' => $member->karyawan->golRuang->nama_golongan,
                 'jabatanKaryawan' => $member->karyawan->jabatan,
                 'keterangan' => ''
             ];
