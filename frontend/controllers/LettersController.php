@@ -57,12 +57,21 @@ class LettersController extends Controller
     }
 
     /**
-     * Lists all Letters models.
+     * Lists surat usulan kenaikan pangkat Letters models.
      * @return mixed
      */
     public function actionPangkat()
     {
         return $this->getLetters('pangkat');
+    }
+
+    /**
+     * Lists kartu suami / istri Letters models.
+     * @return mixed
+     */
+    public function actionKarsuis()
+    {
+        return $this->getLetters('karsuis');
     }
 
     public function getLetters($type)
@@ -141,7 +150,14 @@ class LettersController extends Controller
 
         switch ($letter->type) {
             case 'pangkat':
+                $letter->lampiran = 1;
+                $file = 'Usulan_Kenaikan_Pangkat_' . $letter->id . '.docx';
                 $docx_path = $this->createFilePangkat($letter, $template_path, $file);
+                break;
+            case 'karsuis':
+                $letter->lampiran = 1;
+                $file = 'Usulan_Kartu_Suami_Istri_' . $letter->id . '.docx';
+                $docx_path = $this->createKarsuis($letter, $template_path, $file);
                 break;
             default:
                 throw new NotFoundHttpException('The requested page does not exist.');
@@ -174,7 +190,42 @@ class LettersController extends Controller
             'ref_asal_surat' => $letter->ref_nomor_surat,
             'ref_tanggal' => SBHelpers::getTanggal($letter->ref_tanggal),
             'ref_hal' => $letter->ref_hal,
-            'hal' => $letter->hal
+            'hal_surat' => $letter->hal
+        ]);
+
+        $no_urut = 0;
+        foreach ($letter->employees as $member) {
+            $no_urut++;
+            $members[] = [
+                'noUrutLampiran' => $no_urut,
+                'namaKaryawan' => $member->karyawan->nama,
+                'nipKaryawan' => $member->karyawan->nip,
+                'pangkatKaryawan' => $member->karyawan->golRuang->pangkat,
+                'jabatanKaryawan' => $member->karyawan->jabatan,
+                'keterangan' => ''
+            ];
+        }
+        $templateProcessor->cloneRowAndSetValues('noUrutLampiran', $members);
+
+        $docx_path = Yii::getAlias('@app/web/media/doc');
+
+        $templateProcessor->saveAs('media/doc/' . $file);
+
+        return $docx_path;
+    }
+
+    private function createKarsuis($letter, $template_path, $file)
+    {
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($template_path . '/surat_usulan_pembuatan_kartu_istri.docx');
+
+        $templateProcessor->setValues([
+            'nomor_surat' => $letter->nomor_surat,
+            'attachment_int' => $letter->lampiran,
+            'attachment_str' => SBHelpers::terbilang($letter->lampiran),
+            'ref_asal_surat' => $letter->ref_nomor_surat,
+            'ref_tanggal' => SBHelpers::getTanggal($letter->ref_tanggal),
+            'ref_hal' => $letter->ref_hal,
+            'hal_surat' => $letter->hal
         ]);
 
         $no_urut = 0;
