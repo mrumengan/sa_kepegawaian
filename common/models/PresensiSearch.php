@@ -5,6 +5,7 @@ namespace common\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Presensi;
+use Yii;
 
 /**
  * PresensiSearch represents the model behind the search form of `common\models\Presensi`.
@@ -45,7 +46,9 @@ class PresensiSearch extends Presensi
 
         // add conditions that should always apply here
         $query->orderBy(['created_at' => SORT_DESC]);
-
+        if (Yii::$app->user->can('Admin') && Yii::$app->user->karyawanId) {
+            $query->andWhere(['karyawan_id' => Yii::$app->user->kayawanId]);
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
