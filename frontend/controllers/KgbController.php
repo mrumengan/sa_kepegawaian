@@ -53,7 +53,9 @@ class KgbController extends \yii\web\Controller
     public function actionIndexKaryawan()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC, 'tmt_pns' => SORT_ASC, 'tmt_cpns' => SORT_ASC]),
+            'query' => Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC])
+                ->andWhere(['status_asn' => 10])
+                ->andWhere(['IS NOT', 'tmt_gaji', null]),
         ]);
 
         return $this->render('index_karyawan', [

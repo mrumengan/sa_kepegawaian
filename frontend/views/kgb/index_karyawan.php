@@ -1,6 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
+use common\components\SBHelpers;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -28,9 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw',
                         'contentOptions' => ['style' => 'overflow-x: hidden;'],
                     ],
-                    'tmt_gaji',
-                    'tmt_pns',
-                    'tmt_cpns',
+                    [
+                        'label' => 'TMT Gaji',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_gaji);
+                        }
+                    ],
                     [
                         'class' => 'yii\grid\ActionColumn', 'template' => '{create}',
                         'buttons' => [
