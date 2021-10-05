@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p class="text-right">
+    <p>
         <?= Html::a('Buat Baru', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
@@ -21,26 +21,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'exp_year',
-            '1a:decimal',
-            '1b:decimal',
-            '1c:decimal',
-            '1d:decimal',
-            '2a:decimal',
-            '2b:decimal',
-            '2c:decimal',
-            '2d:decimal',
-            '3a:decimal',
-            '3b:decimal',
-            '3c:decimal',
-            '3d:decimal',
-            '4a:decimal',
-            '4b:decimal',
-            '4c:decimal',
-            '4d:decimal',
-            '4e:decimal',
+            // 'i_a',
+            // 'i_b',
+            // 'i_c',
+            // 'i_d',
+            'ii_a:decimal',
+            'ii_b:decimal',
+            'ii_c:decimal',
+            'ii_d:decimal',
+            'iii_a:decimal',
+            'iii_b:decimal',
+            'iii_c:decimal',
+            'iii_d:decimal',
+            //'iv_a',
+            //'iv_b',
+            //'iv_c',
+            //'iv_d',
+            //'iv_e',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

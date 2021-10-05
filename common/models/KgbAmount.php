@@ -9,23 +9,23 @@ use Yii;
  *
  * @property int $id
  * @property int $exp_year
- * @property int|null $1a
- * @property int|null $1b
- * @property int|null $1c
- * @property int|null $1d
- * @property int|null $2a
- * @property int|null $2b
- * @property int|null $2c
- * @property int|null $2d
- * @property int|null $3a
- * @property int|null $3b
- * @property int|null $3c
- * @property int|null $3d
- * @property int|null $4a
- * @property int|null $4b
- * @property int|null $4c
- * @property int|null $4d
- * @property int|null $4e
+ * @property int|null $i_a
+ * @property int|null $i_b
+ * @property int|null $i_c
+ * @property int|null $i_d
+ * @property int|null $ii_a
+ * @property int|null $ii_b
+ * @property int|null $ii_c
+ * @property int|null $ii_d
+ * @property int|null $iii_a
+ * @property int|null $iii_b
+ * @property int|null $iii_c
+ * @property int|null $iii_d
+ * @property int|null $iv_a
+ * @property int|null $iv_b
+ * @property int|null $iv_c
+ * @property int|null $iv_d
+ * @property int|null $iv_e
  */
 class KgbAmount extends \yii\db\ActiveRecord
 {
@@ -44,7 +44,7 @@ class KgbAmount extends \yii\db\ActiveRecord
     {
         return [
             [['exp_year'], 'required'],
-            [['exp_year', '1a', '1b', '1c', '1d', '2a', '2b', '2c', '2d', '3a', '3b', '3c', '3d', '4a', '4b', '4c', '4d', '4e'], 'integer'],
+            [['exp_year', 'i_a', 'i_b', 'i_c', 'i_d', 'ii_a', 'ii_b', 'ii_c', 'ii_d', 'iii_a', 'iii_b', 'iii_c', 'iii_d', 'iv_a', 'iv_b', 'iv_c', 'iv_d', 'iv_e'], 'integer'],
         ];
     }
 
@@ -56,23 +56,23 @@ class KgbAmount extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'exp_year' => 'MKG',
-            '1a' => '1a',
-            '1b' => '1b',
-            '1c' => '1c',
-            '1d' => '1d',
-            '2a' => '2a',
-            '2b' => '2b',
-            '2c' => '2c',
-            '2d' => '2d',
-            '3a' => '3a',
-            '3b' => '3b',
-            '3c' => '3c',
-            '3d' => '3d',
-            '4a' => '4a',
-            '4b' => '4b',
-            '4c' => '4c',
-            '4d' => '4d',
-            '4e' => '4e',
+            'i_a' => 'I/a',
+            'i_b' => 'I/b',
+            'i_c' => 'I/c',
+            'i_d' => 'I/d',
+            'ii_a' => 'II/a',
+            'ii_b' => 'II/b',
+            'ii_c' => 'II/c',
+            'ii_d' => 'II/d',
+            'iii_a' => 'III/a',
+            'iii_b' => 'III/b',
+            'iii_c' => 'III/c',
+            'iii_d' => 'III/d',
+            'iv_a' => 'IV/a',
+            'iv_b' => 'IV/b',
+            'iv_c' => 'IV/c',
+            'iv_d' => 'IV/d',
+            'iv_e' => 'IV/e',
         ];
     }
 }

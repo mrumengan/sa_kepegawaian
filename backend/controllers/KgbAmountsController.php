@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * KgbAmountController implements the CRUD actions for KgbAmount model.
+ * KgbAmountsController implements the CRUD actions for KgbAmount model.
  */
 class KgbAmountsController extends Controller
 {
