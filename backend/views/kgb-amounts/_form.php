@@ -40,11 +40,14 @@ use yii\widgets\ActiveForm;
         <div class="col number"><?= $form->field($model, '4b')->textInput() ?></div>
         <div class="col number"><?= $form->field($model, '4c')->textInput() ?></div>
         <div class="col number"><?= $form->field($model, '4d')->textInput() ?></div>
-        <div class="col number"><?= $form->field($model, '4e')->textInput() ?></div>
+    </div>
+
+    <div class="row justify-content-end">
+        <div class="col-3 number"><?= $form->field($model, '4e')->textInput() ?></div>
     </div>
 
 
-    <div class="row">
+    <div class="row justify-content-end">
         <div class="col text-right">
             <div class="form-group">
                 <?= Html::submitButton('Simpan', ['class' => 'btn btn-success']) ?>
