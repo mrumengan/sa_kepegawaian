@@ -43,7 +43,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="row justify-content-end">
-        <div class="col-3 number"><?= $form->field($model, 'iv_e')->textInput() ?></div>
+        <div class="col col-3 number"><?= $form->field($model, 'iv_e')->textInput() ?></div>
     </div>
     <div class="row">
         <div class="col text-right">

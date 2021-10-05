@@ -202,7 +202,7 @@ class Karyawan extends \yii\db\ActiveRecord
         $interval = date_diff($date_start, $date_now);
 
         $kgb_amount = KgbAmount::findOne(['exp_year' => $interval->format('%y')]);
-        return $kgb_amount[strtolower($this->golongan)];
+        return $kgb_amount[str_replace('/', '_', strtolower($this->golongan))];
     }
 
     public function beforeSave($insert)
