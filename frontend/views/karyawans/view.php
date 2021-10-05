@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return SBHelpers::getTanggal($data->tmt_pns);
                         }
                     ],
-                    'gaji_pokok',
+                    'gaji_pokok:currency',
                     [
                         'attribute' => 'tmt_gaji',
                         'value' => function ($data) {
@@ -136,7 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return SBHelpers::getTanggal($data->tanggal_lahir);
                         }
                     ],
-                    'gaji_pokok',
+                    'gaji_pokok:currency',
                     // [
                     //     'attribute' => 'tmt_gaji',
                     //     'value' => function ($data) {

@@ -17,6 +17,7 @@ return [
             'nullDisplay' => '<span class="not-set">(kosong)</span>',
             'thousandSeparator' => '.',
             'currencyDecimalSeparator' => ',',
+            'numberFormatterOptions' => [NumberFormatter::MIN_FRACTION_DIGITS => 0],
             'dateFormat' => 'dd MMMM yyyy',
             'currencyCode' => 'IDR ',
             'numberFormatterSymbols' => [NumberFormatter::CURRENCY_SYMBOL => 'Rp.'],

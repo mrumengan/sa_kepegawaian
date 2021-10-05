@@ -24,10 +24,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'nama',
                         'value' => function ($data) {
-                            return "<strong>{$data->nama}</strong><div>{$data->nip}</div>";
+                            return "<strong>{$data->nama}</strong><div>{$data->nip}</div><div>{$data->golRuang->pangkat} ({$data->golRuang->nama_golongan})</div>";
                         },
                         'format' => 'raw',
                         'contentOptions' => ['style' => 'overflow-x: hidden;'],
+                    ],
+                    [
+                        'label' => 'MKG',
+                        'value' => function ($data) {
+                            return "<div>{$data->masaKerja}<br />({$data->tmt_cpns})</div>";
+                        },
+                        'format' => 'raw'
                     ],
                     [
                         'label' => 'TMT',
@@ -40,7 +47,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function ($data) {
                             return $data->gaji_pokok;
                         },
-                        // 'format' => 'currency'
+                        'format' => 'decimal',
+                        'contentOptions' => ['class' => 'text-right']
+                    ],
+                    [
+                        'label' => 'Gaji Pokok Baru',
+                        'value' => function ($data) {
+                            return $data->kgbAmount;
+                        },
+                        'format' => 'decimal',
+                        'contentOptions' => ['class' => 'text-right']
                     ],
                     // [
                     //     'label' => 'Gaji Pokok Baru',

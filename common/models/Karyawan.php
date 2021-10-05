@@ -43,6 +43,8 @@ class Karyawan extends \yii\db\ActiveRecord
 
     public $photo_file;
 
+    public $masa_kerja;
+
     public $statuses = [
         0 => 'Non ASN',
         10 => 'ASN'
@@ -62,7 +64,7 @@ class Karyawan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'departemen_id', 'peringkat', 'status_asn'], 'integer'],
+            [['gaji_pokok', 'user_id', 'departemen_id', 'peringkat', 'status_asn'], 'integer'],
             [['tanggal_lahir', 'tmt_pangkat', 'tmt_jabatan', 'tmt_cpns', 'tmt_pns', 'tmt_gaji', 'foto'], 'safe'],
             [['nip', 'nip_lama'], 'string', 'max' => 21],
             [['nama', 'pendidikan_umum'], 'string', 'max' => 100],
@@ -71,7 +73,7 @@ class Karyawan extends \yii\db\ActiveRecord
             [['jabatan'], 'string', 'max' => 500],
             [['eselon'], 'string', 'max' => 6],
             [['pangkat_cpns'], 'string', 'max' => 50],
-            [['gaji_pokok', 'jenis_kelamin'], 'string', 'max' => 9],
+            [['jenis_kelamin'], 'string', 'max' => 9],
             [['pendidikan'], 'string', 'max' => 100],
             [['diklat_struktural'], 'string', 'max' => 200],
             [['diklat_fungsional'], 'string', 'max' => 200],
@@ -186,6 +188,23 @@ class Karyawan extends \yii\db\ActiveRecord
         }
     }
 
+    /**
+     * Gets masa kerja.
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getKgbAmount()
+    {
+        $date_start = date_create($this->tmt_cpns);
+
+        $date_now = date_create(date('d-m-Y', time()));
+
+        $interval = date_diff($date_start, $date_now);
+
+        $kgb_amount = KgbAmount::findOne(['exp_year' => $interval->format('%y')]);
+        return $kgb_amount[strtolower($this->golongan)];
+    }
+
     public function beforeSave($insert)
     {
         if (!parent::beforeSave($insert)) {
@@ -217,6 +236,13 @@ class Karyawan extends \yii\db\ActiveRecord
         }
 
         return true;
+    }
+
+    public function afterFind()
+    {
+
+        parent::afterFind();
+        $this->masa_kerja = $this->tmt_cpns;
     }
 
     public function upload()

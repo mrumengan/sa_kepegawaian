@@ -54,9 +54,9 @@ class KgbController extends \yii\web\Controller
     public function actionIndexKaryawan()
     {
         $currMonth = date('m');
-        $nextMonth = $currMonth + 1;
+        $nextMonth = $currMonth + 3;
 
-        if ($currMonth == 12) {
+        if ($currMonth > 9) {
             $nextMonth = 12;
         }
         $dataProvider = new ActiveDataProvider([
