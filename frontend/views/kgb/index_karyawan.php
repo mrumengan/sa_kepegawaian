@@ -30,11 +30,25 @@ $this->params['breadcrumbs'][] = $this->title;
                         'contentOptions' => ['style' => 'overflow-x: hidden;'],
                     ],
                     [
-                        'label' => 'TMT Gaji',
+                        'label' => 'TMT',
                         'value' => function ($data) {
                             return SBHelpers::getTanggal($data->tmt_gaji);
                         }
                     ],
+                    [
+                        'label' => 'Gaji Pokok Lama',
+                        'value' => function ($data) {
+                            return $data->gaji_pokok;
+                        },
+                        // 'format' => 'currency'
+                    ],
+                    // [
+                    //     'label' => 'Gaji Pokok Baru',
+                    //     'value' => function ($data) {
+                    //         return $data->jumlah;
+                    //     },
+                    //     'format' => 'currency'
+                    // ],
                     [
                         'class' => 'yii\grid\ActionColumn', 'template' => '{create}',
                         'buttons' => [

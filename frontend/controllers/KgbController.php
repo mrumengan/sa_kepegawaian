@@ -11,6 +11,7 @@ use common\models\Karyawan;
 use common\models\Kgb;
 
 use kartik\mpdf\Pdf;
+use yii\db\Expression;
 
 class KgbController extends \yii\web\Controller
 {
@@ -52,11 +53,26 @@ class KgbController extends \yii\web\Controller
 
     public function actionIndexKaryawan()
     {
+        $currMonth = date('m');
+        $nextMonth = $currMonth + 1;
+
+        if ($currMonth == 12) {
+            $nextMonth = 12;
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC])
                 ->andWhere(['status_asn' => 10])
-                ->andWhere(['IS NOT', 'tmt_gaji', null]),
+                ->andWhere(['IS NOT', 'tmt_gaji', null])
+                ->andWhere(['>', new Expression('TIMESTAMPDIFF(YEAR, tmt_gaji, CURDATE())'), 2])
+                ->andWhere(['between', new Expression('MONTH(tmt_gaji)'), $currMonth, $nextMonth]),
         ]);
+
+        // $query = Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC])
+        //     ->andWhere(['status_asn' => 10])
+        //     ->andWhere(['IS NOT', 'tmt_gaji', null])
+        //     ->andWhere(['>', new Expression('TIMESTAMPDIFF(YEAR, tmt_gaji, CURDATE())'), 2])
+        //     ->andWhere(['=', new Expression('MONTH(tmt_gaji)'), date('m') + 1]);
+        // echo $query->createCommand()->sql;
 
         return $this->render('index_karyawan', [
             'dataProvider' => $dataProvider,

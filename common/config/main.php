@@ -14,11 +14,12 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'formatter' => [
-            // 'thousandSeparator' => '.',
-            // 'currencyDecimalSeparator' => ',',
+            'nullDisplay' => '<span class="not-set">(kosong)</span>',
+            'thousandSeparator' => '.',
+            'currencyDecimalSeparator' => ',',
             'dateFormat' => 'dd MMMM yyyy',
-            'currencyCode' => 'IDR',
-            'numberFormatterSymbols' => [360 => 'Rp.'],
+            'currencyCode' => 'IDR ',
+            'numberFormatterSymbols' => [NumberFormatter::CURRENCY_SYMBOL => 'Rp.'],
         ],
     ],
 ];

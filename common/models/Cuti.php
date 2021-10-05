@@ -144,8 +144,10 @@ class Cuti extends \yii\db\ActiveRecord
 
         if ($insert) {
             $this->status = 5; // diajukan
-            $this->tanggal_cuti = substr($this->tanggal_cuti, 6) . '-' . substr($this->tanggal_cuti, 3, 2) . '-'
-                . substr($this->tanggal_cuti, 0, 2);
+            if (strpos($this->tanggal_cuti, '/') == 2) {
+                $this->tanggal_cuti = substr($this->tanggal_cuti, 6) . '-' . substr($this->tanggal_cuti, 3, 2) . '-'
+                    . substr($this->tanggal_cuti, 0, 2);
+            }
         }
 
         return true;
