@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return Html::a('<i class="fas fa-eye"></i>', ['karyawan', 'id' => $model->id], ['title' => 'lihat detil']);
                             },
                             'create' => function ($url, $model, $key) {
-                                return Html::a('<i class="fas fa-plus-circle"></i>', ['create', 'id' => $model->id], ['title' => 'tambah kenaikan']);
+                                return Html::a('<i class="fas fa-plus-circle"></i>', ['create', 'id' => $model->id], ['title' => 'proses kenaikan']);
                             }
                         ]
                     ],

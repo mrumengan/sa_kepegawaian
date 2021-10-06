@@ -41,18 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     ],
                     [
-                        'label' => 'Gaji Pokok Lama',
-                        'value' => function ($data) {
-                            return $data->karyawan->gaji_pokok;
-                        },
-                        // 'format' => 'currency'
-                    ],
-                    [
                         'label' => 'Gaji Pokok Baru',
                         'value' => function ($data) {
                             return $data->jumlah;
                         },
-                        'format' => 'currency'
+                        'format' => 'currency',
+                        'contentOptions' => ['style' => 'text-align: right;'],
                     ],
                     [
                         'label' => 'Status',

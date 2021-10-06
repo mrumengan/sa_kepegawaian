@@ -15,7 +15,8 @@ $this->registerJsFile(
 );
 
 if ($model->isNewRecord) {
-    $tanggal_kenaikan = date('d/m/Y', mktime(0, 0, 0, date('m'), date('d') + 1, date('Y')));
+    $kgb_month = date('m', strtotime($karyawan->tmt_gaji));
+    $tanggal_kenaikan = date('d/m/Y', mktime(0, 0, 0, $kgb_month, 1, date('Y')));
 } else {
     $tanggal_kenaikan = date('d/m/Y', strtotime($model->tanggal_kenaikan));
 }
@@ -35,21 +36,28 @@ $("#kgb-tanggal_kenaikan").datepicker({
 /* @var $model common\models\Kgb */
 /* @var $form yii\widgets\ActiveForm */
 $model->karyawan_id = $karyawan->id;
+$model->jumlah = $karyawan->kgbAMount;
 ?>
 
 <div class="kgb-form">
     <h2><?= $karyawan->nama ?> - <?= $karyawan->nip ?></h2>
 
     <?php $form = ActiveForm::begin(); ?>
-
     <?= $form->field($model, 'karyawan_id')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'jumlah')->textInput() ?>
+    <div class="form-row">
+        <div class="col">
+            <?= $form->field($model, 'jumlah')->textInput() ?>
+        </div>
+        <div class="col">
+            <?= $form->field($model, 'tanggal_kenaikan')->textInput() ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'tanggal_kenaikan')->textInput() ?>
+
 
     <div class="form-group">
-        <?= Html::submitButton('Simpan', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Proses', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
