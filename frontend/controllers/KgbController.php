@@ -63,7 +63,7 @@ class KgbController extends \yii\web\Controller
             'query' => Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC])
                 ->andWhere(['status_asn' => 10])
                 ->andWhere(['IS NOT', 'tmt_gaji', null])
-                ->andWhere(['>', new Expression('TIMESTAMPDIFF(YEAR, tmt_gaji, CURDATE())'), 2])
+                ->andWhere(['>', new Expression('TIMESTAMPDIFF(MONTH, tmt_gaji, CURDATE())'), 21])
                 ->andWhere(['between', new Expression('MONTH(tmt_gaji)'), $currMonth, $nextMonth]),
         ]);
 
