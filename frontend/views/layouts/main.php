@@ -70,10 +70,8 @@ if ($this->title != Yii::$app->name) {
                 ['label' => 'Usul Pensiun', 'url' => ['/letters/pensiun']],
                 ['label' => 'Usul Mutasi', 'url' => ['/letters/mutasi']],
                 ['label' => 'Usul Jabfung', 'url' => ['/letters/jabfung']],
-                ['label' => 'Usul BPJS', 'url' => ['/letters/bpjs']],
                 ['label' => 'Usul Pencantuman Gelar', 'url' => ['/letters/gelar']],
                 ['label' => 'Usul Cuti Alasan Penting', 'url' => ['/letters/cuti-penting']],
-                ['label' => 'Usul Karsu / Karis', 'url' => ['/letters/karsuis']],
             ]],
         ];
         if (Yii::$app->user->isGuest) {

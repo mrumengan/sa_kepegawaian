@@ -37,11 +37,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw'
                     ],
                     [
-                        'label' => 'TMT',
+                        'label' => 'TMT Gaji',
                         'value' => function ($data) {
                             return SBHelpers::getTanggal($data->tmt_gaji);
                         }
                     ],
+                    // [
+                    //     'label' => 'TMT Gaji Berikutnya',
+                    //     'value' => function ($data) {
+                    //         return SBHelpers::getTanggal(date('Y-m-d', strtotime('+2 years', strtotime($data->tmt_gaji))));
+                    //     }
+                    // ],
                     [
                         'label' => 'Gaji Pokok Lama',
                         'value' => function ($data) {
