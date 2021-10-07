@@ -66,16 +66,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     //     'format' => 'currency'
                     // ],
                     [
-                        'class' => 'yii\grid\ActionColumn', 'template' => '{create}',
+                        'class' => 'yii\grid\ActionColumn', 'template' => '<div class="text-center">{create}</div>',
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
                                 return Html::a('<i class="fas fa-eye"></i>', ['karyawan', 'id' => $model->id], ['title' => 'lihat detil']);
                             },
                             'create' => function ($url, $model, $key) {
                                 if ($model->inProcessKgb) {
-                                    return '<span class="not-set">(dalam proses)</span>';
+                                    return Html::a('<i class="fas fa-exclamation"></i>', ['view', 'id' => $model->inProcessKgb->id], ['title' => 'proses kenaikan', 'class' => 'text-warning']);
                                 } else {
-                                    return Html::a('<i class="fas fa-plus-circle"></i> ', ['create', 'id' => $model->id], ['title' => 'proses kenaikan']);
+                                    return Html::a('<i class="fas fa-plus-circle"></i> ', ['create', 'id' => $model->id], ['title' => 'ajukan kenaikan']);
                                 }
                             }
                         ]

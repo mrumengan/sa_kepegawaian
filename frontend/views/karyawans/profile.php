@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-3">
             <?php if ($model->foto) { ?>
-                <img src="<?= Url::to('@web/media/photo/' . $model->foto) ?>" class="img-fluid rounded img-thumbnail" />
+                <img src="<?= Url::to('@web/media/img/' . $model->foto) ?>" class="img-fluid rounded img-thumbnail" />
             <?php } else { ?>
                 <div class="text-center img-thumbnail img-fluid rounded" style="font-size: 10em;"><i class="fas fa-user"></i></div>
             <?php } ?>
