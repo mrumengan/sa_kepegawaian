@@ -148,6 +148,7 @@ class KgbController extends \yii\web\Controller
                     $karyawan = Karyawan::findOne($model->karyawan_id);
                     $karyawan->gaji_pokok = $model->jumlah;
                     $karyawan->tmt_gaji = $model->tanggal_kenaikan;
+                    $karyawan->save();
                     return $this->redirect(['/kgb/view', 'id' => $model->id]);
                 }
             }

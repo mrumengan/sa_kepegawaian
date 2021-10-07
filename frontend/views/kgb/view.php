@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data'], 'id' => 'form-upload', 'action' => ['kgb/upload', 'id' => $model->id]]);
                 $model->status = 10;
                 ?>
-                <?= $form->field($model, 'status')->textInput() ?>
+                <?= $form->field($model, 'status')->hiddenInput()->label(false) ?>
                 <div class="row">
                     <div class="col">
                         <div class="input-group mb-3">
