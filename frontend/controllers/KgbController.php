@@ -205,7 +205,12 @@ class KgbController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                $karyawan = Karyawan::findOne($model->karyawan_id);
+                $karyawan->tmt_gaji = $model->tanggal_kenaikan;
+                $karyawan->gaji_pokok = $model->jumlah;
+                if ($karyawan->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         }
 
