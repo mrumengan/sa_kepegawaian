@@ -56,7 +56,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw'
                     ],
                     [
-                        'class' => 'yii\grid\ActionColumn', 'template' => '{view} {deny}',
+                        'label' => 'Penetapan',
+                        'value' => function ($data) {
+                            if ($data->status == 10) {
+                                return Html::a($data->signed_pdf, ['pdf', 'id' => $data->id], []);
+                            } else {
+                                return '<span class="not-set">(belum ada)</span>';
+                            }
+                        },
+                        'format' => 'raw'
+                    ],
+                    [
+                        'class' => 'yii\grid\ActionColumn', 'template' => '{view}',
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
                                 return Html::a('<i class="fas fa-eye"></i>', ['view', 'id' => $model->id], ['title' => 'lihat detil']);
@@ -65,12 +76,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return Html::a('<i class="far fa-times-circle" style="color: red;"></i>', ['create', 'id' => $model->id], ['title' => 'tolak kenaikan']);
                             }
                         ]
-                    ],
-                    [
-                        'label' => 'Penetapan',
-                        'value' => function ($data) {
-                            return $data->signed_pdf;
-                        }
                     ],
                 ],
             ]); ?>

@@ -72,7 +72,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return Html::a('<i class="fas fa-eye"></i>', ['karyawan', 'id' => $model->id], ['title' => 'lihat detil']);
                             },
                             'create' => function ($url, $model, $key) {
-                                return Html::a('<i class="fas fa-plus-circle"></i>', ['create', 'id' => $model->id], ['title' => 'proses kenaikan']);
+                                if ($model->inProcessKgb) {
+                                    return '<span class="not-set">(dalam proses)</span>';
+                                } else {
+                                    return Html::a('<i class="fas fa-plus-circle"></i> ', ['create', 'id' => $model->id], ['title' => 'proses kenaikan']);
+                                }
                             }
                         ]
                     ],

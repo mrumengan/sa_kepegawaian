@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\components\SBHelpers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
@@ -60,12 +61,13 @@ class KgbController extends \yii\web\Controller
             $nextMonth = 12;
         }
         $dataProvider = new ActiveDataProvider([
-            'query' => Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC])
+            'query' => Karyawan::find()->with('inProcessKgb')->orderBy(['tmt_gaji' => SORT_ASC])
                 ->andWhere(['status_asn' => 10])
                 ->andWhere(['IS NOT', 'tmt_gaji', null])
                 ->andWhere(['>', new Expression('TIMESTAMPDIFF(MONTH, tmt_gaji, CURDATE())'), 21])
-                ->andWhere(['between', new Expression('MONTH(tmt_gaji)'), $currMonth, $nextMonth]),
+                ->andWhere(['between', new Expression('MONTH(tmt_gaji)'), $currMonth, $nextMonth])
         ]);
+
 
         // $query = Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC])
         //     ->andWhere(['status_asn' => 10])
@@ -95,54 +97,38 @@ class KgbController extends \yii\web\Controller
      */
     public function actionDownload($id)
     {
-        $this->layout = 'clean';
-        $model = $this->findModel($id);
-        $content = $this->renderPartial('pdf', [
-            'model' => $model,
+        $kgb = Kgb::find()->with('karyawan.golRuang')->where(['id' => $id])->one();
+        $template_path = Yii::getAlias('@app/web/templates');
+        $file = 'Kenaikan_Gaji_Berkala_' . $kgb->karyawan->nama . '.docx';
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($template_path . '/surat_usulan_kenaikan_gaji_berkala.docx');
+
+        $templateProcessor->setValues([
+            'nama_karyawan' => $kgb->karyawan->nama,
+            'nip_karyawan' => $kgb->karyawan->nip,
+            'pangkat' => $kgb->karyawan->golRuang->pangkat,
+            'gol_ruang' => $kgb->karyawan->golRuang->nama_golongan,
+            'gaji_lama' => Yii::$app->formatter->asCurrency($kgb->karyawan->gaji_pokok),
+            'gaji_baru' => Yii::$app->formatter->asCurrency($kgb->jumlah),
+            'mkg' => $kgb->karyawan->masaKerja,
+            'tanggal_kenaikan' => SBHelpers::getTanggal($kgb->tanggal_kenaikan),
+            'tanggal_kenaikan_berikutnya' => SBHelpers::getTanggal(date('Y-m-d', strtotime('+2 years', strtotime($kgb->tanggal_kenaikan))))
         ]);
 
-        // return $content;
+        $docx_path = Yii::getAlias('@app/web/media/doc');
 
-        // setup kartik\mpdf\Pdf component
-        $pdf = new Pdf([
-            // set to use core fonts only
-            'mode' => Pdf::MODE_CORE,
-            // A4 paper format
-            'format' => Pdf::FORMAT_LEGAL,
-            // portrait orientation
-            'orientation' => Pdf::ORIENT_PORTRAIT,
-            // stream to browser inline
-            'destination' => Pdf::DEST_BROWSER,
-            'filename' => 'Surat_KGB_' . str_pad($model->id, $model->code_width, "0", STR_PAD_LEFT) . '_' . $model->karyawan->nama . '.pdf',
-            // your html content input
-            'content' => $content,
-            // format content from your own css file if needed or use the
-            // enhanced bootstrap css built by Krajee for mPDF formatting
-            // 'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
-            'cssFile' => '@frontend/web/css/kgb.pdf.css',
-            // any css to be embedded if required
-            'cssInline' => '
-                .kv-heading-1 {
-                    font-size:18px
-                }
-                body {
-                    font-size: 12px;
-                }
-                td {
-                    font-size: 1rem;
-                }
-                ',
-            // set mPDF properties on the fly
-            'options' => ['title' => 'KGB', 'subject' => 'Surat KGB'],
-            // call mPDF methods on the fly
-            'methods' => [
-                'SetHeader' => [''],
-                'SetFooter' => ['{PAGENO}'],
-            ]
-        ]);
+        $templateProcessor->saveAs('media/doc/' . $file);
+        header("Content-Description: File Transfer");
+        header('Content-Disposition: attachment; filename="' . $file . '"');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: ' . filesize($docx_path . '/' . $file));
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
 
-        // return the pdf output as per the destination setting
-        return $pdf->render();
+        // $phpWord = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        // $phpWord->save('media/doc/' . $file);
+        Yii::$app->response->sendFile($docx_path . '/' . $file);
     }
 
     /**
@@ -159,12 +145,15 @@ class KgbController extends \yii\web\Controller
                 $model->pdf_file = null;
                 $model->load(Yii::$app->request->post());
                 if ($model->save()) {
-                    $this->redirect(['/cutis/view', 'id' => $model->id]);
+                    $karyawan = Karyawan::findOne($model->karyawan_id);
+                    $karyawan->gaji_pokok = $model->jumlah;
+                    $karyawan->tmt_gaji = $model->tanggal_kenaikan;
+                    return $this->redirect(['/kgb/view', 'id' => $model->id]);
                 }
             }
         }
 
-        $this->goBack();
+        return $this->goBack();
     }
 
     /**
@@ -205,12 +194,7 @@ class KgbController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-                $karyawan = Karyawan::findOne($model->karyawan_id);
-                $karyawan->tmt_gaji = $model->tanggal_kenaikan;
-                $karyawan->gaji_pokok = $model->jumlah;
-                if ($karyawan->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 

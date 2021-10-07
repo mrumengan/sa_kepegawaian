@@ -183,8 +183,10 @@ class Kgb extends \yii\db\ActiveRecord
         if ($insert) {
             $this->status = 5; // diajukan
         }
-        $this->tanggal_kenaikan = substr($this->tanggal_kenaikan, 6) . '-' . substr($this->tanggal_kenaikan, 3, 2) . '-'
-            . substr($this->tanggal_kenaikan, 0, 2);
+        if (strpos($this->tanggal_kenaikan, '/') == 2) {
+            $this->tanggal_kenaikan = substr($this->tanggal_kenaikan, 6) . '-' . substr($this->tanggal_kenaikan, 3, 2) . '-'
+                . substr($this->tanggal_kenaikan, 0, 2);
+        }
 
         return true;
     }
