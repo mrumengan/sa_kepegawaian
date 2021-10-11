@@ -68,7 +68,6 @@ if ($this->title != Yii::$app->name) {
                 ['label' => 'Usul TB / IB', 'url' => ['/letters/belajar']],
                 ['label' => 'Usul Satya Lencana', 'url' => ['/letters/satya-lencana']],
                 ['label' => 'Usul Pensiun', 'url' => ['/letters/pensiun']],
-                ['label' => 'Usul Mutasi', 'url' => ['/letters/mutasi']],
                 ['label' => 'Usul Jabfung', 'url' => ['/letters/jabfung']],
                 ['label' => 'Usul Pencantuman Gelar', 'url' => ['/letters/gelar']],
                 ['label' => 'Usul Cuti Alasan Penting', 'url' => ['/letters/cuti-penting']],
