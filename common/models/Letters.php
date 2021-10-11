@@ -51,6 +51,7 @@ class Letters extends \yii\db\ActiveRecord
 
     public $titles = [
         'pangkat' => 'Usulan Kenaikan Pangkat',
+        'mutasi' => 'Usulan Mutasi',
         'karsuis' => 'Usulan Kartu Suami / Istri',
     ];
 

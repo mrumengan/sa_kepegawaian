@@ -66,6 +66,15 @@ class LettersController extends Controller
     }
 
     /**
+     * Lists surat usulan kenaikan pangkat Letters models.
+     * @return mixed
+     */
+    public function actionMutasi()
+    {
+        return $this->getLetters('mutasi');
+    }
+
+    /**
      * Lists kartu suami / istri Letters models.
      * @return mixed
      */
@@ -154,6 +163,11 @@ class LettersController extends Controller
                 $file = 'Usulan_Kenaikan_Pangkat_' . $letter->id . '.docx';
                 $docx_path = $this->createFilePangkat($letter, $template_path, $file);
                 break;
+            case 'mutasi':
+                $letter->lampiran = 1;
+                $file = 'Usulan_Mutasi_' . $letter->id . '.docx';
+                $docx_path = $this->createFileMutasi($letter, $template_path, $file);
+                break;
             case 'karsuis':
                 $letter->lampiran = 1;
                 $file = 'Usulan_Kartu_Suami_Istri_' . $letter->id . '.docx';
@@ -203,6 +217,43 @@ class LettersController extends Controller
                 'nipKaryawan' => $member->karyawan->nip,
                 'pangkatKaryawan' => $member->karyawan->golRuang->pangkat,
                 'golRuKaryawan' => $member->karyawan->golRuang->nama_golongan,
+                'jabatanKaryawan' => $member->karyawan->jabatan,
+                'keterangan' => ''
+            ];
+        }
+        $templateProcessor->cloneRowAndSetValues('noUrutLampiran', $members);
+
+        $docx_path = Yii::getAlias('@app/web/media/doc');
+
+        $templateProcessor->saveAs('media/doc/' . $file);
+
+        return $docx_path;
+    }
+
+    private function createFileMutasi($letter, $template_path, $file)
+    {
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($template_path . '/surat_usulan_mutasi.docx');
+
+        $templateProcessor->setValues([
+            'nomor_surat' => $letter->nomor_surat,
+            'tanggal_surat' => SBHelpers::getTanggal($letter->created_at),
+            'attachment_int' => $letter->lampiran,
+            'attachment_str' => SBHelpers::terbilang($letter->lampiran),
+            'ref_asal_surat' => $letter->ref_nomor_surat,
+            'ref_tanggal' => SBHelpers::getTanggal($letter->ref_tanggal),
+            'ref_hal' => $letter->ref_hal,
+            'hal_surat' => $letter->hal
+        ]);
+
+        $no_urut = 0;
+        foreach ($letter->employees as $member) {
+            $no_urut++;
+            $members[] = [
+                'noUrutLampiran' => $no_urut,
+                'namaKaryawan' => $member->karyawan->nama,
+                'nipKaryawan' => $member->karyawan->nip,
+                'pangkatKaryawan' => $member->karyawan->golRuang->pangkat,
+                'golRuangKaryawan' => $member->karyawan->golRuang->nama_golongan,
                 'jabatanKaryawan' => $member->karyawan->jabatan,
                 'keterangan' => ''
             ];
