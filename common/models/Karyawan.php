@@ -215,7 +215,7 @@ class Karyawan extends \yii\db\ActiveRecord
         if ($kgb_amount) {
             return $kgb_amount[str_replace('/', '_', strtolower($this->golongan))];
         } else {
-            return null;
+            return $this->gaji_pokok;
         }
     }
 
