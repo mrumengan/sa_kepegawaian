@@ -265,6 +265,9 @@ ul.pagination li.active a {
 }
 
 @media(max-width:767px) {
+  .site-name-long {
+    display: none;
+  }
   .wrap>.container {
     padding: 10px 15px 20px;
   }
