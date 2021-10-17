@@ -8,6 +8,7 @@ use common\models\PresensiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * PresensisController implements the CRUD actions for Presensi model.
@@ -68,8 +69,16 @@ class PresensisController extends Controller
 
         $location = 'wfo';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            // if ($model->save()) {
+            if ($model->upload()) {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
+            // }
         }
 
         return $this->render('create', [
@@ -89,8 +98,16 @@ class PresensisController extends Controller
 
         $location = 'wfh';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                if ($model->upload()) {
+                    if ($model->save()) {
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                }
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
@@ -148,5 +165,13 @@ class PresensisController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionViewPhoto($id)
+    {
+        $model = $this->findModel($id);
+        $photo_data = file_get_contents(Yii::getAlias('@frontend/web/media/img/presensi/') . $model->photo_file);
+
+        return base64_encode($photo_data);
     }
 }

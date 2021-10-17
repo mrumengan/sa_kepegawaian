@@ -15,11 +15,14 @@ use yii\db\Expression;
  * @property string|null $address
  * @property string|null $work_from
  * @property string|null $created_at
+ * @property string|null $photo_file
  *
  * @property Karyawan $karyawan
  */
 class Presensi extends \yii\db\ActiveRecord
 {
+    public $photo_data;
+
     /**
      * {@inheritdoc}
      */
@@ -39,6 +42,8 @@ class Presensi extends \yii\db\ActiveRecord
             [['latitude', 'longitude'], 'number'],
             [['created_at', 'work_from'], 'safe'],
             [['address'], 'string', 'max' => 255],
+            [['photo_file'], 'string', 'max' => 100],
+            [['photo_data'], 'string'],
         ];
     }
 
@@ -79,5 +84,23 @@ class Presensi extends \yii\db\ActiveRecord
         }
 
         return true;
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            $imageData = base64_decode(str_replace('data:image/jpeg;base64,', '', $this->photo_data));
+            if (is_file(Yii::getAlias('@frontend/web/media/img/presensi/') . $this->photo_file)) unlink(Yii::getAlias('@frontend/web/media/img/presensi/') . $this->foto);
+            $file_name = 'photo_' . Yii::$app->security->generateRandomString(5) . '.jpg';
+            $saved_photo_file_name = Yii::getAlias('@frontend/web/media/img/presensi/') . $file_name;
+            if (file_put_contents($saved_photo_file_name, $imageData) === false) {
+                throw new \yii\base\Exception("Couldn't save image to $file_name");
+            }
+            $this->photo_data = null;
+            $this->photo_file = $file_name;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

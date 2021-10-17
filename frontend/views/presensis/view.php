@@ -48,6 +48,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return SBHelpers::getTanggalJam($data->created_at);
                 }
             ],
+            [
+                'attribute' => 'photo_file',
+                'value' => function ($model) {
+                    return Html::img('@web/media/img/presensi/' . $model->photo_file, ['class' => 'img-thumbmnail', 'style' => 'min-width: 150px; max-width: 250px;']);
+                },
+                'format' => 'raw'
+            ]
         ],
     ]) ?>
 
