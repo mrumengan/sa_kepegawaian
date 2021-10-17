@@ -60,6 +60,7 @@ class Presensi extends \yii\db\ActiveRecord
             'address' => 'Alamat',
             'work_from' => 'Lokasi Kerja',
             'created_at' => 'Tgl & Jam',
+            'photo_file' => 'Foto',
         ];
     }
 
