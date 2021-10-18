@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
+use common\components\SBHelpers;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Karyawan */
@@ -26,9 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-9">
-            <?= DetailView::widget([
-                'model' => $model,
-                'attributes' => [
+            <?php if ($model->status_asn == 10) {
+                $detail_attributes = [
                     'nama',
                     'nip',
                     [
@@ -38,29 +38,120 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     ],
                     'jabatan',
+                    // [
+                    //     'label' => 'Unit Kerja',
+                    //     'value' => function ($model) {
+                    //         if ($model->departemen)
+                    //             return $model->departemen->nama;
+                    //         else
+                    //             return null;
+                    //     }
+                    // ],
                     'tempat_lahir',
-                    'tanggal_lahir',
-                    'golongan',
-                    'tmt_pangkat',
-                    'tmt_jabatan',
+                    [
+                        'attribute' => 'tanggal_lahir',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tanggal_lahir);
+                        }
+                    ],
+                    [
+                        'attribute' => 'tmt_pangkat',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_pangkat);
+                        }
+                    ],
+                    [
+                        'attribute' => 'tmt_jabatan',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_jabatan);
+                        }
+                    ],
                     'eselon',
                     'pangkat_cpns',
-                    'tmt_cpns',
-                    'tmt_pns',
-                    'gaji_pokok',
-                    'tmt_gaji',
+                    [
+                        'attribute' => 'tmt_cpns',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_cpns);
+                        }
+                    ],
+                    [
+                        'attribute' => 'tmt_pns',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_pns);
+                        }
+                    ],
+                    'gaji_pokok:currency',
+                    [
+                        'attribute' => 'tmt_gaji',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tmt_gaji);
+                        }
+                    ],
                     'pendidikan',
                     'pendidikan_umum',
                     'diklat_struktural',
                     'diklat_fungsional',
                     'jenis_kelamin',
                     'nip_lama',
-                    'peringkat',
+                    // 'peringkat',
                     [
-                        'attribute' => 'user.username',
-                        'label' => 'User'
+                        'label' => 'Status',
+                        'value' => function ($model) {
+                            return $model->statuses[$model->status_asn];
+                        }
                     ],
-                ],
+                    [
+                        'label' => 'User ID',
+                        'value' => function ($model) {
+                            if ($model->user)
+                                return $model->user->username;
+                            else
+                                return null;
+                        }
+                    ],
+                ];
+            } else {
+                $detail_attributes = [
+                    'nama',
+                    'nip',
+                    'tempat_lahir',
+                    [
+                        'attribute' => 'tanggal_lahir',
+                        'value' => function ($data) {
+                            return SBHelpers::getTanggal($data->tanggal_lahir);
+                        }
+                    ],
+                    'gaji_pokok:currency',
+                    // [
+                    //     'attribute' => 'tmt_gaji',
+                    //     'value' => function ($data) {
+                    //         return SBHelpers::getTanggal($data->tmt_gaji);
+                    //     }
+                    // ],
+                    'pendidikan',
+                    'pendidikan_umum',
+                    'jenis_kelamin',
+                    [
+                        'label' => 'Status',
+                        'value' => function ($model) {
+                            return $model->statuses[$model->status_asn];
+                        }
+                    ],
+                    [
+                        'label' => 'User ID',
+                        'value' => function ($model) {
+                            if ($model->user)
+                                return $model->user->username;
+                            else
+                                return null;
+                        }
+                    ],
+                ];
+            }
+            ?>
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => $detail_attributes,
             ]) ?>
         </div>
         <div class="col-3">
