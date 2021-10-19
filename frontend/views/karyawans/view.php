@@ -128,7 +128,10 @@ $this->params['breadcrumbs'][] = $this->title;
             } else {
                 $detail_attributes = [
                     'nama',
-                    'nip',
+                    [
+                        'attribute' => 'nip',
+                        'label' => 'NIK'
+                    ],
                     'tempat_lahir',
                     [
                         'attribute' => 'tanggal_lahir',
