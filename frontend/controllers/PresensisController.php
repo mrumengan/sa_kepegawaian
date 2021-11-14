@@ -216,7 +216,7 @@ class PresensisController extends Controller
         foreach ($model as $presensi) {
             $time = strtotime($presensi->created_at);
             $sheet->setCellValue('A' . $row, $presensi->karyawan->nama);
-            $sheet->setCellValue('B' . $row, $presensi->karyawan->nip);
+            $sheet->setCellValueExplicit('B' . $row, $presensi->karyawan->nip, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
             $sheet->setCellValue('C' . $row, $presensi->latitude);
             $sheet->setCellValue('D' . $row, $presensi->latitude);
             $sheet->setCellValue('E' . $row, $presensi->address);
