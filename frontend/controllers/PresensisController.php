@@ -205,7 +205,8 @@ class PresensisController extends Controller
         $sheet->setCellValue('C1', 'Latitude');
         $sheet->setCellValue('D1', 'Longitude');
         $sheet->setCellValue('E1', 'Alamat');
-        $sheet->setCellValue('F1', 'Tanggal & Jam');
+        $sheet->setCellValue('F1', 'WFO/H');
+        $sheet->setCellValue('G1', 'Tanggal & Jam');
 
         $model = Presensi::find()
             ->with(['karyawan'])
@@ -220,8 +221,9 @@ class PresensisController extends Controller
             $sheet->setCellValue('C' . $row, $presensi->latitude);
             $sheet->setCellValue('D' . $row, $presensi->latitude);
             $sheet->setCellValue('E' . $row, $presensi->address);
-            $sheet->setCellValue('F' . $row, \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($time));
-            $sheet->getStyle('F', $row)
+            $sheet->setCellValue('F' . $row, strtoupper($presensi->work_from));
+            $sheet->setCellValue('G' . $row, \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($time));
+            $sheet->getStyle('G', $row)
                 ->getNumberFormat()
                 ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME);
             $row++;
