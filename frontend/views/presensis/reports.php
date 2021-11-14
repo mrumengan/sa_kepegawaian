@@ -54,7 +54,7 @@ $this->registerJS(
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php $form = ActiveForm::begin([
-        'action' => ['reports'],
+        'action' => ['report'],
         'method' => 'get',
     ]); ?>
     <div class="text-right d-flex justify-content-end">
