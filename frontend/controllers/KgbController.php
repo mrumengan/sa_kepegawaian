@@ -53,18 +53,32 @@ class KgbController extends \yii\web\Controller
 
     public function actionIndexKaryawan()
     {
+        $arr_month = [];
         $currMonth = date('m');
         $nextMonth = $currMonth + 3;
 
-        if ($currMonth > 9) {
-            $nextMonth = 12;
+        switch ($currMonth) {
+            case 10:
+                $arr_month = [10, 11, 12];
+                break;
+            case 11:
+                $arr_month = [11, 12, 1];
+                break;
+            case 12:
+                $arr_month = [12, 1, 2];
+                break;
+            default:
+                for ($i = $currMonth; $i < $nextMonth; $i++) {
+                    $arr_month = $i;
+                }
         }
+
         $dataProvider = new ActiveDataProvider([
             'query' => Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC])
                 ->andWhere(['status_asn' => 10])
                 ->andWhere(['IS NOT', 'tmt_gaji', null])
                 ->andWhere(['>', new Expression('TIMESTAMPDIFF(YEAR, tmt_gaji, CURDATE())'), 2])
-                ->andWhere(['between', new Expression('MONTH(tmt_gaji)'), $currMonth, $nextMonth]),
+                ->andWhere(['in', new Expression('MONTH(tmt_gaji)'), $arr_month]),
         ]);
 
         // $query = Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC])
