@@ -18,6 +18,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
 
+    <p class="text-right">
+        <?php
+        if (Yii::$app->user->can('HRD')) {
+            echo Html::a('Laporan', ['report'], ['class' => 'btn btn-primary btn-sm']);
+        }
+        ?>
+    </p>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         // 'filterModel' => $searchModel,

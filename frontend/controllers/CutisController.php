@@ -151,12 +151,12 @@ class CutisController extends Controller
                 $model->pdf_file = null;
                 $model->load(Yii::$app->request->post());
                 if ($model->save()) {
-                    $this->redirect(['/cutis/view', 'id' => $model->id]);
+                    return $this->redirect(['/cutis/view', 'id' => $model->id]);
                 }
             }
         }
 
-        $this->goBack();
+        return $this->goBack();
     }
 
     /**

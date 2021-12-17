@@ -37,11 +37,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw'
                     ],
                     [
-                        'label' => 'TMT',
+                        'label' => 'TMT Gaji',
                         'value' => function ($data) {
                             return SBHelpers::getTanggal($data->tmt_gaji);
                         }
                     ],
+                    // [
+                    //     'label' => 'TMT Gaji Berikutnya',
+                    //     'value' => function ($data) {
+                    //         return SBHelpers::getTanggal(date('Y-m-d', strtotime('+2 years', strtotime($data->tmt_gaji))));
+                    //     }
+                    // ],
                     [
                         'label' => 'Gaji Pokok Lama',
                         'value' => function ($data) {
@@ -66,13 +72,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     //     'format' => 'currency'
                     // ],
                     [
-                        'class' => 'yii\grid\ActionColumn', 'template' => '{create}',
+                        'class' => 'yii\grid\ActionColumn', 'template' => '<div class="text-center">{create}</div>',
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
                                 return Html::a('<i class="fas fa-eye"></i>', ['karyawan', 'id' => $model->id], ['title' => 'lihat detil']);
                             },
                             'create' => function ($url, $model, $key) {
-                                return Html::a('<i class="fas fa-plus-circle"></i>', ['create', 'id' => $model->id], ['title' => 'proses kenaikan']);
+                                if ($model->inProcessKgb) {
+                                    return Html::a('<i class="fas fa-exclamation"></i>', ['view', 'id' => $model->inProcessKgb->id], ['title' => 'proses kenaikan', 'class' => 'text-warning']);
+                                } else {
+                                    return Html::a('<i class="fas fa-plus-circle"></i> ', ['create', 'id' => $model->id], ['title' => 'ajukan kenaikan']);
+                                }
                             }
                         ]
                     ],

@@ -36,7 +36,7 @@ if ($this->title != Yii::$app->name) {
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => '<span style="font-size: 1.2em;"><strong>' . Yii::$app->name . '</strong></span><br /><span style="font-size: .8em;">Sistim Informasi Kepegawaian Ramah dan Cepat</span>',
+            'brandLabel' => '<span style="font-size: 1.2em;"><strong>' . Yii::$app->name . '</strong></span><br /><span style="font-size: .8em;" class="site-name-long">Sistim Informasi Kepegawaian Ramah dan Cepat</span>',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar navbar-expand-lg navbar-dark bg-dark',
@@ -68,12 +68,9 @@ if ($this->title != Yii::$app->name) {
                 ['label' => 'Usul TB / IB', 'url' => ['/letters/belajar']],
                 ['label' => 'Usul Satya Lencana', 'url' => ['/letters/satya-lencana']],
                 ['label' => 'Usul Pensiun', 'url' => ['/letters/pensiun']],
-                ['label' => 'Usul Mutasi', 'url' => ['/letters/mutasi']],
                 ['label' => 'Usul Jabfung', 'url' => ['/letters/jabfung']],
-                ['label' => 'Usul BPJS', 'url' => ['/letters/bpjs']],
                 ['label' => 'Usul Pencantuman Gelar', 'url' => ['/letters/gelar']],
                 ['label' => 'Usul Cuti Alasan Penting', 'url' => ['/letters/cuti-penting']],
-                ['label' => 'Usul Karsu / Karis', 'url' => ['/letters/karsuis']],
             ]],
         ];
         if (Yii::$app->user->isGuest) {

@@ -12,6 +12,9 @@ use Yii;
  */
 class PresensiSearch extends Presensi
 {
+    public $created_at_start;
+    public $created_at_end;
+
     /**
      * {@inheritdoc}
      */
@@ -20,7 +23,7 @@ class PresensiSearch extends Presensi
         return [
             [['id', 'karyawan_id'], 'integer'],
             [['latitude', 'longitude'], 'number'],
-            [['address', 'created_at'], 'safe'],
+            [['address', 'created_at', 'created_at_start', 'created_at_end'], 'safe'],
         ];
     }
 
@@ -67,11 +70,15 @@ class PresensiSearch extends Presensi
             'karyawan_id' => $this->karyawan_id,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'created_at' => $this->created_at,
         ]);
+
+        $query->andFilterWhere(['between', 'created_at', $this->created_at_start, $this->created_at_end]);
 
         $query->andFilterWhere(['like', 'address', $this->address]);
 
+        // echo '<pre>';
+        // print_r($this->attributes['created_at_start']);
+        // print_r($query);
         return $dataProvider;
     }
 }

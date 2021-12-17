@@ -167,6 +167,16 @@ class Karyawan extends \yii\db\ActiveRecord
         return $this->hasMany(Kgb::className(), ['karyawan_id' => 'id']);
     }
 
+    /**
+     * Gets query for [[KGB]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getInProcessKgb()
+    {
+        return $this->hasOne(Kgb::className(), ['karyawan_id' => 'id'])->andOnCondition(['status' => 5]);
+    }
+
 
     /**
      * Gets masa kerja.
@@ -202,7 +212,11 @@ class Karyawan extends \yii\db\ActiveRecord
         $interval = date_diff($date_start, $date_now);
 
         $kgb_amount = KgbAmount::findOne(['exp_year' => $interval->format('%y')]);
-        return $kgb_amount[str_replace('/', '_', strtolower($this->golongan))];
+        if ($kgb_amount) {
+            return $kgb_amount[str_replace('/', '_', strtolower($this->golongan))];
+        } else {
+            return $this->gaji_pokok;
+        }
     }
 
     public function beforeSave($insert)
@@ -236,13 +250,6 @@ class Karyawan extends \yii\db\ActiveRecord
         }
 
         return true;
-    }
-
-    public function afterFind()
-    {
-
-        parent::afterFind();
-        $this->masa_kerja = $this->tmt_cpns;
     }
 
     public function upload()
