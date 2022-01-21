@@ -208,6 +208,10 @@ class PresensisController extends Controller
         $sheet->setCellValue('F1', 'WFO/H');
         $sheet->setCellValue('G1', 'Tanggal & Jam');
 
+        if ($date_start == $date_end) {
+            $date_start = $date_start . ' 00:00:00';
+            $date_end = $date_end . ' 23:59:59';
+        }
         $model = Presensi::find()
             ->with(['karyawan'])
             ->where(['between', 'created_at', $date_start, $date_end])
