@@ -72,6 +72,10 @@ class PresensiSearch extends Presensi
             'longitude' => $this->longitude,
         ]);
 
+        if ($this->created_at_start == $this->created_at_end) {
+            $this->created_at_start = $this->created_at_start . ' 00:00:00';
+            $this->created_at_end = $this->created_at_end . ' 23:59:59';
+        }
         $query->andFilterWhere(['between', 'created_at', $this->created_at_start, $this->created_at_end]);
 
         $query->andFilterWhere(['like', 'address', $this->address]);
