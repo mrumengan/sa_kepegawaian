@@ -52,8 +52,8 @@ camera_button.addEventListener('click', async function () {
   var constraints = {
     audio: false,
     video: {
-      width: { min: 1024, ideal: 1280, max: 1920 },
-      height: { min: 576, ideal: 720, max: 1080 },
+      height: { min: 1024, ideal: 1280, max: 1920 },
+      width: { min: 576, ideal: 720, max: 1080 },
     }
   };
   let stream = await navigator.mediaDevices.getUserMedia(constraints);
