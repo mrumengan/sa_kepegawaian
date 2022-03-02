@@ -70,7 +70,7 @@ class KgbController extends \yii\web\Controller
                 break;
             default:
                 for ($i = $currMonth; $i < $nextMonth; $i++) {
-                    $arr_month = $i;
+                    $arr_month[] = $i;
                 }
         }
 
@@ -83,11 +83,11 @@ class KgbController extends \yii\web\Controller
         ]);
 
 
-        // $query = Karyawan::find()->orderBy(['tmt_gaji' => SORT_ASC])
+        // $query = Karyawan::find()->with('inProcessKgb')->orderBy(['tmt_gaji' => SORT_ASC])
         //     ->andWhere(['status_asn' => 10])
         //     ->andWhere(['IS NOT', 'tmt_gaji', null])
         //     ->andWhere(['>', new Expression('TIMESTAMPDIFF(YEAR, tmt_gaji, CURDATE())'), 2])
-        //     ->andWhere(['=', new Expression('MONTH(tmt_gaji)'), date('m') + 1]);
+        //     ->andWhere(['in', new Expression('MONTH(tmt_gaji)'), $arr_month]);
         // echo $query->createCommand()->sql;
 
         return $this->render('index_karyawan', [
